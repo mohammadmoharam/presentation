@@ -1,0 +1,457 @@
+﻿<style>* { box-sizing: border-box; }body { margin: 0; padding: 0; }.summary { font-family: Arial, sans-serif; color: #222; line-height: 1.5; font-size: 14px; padding: 16px; max-width: 1100px; margin: 0 auto; }.summary h2 { font-size: 1.1rem; background: #2c3e50; color: #fff; padding: 8px 12px; border-radius: 4px; margin: 20px 0 8px; }.summary h3 { font-size: 0.97rem; color: #2c3e50; border-left: 4px solid #2c3e50; padding-left: 8px; margin: 14px 0 6px; }.summary p { margin: 4px 0 8px; }.summary ul { margin: 4px 0 10px 20px; padding: 0; }.summary li { margin-bottom: 5px; }.summary table { border-collapse: collapse; width: 100%; margin: 8px 0 14px; font-size: 13px; }.summary th { background: #f0f4f8; color: #2c3e50; border: 1px solid #ccc; padding: 7px 9px; text-align: left; }.summary td { border: 1px solid #ccc; padding: 6px 9px; vertical-align: top; }.summary tr:nth-child(even) td { background: #fafafa; }.badge { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 0.78rem; font-weight: bold; white-space: nowrap; }.critical { background: #ffd6d6; color: #8a1f1f; border: 1px solid #f5a0a0; }.warning { background: #fff0c2; color: #7a5a00; border: 1px solid #f0d080; }.stable { background: #d9f2d9; color: #1f6b1f; border: 1px solid #90d090; }.info { background: #d9ecff; color: #1f4f8a; border: 1px solid #90c0f0; }.pending { background: #efe0ff; color: #5f3b8a; border: 1px solid #c0a0e0; }.resolved { background: #e0f7e0; color: #1a5c1a; border: 1px solid #80c080; }.notice { background: #fff8e1; border-left: 4px solid #f0c040; padding: 8px 12px; margin: 8px 0; border-radius: 3px; font-size: 0.88rem; }.section-card { background: #fff; border: 1px solid #dde3ea; border-radius: 6px; padding: 12px 16px; margin-bottom: 14px; }.meta-grid { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 10px; margin: 8px 0; }.meta-item { background: #f7f9fc; border: 1px solid #dde3ea; border-radius: 5px; padding: 8px 12px; }.meta-item .label { font-size: 0.75rem; color: #666; text-transform: uppercase; letter-spacing: 0.04em; }.meta-item .value { font-size: 0.97rem; font-weight: bold; color: #222; margin-top: 2px; }</style>
+
+<div class="summary">
+
+  <div class="meta-grid">
+    <div class="meta-item">
+      <div class="label">Patient Name</div>
+      <div class="value">Brummett, Wanda</div>
+    </div>
+    <div class="meta-item">
+      <div class="label">Date of Birth</div>
+      <div class="value">03/17/1951</div>
+    </div>
+    <div class="meta-item">
+      <div class="label">MRN</div>
+      <div class="value">13825</div>
+    </div>
+    <div class="meta-item">
+      <div class="label">Reports Analyzed</div>
+      <div class="value">4 (05/05/2025 – 04/24/2026)</div>
+    </div>
+  </div>
+
+  <div class="meta-grid">
+    <div class="meta-item">
+      <div class="label">Sex</div>
+      <div class="value">Female</div>
+    </div>
+    <div class="meta-item">
+      <div class="label">Primary Surgeon</div>
+      <div class="value">Christopher LeSar, MD</div>
+    </div>
+    <div class="meta-item">
+      <div class="label">Referring Provider</div>
+      <div class="value">Stephanie Sheridan, DNP</div>
+    </div>
+    <div class="meta-item">
+      <div class="label">Facility</div>
+      <div class="value">Vascular Institute of Chattanooga</div>
+    </div>
+  </div>
+
+  <!-- ALLERGIES -->
+  <div class="section-card" id="allergies">
+    <h2>⚠ Allergies</h2>
+    <p>Not documented in any provided report.</p>
+  </div>
+
+  <!-- PROBLEMS -->
+  <div class="section-card" id="problems">
+    <h2>🩺 Problems / Diagnoses</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Condition</th>
+          <th>ICD-10</th>
+          <th>Status / Severity</th>
+          <th>Date Noted</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Peripheral Artery Disease (PAD) — Bilateral lower extremities; progressive, multi-level disease</td>
+          <td>I70.211 / I70.212 / I70.222</td>
+          <td><span class="badge critical">Critical — Progressing</span></td>
+          <td>05/05/2025 (earliest documented); ongoing through 04/24/2026</td>
+        </tr>
+        <tr>
+          <td>Atherosclerosis of native arteries — Intermittent claudication, <strong>left leg</strong> (Rutherford 3)</td>
+          <td>I70.212</td>
+          <td><span class="badge warning">Active — Intervened</span></td>
+          <td>05/05/2025</td>
+        </tr>
+        <tr>
+          <td>Atherosclerosis of native arteries — Intermittent claudication, <strong>right leg</strong> (Rutherford 3)</td>
+          <td>I70.211</td>
+          <td><span class="badge warning">Active — Intervened</span></td>
+          <td>07/11/2025; recurrent intervention 03/27/2026</td>
+        </tr>
+        <tr>
+          <td>Atherosclerosis with <strong>ischemic rest pain</strong>, left leg — Disease progression (Rutherford 4)</td>
+          <td>I70.222</td>
+          <td><span class="badge critical">Critical — Escalation from claudication</span></td>
+          <td>04/24/2026</td>
+        </tr>
+        <tr>
+          <td>Bilateral moderate arterial insufficiency — Progression noted on ABI from prior studies</td>
+          <td>—</td>
+          <td><span class="badge warning">Progressive</span></td>
+          <td>Documented 03/27/2026 and 04/24/2026</td>
+        </tr>
+        <tr>
+          <td>Right mid superficial femoral artery (SFA) occlusive disease — Monophasic waveforms distally</td>
+          <td>—</td>
+          <td><span class="badge warning">Active</span></td>
+          <td>03/27/2026 (ultrasound conclusions)</td>
+        </tr>
+        <tr>
+          <td>Left SFA in-stent restenosis — &gt;75% pre-04/24/2026; 100% at distal and mid SFA at time of intervention</td>
+          <td>—</td>
+          <td><span class="badge critical">Critical — Re-intervened</span></td>
+          <td>03/27/2026 (US); 04/24/2026 (angiography)</td>
+        </tr>
+        <tr>
+          <td>Left distal posterior tibial artery occlusive disease</td>
+          <td>—</td>
+          <td><span class="badge warning">Active — Intervened 04/24/2026</span></td>
+          <td>03/27/2026 (US); 04/24/2026</td>
+        </tr>
+        <tr>
+          <td>Poor wound healing potential — Toe pressures at critically low levels</td>
+          <td>—</td>
+          <td><span class="badge critical">Critical</span></td>
+          <td>03/27/2026; 04/24/2026</td>
+        </tr>
+        <tr>
+          <td>Mesenteric ischemia — Listed as procedural indication on 04/24/2026 report only; no further detail provided</td>
+          <td>—</td>
+          <td><span class="badge warning">Documented — Unverified Context</span></td>
+          <td>04/24/2026</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="notice"><strong>Clinical Note:</strong> Rutherford score escalated from Category 3 (Severe Claudication) to Category 4 (Ischemic Rest Pain) between the 07/11/2025 and 04/24/2026 encounters, indicating significant disease progression bilaterally despite prior interventions. "Mesenteric ischemia" was documented as an indication on the 04/24/2026 lower extremity procedure report; this appears clinically incongruent with the procedure performed and may represent a documentation error — clinician review is advised.</div>
+  </div>
+
+  <!-- MEDICATIONS -->
+  <div class="section-card" id="medications">
+    <h2>💊 Medications</h2>
+    <h3>Chronic / Ongoing (Documented in Post-Procedure Recommendations)</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Medication</th>
+          <th>Dose / Route / Frequency</th>
+          <th>Indication</th>
+          <th>Last Confirmed</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Aspirin</td>
+          <td>81 mg PO daily</td>
+          <td>Antiplatelet — PAD / post-endovascular intervention</td>
+          <td>04/24/2026</td>
+        </tr>
+        <tr>
+          <td>Apixaban (Eliquis)</td>
+          <td>2.5 mg PO BID</td>
+          <td>Anticoagulation — PAD / post-endovascular intervention</td>
+          <td>04/24/2026</td>
+        </tr>
+      </tbody>
+    </table>
+    <h3>Procedural Medications (Intraoperative — Not Chronic)</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Agent</th>
+          <th>Route</th>
+          <th>Procedures Used</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Heparin 3,000 units</td>
+          <td>IV</td>
+          <td>All 4 procedures (05/05/2025, 07/11/2025, 03/27/2026, 04/24/2026)</td>
+        </tr>
+        <tr>
+          <td>Midazolam (Versed)</td>
+          <td>IV (2–4 mg)</td>
+          <td>All 4 procedures</td>
+        </tr>
+        <tr>
+          <td>Fentanyl</td>
+          <td>IV (100–200 mcg)</td>
+          <td>All 4 procedures</td>
+        </tr>
+        <tr>
+          <td>Lidocaine 1%</td>
+          <td>SC (1–2 mL)</td>
+          <td>05/05/2025, 07/11/2025, 03/27/2026</td>
+        </tr>
+        <tr>
+          <td>Ketamine</td>
+          <td>IV (10–15 mg)</td>
+          <td>05/05/2025, 03/27/2026</td>
+        </tr>
+        <tr>
+          <td>Diphenhydramine (Benadryl) 50 mg</td>
+          <td>IV</td>
+          <td>04/24/2026</td>
+        </tr>
+        <tr>
+          <td>Dexmedetomidine (Precedex) 12 mcg</td>
+          <td>IV</td>
+          <td>04/24/2026</td>
+        </tr>
+        <tr>
+          <td>Ondansetron (Zofran) 4 mg</td>
+          <td>IV</td>
+          <td>05/05/2025</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- PROCEDURES -->
+  <div class="section-card" id="procedures">
+    <h2>🔧 Procedures (Most Recent First)</h2>
+
+    <h3>04/24/2026 — Left Lower Extremity Arterial Catheterization Level II <span class="badge critical">Most Complex</span></h3>
+    <table>
+      <thead>
+        <tr><th>Field</th><th>Detail</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Accession #</td><td>247639</td></tr>
+        <tr><td>Indication (ICD-10)</td><td>I70.222 — Atherosclerosis with rest pain, left leg; Rutherford 4</td></tr>
+        <tr><td>Access</td><td>Left posterior tibial artery, retrograde (ultrasound-guided)</td></tr>
+        <tr><td>Pre-Intervention Findings</td><td>L distal SFA: 100% in-stent stenosis; L mid SFA: 100% in-stent stenosis; L proximal SFA: 90–99% stenosis; L proximal popliteal: 100% in-stent stenosis; L distal/mid/proximal posterior tibial: 90–99% stenosis each</td></tr>
+        <tr><td>Interventions Performed</td><td>
+          <ul>
+            <li>L distal, mid &amp; proximal posterior tibial artery: Balloon angioplasty (PTA) → 0% residual</li>
+            <li>L distal SFA: Laser atherectomy (Philips Turbo-Elite 2.0mm) + PTA → 0% residual</li>
+            <li>L proximal popliteal artery: Laser atherectomy + PTA → 0% residual</li>
+            <li>L mid SFA: Laser atherectomy + PTA + <strong>Stent (Cordis 6mm × 60mm)</strong> + PTA → 0% residual</li>
+            <li>L proximal SFA: Laser atherectomy + PTA + <strong>Stent (Cordis Smart 6mm × 150mm)</strong> + PTA → 0% residual</li>
+          </ul>
+        </td></tr>
+        <tr><td>Contrast</td><td>Visipaque 13 mL (LOCM 200–299 mg/mL)</td></tr>
+        <tr><td>Fluoro Time / Air Kerma</td><td>10.08 min / 49.35 mGy</td></tr>
+        <tr><td>EBL</td><td>15 cc</td></tr>
+        <tr><td>Complications</td><td><span class="badge stable">None</span></td></tr>
+        <tr><td>Post-Procedure Orders</td><td>F/U in 2 weeks with BLE US and Dr. LeSar; continue Eliquis 2.5mg BID and Aspirin 81mg daily</td></tr>
+        <tr><td>Signed</td><td>Christopher LeSar, MD — 04/27/2026</td></tr>
+      </tbody>
+    </table>
+
+    <h3>03/27/2026 — Right Lower Extremity Arterial Catheterization Level I</h3>
+    <table>
+      <thead>
+        <tr><th>Field</th><th>Detail</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Accession #</td><td>244153</td></tr>
+        <tr><td>Indication (ICD-10)</td><td>I70.211 — Atherosclerosis, intermittent claudication, right leg; Rutherford 3</td></tr>
+        <tr><td>Access</td><td>Right posterior tibial artery, retrograde (ultrasound-guided)</td></tr>
+        <tr><td>Pre-Intervention Findings</td><td>R proximal SFA: 80–89% stenosis. Patent R common iliac and external iliac artery stents. Patent L common iliac artery stent. (US: R mid SFA occlusive disease; bilateral moderate ABI insufficiency, progressive; toe pressures critical for wound healing)</td></tr>
+        <tr><td>Interventions Performed</td><td>
+          <ul>
+            <li>R proximal SFA: Atherectomy (CSI Stealth 360 Peripheral 1.25mm) + PTA (CSI Jade 3.5mm × 100mm, 16 atm × 60 sec) → 0% residual</li>
+          </ul>
+        </td></tr>
+        <tr><td>Contrast</td><td>Visipaque 21 mL (LOCM 200–299 mg/mL)</td></tr>
+        <tr><td>Fluoro Time / Air Kerma</td><td>3.43 min / 32.95 mGy</td></tr>
+        <tr><td>EBL</td><td>10 cc</td></tr>
+        <tr><td>Complications</td><td><span class="badge stable">None</span></td></tr>
+        <tr><td>Post-Procedure Orders</td><td>RLE arterial US in 4–6 weeks; F/U with NP; continue Aspirin 81mg daily and Eliquis 2.5mg BID. ⚠ Scheduling note: DO NOT SCHEDULE UNLESS DISCUSSED WITH DR. LESAR</td></tr>
+        <tr><td>Signed</td><td>Christopher LeSar, MD — 03/31/2026</td></tr>
+      </tbody>
+    </table>
+
+    <h3>07/11/2025 — Right Lower Extremity Arterial Catheterization Level I (Iliac Stenting)</h3>
+    <table>
+      <thead>
+        <tr><th>Field</th><th>Detail</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Accession #</td><td>184495</td></tr>
+        <tr><td>Indication (ICD-10)</td><td>I70.211 — Atherosclerosis, intermittent claudication, right leg; Rutherford 3</td></tr>
+        <tr><td>Access</td><td>Right superficial femoral artery, retrograde (ultrasound-guided)</td></tr>
+        <tr><td>Pre-Intervention Findings</td><td>Infrarenal aorta: 0%; R common iliac artery: 0% in-stent stenosis; R external iliac artery: 60–69% stenosis</td></tr>
+        <tr><td>Interventions Performed</td><td>
+          <ul>
+            <li>Infrarenal aorta: IVUS (diagnostic only)</li>
+            <li>R common iliac artery: IVUS (diagnostic only)</li>
+            <li>R external iliac artery: IVUS + <strong>Stent (Cordis SMART Control)</strong> + PTA (6.0mm × 80mm, 6 atm × 15 sec) → 0% residual</li>
+          </ul>
+        </td></tr>
+        <tr><td>Closure Device</td><td>Celt ACD 5F Vascular Closure (successful)</td></tr>
+        <tr><td>Contrast</td><td>Optiray-320 16 mL (LOCM 300–399 mg/mL)</td></tr>
+        <tr><td>Fluoro Time / Air Kerma</td><td>2:35 min / 54.94 mGy</td></tr>
+        <tr><td>EBL</td><td>10 cc</td></tr>
+        <tr><td>Complications</td><td><span class="badge stable">None</span></td></tr>
+        <tr><td>Post-Procedure Orders</td><td>Aorto-iliac US + bilateral LE US; NP F/U in 4–6 weeks</td></tr>
+        <tr><td>Signed</td><td>Christopher LeSar, MD — 07/13/2025</td></tr>
+      </tbody>
+    </table>
+
+    <h3>05/05/2025 — Left Lower Extremity Arterial Catheterization Level I (Initial Left Leg Intervention)</h3>
+    <table>
+      <thead>
+        <tr><th>Field</th><th>Detail</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Accession #</td><td>170605</td></tr>
+        <tr><td>Indication (ICD-10)</td><td>I70.212 — Atherosclerosis, intermittent claudication, left leg</td></tr>
+        <tr><td>Access</td><td>Left posterior tibial artery, retrograde (ultrasound-guided)</td></tr>
+        <tr><td>Pre-Intervention Findings</td><td>L distal SFA: 90–99% stenosis; L mid SFA: 90–99% stenosis; L proximal popliteal: 60–69% stenosis; L mid/distal popliteal, L tibioperoneal trunk, L posterior tibial: patent</td></tr>
+        <tr><td>Interventions Performed</td><td>
+          <ul>
+            <li>L proximal popliteal: Atherectomy (Revolution Peripheral 2.0mm) + PTA + <strong>Stent (LIFESTENT 5mm × 150cm)</strong> + PTA → 0% residual</li>
+            <li>L distal SFA: Atherectomy + PTA + <strong>Stent (LIFESTENT 5mm × 150cm)</strong> + PTA → 0% residual</li>
+            <li>L mid SFA: Atherectomy + PTA + <strong>Stent (LIFESTENT 5mm × 150cm)</strong> + PTA → 0% residual</li>
+          </ul>
+        </td></tr>
+        <tr><td>Contrast</td><td>Omnipaque 15 mL (LOCM 200–299 mg/mL)</td></tr>
+        <tr><td>Fluoro Time / Air Kerma</td><td>6.27 min / 16.12 mGy</td></tr>
+        <tr><td>EBL</td><td>30 cc</td></tr>
+        <tr><td>Complications</td><td><span class="badge stable">None</span></td></tr>
+        <tr><td>Post-Procedure Orders</td><td>RLE arterial US in 4–6 weeks; F/U with NP</td></tr>
+        <tr><td>Signed</td><td>Christopher LeSar, MD — 05/08/2025</td></tr>
+      </tbody>
+    </table>
+
+    <div class="notice"><strong>Cumulative Stent Summary:</strong> Patient has multiple indwelling vascular stents: <strong>Left SFA (mid &amp; distal)</strong> — LIFESTENT placed 05/05/2025, required re-intervention for 100% in-stent restenosis on 04/24/2026 with additional Cordis stents placed in proximal and mid SFA; <strong>Left proximal popliteal</strong> — LIFESTENT placed 05/05/2025, 100% in-stent restenosis treated 04/24/2026; <strong>Right external iliac</strong> — Cordis SMART stent placed 07/11/2025, patent per 03/27/2026 angiogram; <strong>Right common iliac</strong> — stent documented as patent on 07/11/2025 and 03/27/2026 (placed prior to these reports); <strong>Left common iliac</strong> — patent per 03/27/2026 (placed prior to these reports).</div>
+  </div>
+
+  <!-- RESULTS -->
+  <div class="section-card" id="results">
+    <h2>🔬 Results / Diagnostic Findings</h2>
+
+    <h3>Vascular Imaging — Ankle-Brachial Index (ABI) &amp; Non-Invasive Studies</h3>
+    <table>
+      <thead>
+        <tr><th>Finding</th><th>Significance</th><th>Date</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Right ABI — consistent with <strong>moderate arterial insufficiency</strong>; change from prior suggesting disease progression</td>
+          <td><span class="badge warning">Abnormal — Progressive</span></td>
+          <td>03/27/2026; 04/24/2026</td>
+        </tr>
+        <tr>
+          <td>Left ABI — consistent with <strong>moderate arterial insufficiency</strong>; change from prior suggesting disease progression</td>
+          <td><span class="badge warning">Abnormal — Progressive</span></td>
+          <td>03/27/2026; 04/24/2026</td>
+        </tr>
+        <tr>
+          <td>Toe pressures — at levels <strong>predictive of poor wound healing potential</strong></td>
+          <td><span class="badge critical">Critical</span></td>
+          <td>03/27/2026; 04/24/2026</td>
+        </tr>
+        <tr>
+          <td>Right mid SFA — occlusive disease with monophasic waveforms distally (US)</td>
+          <td><span class="badge warning">Abnormal</span></td>
+          <td>03/27/2026</td>
+        </tr>
+        <tr>
+          <td>Left SFA stent — &gt;75% stenosis (US, pre-intervention)</td>
+          <td><span class="badge critical">Critical — in-stent restenosis</span></td>
+          <td>03/27/2026</td>
+        </tr>
+        <tr>
+          <td>Left distal posterior tibial artery — occlusive disease (US)</td>
+          <td><span class="badge warning">Abnormal</span></td>
+          <td>03/27/2026</td>
+        </tr>
+      </tbody>
+    </table>
+ 
+
+  <!-- CARE TEAM -->
+  <div class="section-card" id="care-team">
+    <h2>👥 Care Team</h2>
+    <table>
+      <thead>
+        <tr><th>Role</th><th>Name</th><th>Encounters</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Vascular Surgeon (Attending / Proceduralist)</td>
+          <td>Christopher LeSar, MD</td>
+          <td>All 4 encounters (05/05/2025, 07/11/2025, 03/27/2026, 04/24/2026)</td>
+        </tr>
+        <tr>
+          <td>Referring Provider</td>
+          <td>Stephanie Sheridan, DNP</td>
+          <td>All 4 encounters</td>
+        </tr>
+        <tr>
+          <td>Report Preparer (03/27/2026)</td>
+          <td>Hailey Rymer</td>
+          <td>03/27/2026</td>
+        </tr>
+        <tr>
+          <td>Report Preparer / RN (04/24/2026)</td>
+          <td>Desiree Hatch, RN</td>
+          <td>04/24/2026</td>
+        </tr>
+        <tr>
+          <td>Report Preparer (05/05/2025)</td>
+          <td>Tasha Lafferty</td>
+          <td>05/05/2025</td>
+        </tr>
+        <tr>
+          <td>Report Preparer / RN (07/11/2025)</td>
+          <td>Krista Kaspar, RN</td>
+          <td>07/11/2025</td>
+        </tr>
+        <tr>
+          <td>Facility</td>
+          <td>Vascular Institute of Chattanooga (VIC) — OBL / CL locations</td>
+          <td>All encounters</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ENCOUNTERS -->
+  <div class="section-card" id="encounters">
+    <h2>📋 Encounters Summary (Most Recent First)</h2>
+    <table>
+      <thead>
+        <tr><th>Date</th><th>Encounter Type</th><th>Location</th><th>Accession #</th><th>Primary Focus</th><th>Outcome</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>04/24/2026</td>
+          <td>Interventional Procedure (Level II) <span class="badge critical">Most Complex</span></td>
+          <td>VIC CL – OBL</td>
+          <td>247639</td>
+          <td>Left LE — Multi-level in-stent restenosis; rest pain (Rutherford 4)</td>
+          <td><span class="badge stable">Success — 0% residual all segments</span></td>
+        </tr>
+        <tr>
+          <td>03/27/2026</td>
+          <td>Interventional Procedure (Level I)</td>
+          <td>VIC CL – OBL</td>
+          <td>244153</td>
+          <td>Right LE — R proximal SFA 80–89% stenosis; claudication (Rutherford 3)</td>
+          <td><span class="badge stable">Success — 0% residual</span></td>
+        </tr>
+        <tr>
+          <td>07/11/2025</td>
+          <td>Interventional Procedure (Level I)</td>
+          <td>VIC CL – OBL</td>
+          <td>184495</td>
+          <td>Right LE — R external iliac 60–69% stenosis; claudication (Rutherford 3)</td>
+          <td><span class="badge stable">Success — 0% residual; stent placed</span></td>
+        </tr>
+        <tr>
+          <td>05/05/2025</td>
+          <td>Interventional Procedure (Level I)</td>
+          <td>VIC LW – OBL</td>
+          <td>170605</td>
+          <td>Left LE — L distal/mid SFA &amp; proximal popliteal 60–99% stenosis; claudication</td>
+          <td><span class="badge stable">Success — 0% residual all segments; 3 stents placed</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="notice"><strong>Pattern of Care:</strong> This patient has undergone 4 endovascular lower extremity interventions across approximately 12 months (May 2025 – April 2026), demonstrating rapidly progressive, bilateral, multi-level peripheral arterial disease with documented in-stent restenosis requiring repeat intervention. Clinical trajectory warrants close follow-up and risk factor optimization discussion.</div>
+  </div>
+
+</div>

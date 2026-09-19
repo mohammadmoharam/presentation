@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Use Case: Automated Patient History Summarization</title>
+<style>
+  :root{
+    --matcha:#2fd3e8;
+    --matcha-deep:#177a9c;
+    --ink:#0f2733;
+    --muted:#5a7683;
+    --line:#d9e6ec;
+    --bg-soft:#f2fafc;
+    --good:#127a4f;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:"Segoe UI",Arial,Helvetica,sans-serif;
+    color:var(--ink);
+    font-size:10.3px;
+    line-height:1.45;
+    -webkit-print-color-adjust:exact;
+    print-color-adjust:exact;
+  }
+  @page{ size:A4; margin:12mm 13mm; }
+
+  .page{
+    position:relative;
+    min-height:265mm;      /* fill one A4 page height */
+    display:flex;
+    flex-direction:column;
+  }
+  .page.first{ page-break-after:always; }
+
+  /* ---------- Header / brand lockup ---------- */
+  .hero{
+    border-bottom:2px solid var(--matcha);
+    padding-bottom:9px;
+    margin-bottom:12px;
+  }
+  .brand-lockup{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:9px;
+    background:linear-gradient(90deg,#0f2733,#14384a);
+    border-radius:9px;
+    padding:8px 12px;
+  }
+  .brand-lockup .ms-logo{ height:24px; }
+  .brand-lockup .x-sep{ color:#7fb8c9; font-size:15px; font-weight:600; }
+  .brand-lockup .mark{ width:26px; height:26px; }
+  .brand-word{ font-weight:700; letter-spacing:.5px; font-size:13px; line-height:1; }
+  .brand-word .w1{ color:#bfe9f2; }
+  .brand-word .w2{ color:var(--matcha); }
+  .spacer{ flex:1; }
+  .doc-kind{
+    font-size:8.5px; text-transform:uppercase; letter-spacing:1.4px;
+    color:#0f2733; font-weight:700; background:var(--matcha);
+    border-radius:20px; padding:3px 10px;
+  }
+  h1{
+    font-size:19px; margin:2px 0 3px; color:var(--ink); line-height:1.15;
+  }
+  .sub{ margin:0; color:var(--muted); font-size:10px; }
+
+  h2{
+    font-size:13.5px; margin:14px 0 7px; color:var(--matcha-deep);
+    display:flex; align-items:center; gap:7px;
+  }
+  h2 .n{
+    background:var(--matcha-deep); color:#fff; width:18px; height:18px; border-radius:5px;
+    display:inline-flex; align-items:center; justify-content:center; font-size:11px; font-weight:700;
+  }
+  h3{ font-size:10.6px; margin:0 0 4px; color:var(--ink); }
+  p{ margin:0 0 7px; }
+  b{ color:var(--ink); }
+
+  /* ---------- Workflow strip ---------- */
+  .flow{
+    display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:8px;
+  }
+  .flow .card{
+    border:1px solid var(--line); border-radius:8px; padding:9px 10px; background:#fff;
+  }
+  .flow .card.ai{ border-color:var(--matcha); background:var(--bg-soft); }
+  .flow .card .tag{
+    font-size:8px; text-transform:uppercase; letter-spacing:1px; font-weight:700; color:var(--muted);
+    margin-bottom:5px;
+  }
+  .flow .card.ai .tag{ color:var(--matcha-deep); }
+  .steps{ display:flex; flex-wrap:wrap; gap:5px; }
+  .steps .s{
+    background:#eef4f7; border-radius:5px; padding:3px 7px; font-size:9px; font-weight:600; color:var(--ink);
+    display:flex; align-items:center; gap:5px;
+  }
+  .flow .card.ai .steps .s{ background:#dff5f9; }
+  .arrow{ color:var(--matcha); font-weight:700; }
+
+  /* ---------- Pipeline ---------- */
+  .pipe{ display:flex; align-items:stretch; gap:6px; margin:4px 0 8px; }
+  .pipe .node{
+    flex:1; border:1px solid var(--line); border-radius:8px; padding:8px; text-align:center; background:#fff;
+  }
+  .pipe .node.matcha{ border-color:var(--matcha); background:var(--bg-soft); }
+  .pipe .node .ico{ display:block; margin:0 auto 4px; }
+  .pipe .node .t{ font-weight:700; font-size:9.5px; }
+  .pipe .node .d{ font-size:8.3px; color:var(--muted); margin-top:2px; }
+  .pipe .conn{ display:flex; align-items:center; color:var(--matcha); font-weight:700; font-size:13px; }
+
+  /* ---------- Generic 2-col ---------- */
+  .grid2{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .box{ border:1px solid var(--line); border-radius:8px; padding:9px 10px; background:#fff; }
+  ul.tight{ margin:3px 0 0; padding-left:15px; }
+  ul.tight li{ margin-bottom:2.5px; }
+  .chips{ display:flex; flex-wrap:wrap; gap:5px; margin-top:4px; }
+  .chip{ background:#eef4f7; border-radius:20px; padding:2px 9px; font-size:8.6px; font-weight:600; color:var(--matcha-deep); }
+
+  /* ---------- Value cards ---------- */
+  .value-grid{ display:grid; grid-template-columns:1fr 1fr; gap:9px; }
+  .vcard{ border:1px solid var(--line); border-left:3px solid var(--matcha); border-radius:8px; padding:9px 11px; background:#fff; }
+  .vcard .h{ display:flex; align-items:center; gap:6px; font-weight:700; font-size:10.4px; color:var(--matcha-deep); margin-bottom:3px; }
+  .vcard p{ margin:0; font-size:9.3px; color:var(--muted); }
+
+  .metrics{ display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin:2px 0 4px; }
+  .metric{ text-align:center; border:1px solid var(--line); border-radius:8px; padding:8px 6px; background:var(--bg-soft); }
+  .metric .big{ font-size:15px; font-weight:800; color:var(--matcha-deep); line-height:1; }
+  .metric .lbl{ font-size:8.2px; color:var(--muted); margin-top:3px; }
+
+  .std{ display:grid; grid-template-columns:1fr 1fr; gap:9px; }
+  .std .box .code{ font-weight:800; color:var(--matcha-deep); }
+
+  .callout{
+    margin-top:8px; border:1px solid var(--matcha); background:var(--bg-soft);
+    border-radius:8px; padding:9px 11px;
+  }
+  .callout .h{ font-weight:700; color:var(--matcha-deep); margin-bottom:2px; font-size:10.6px; }
+
+  .good{ color:var(--good); font-weight:700; }
+  footer{
+    margin-top:auto; padding-top:8px; border-top:1px solid var(--line);
+    display:flex; justify-content:space-between; font-size:8px; color:var(--muted);
+  }
+  .ico{ width:14px; height:14px; }
+  svg{ vertical-align:middle; }
+</style>
+</head>
+<body>
+
+<!-- ==== shared SVG symbols (Matcha brand mark + line icons) ==== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <clipPath id="mk-clip-l"><rect x="0" y="0" width="48" height="96"/></clipPath>
+    <clipPath id="mk-clip-r"><rect x="48" y="0" width="48" height="96"/></clipPath>
+    <symbol id="mk-matcha" viewBox="0 0 96 96">
+      <rect x="7" y="7" width="82" height="82" rx="22" fill="none" stroke="#2fd3e8" stroke-width="11" clip-path="url(#mk-clip-l)"/>
+      <rect x="7" y="7" width="82" height="82" rx="22" fill="none" stroke="#177a9c" stroke-width="11" clip-path="url(#mk-clip-r)"/>
+      <rect x="20" y="20" width="56" height="56" rx="12" fill="#177a9c" clip-path="url(#mk-clip-l)"/>
+      <rect x="20" y="20" width="56" height="56" rx="12" fill="#f4fbfd" clip-path="url(#mk-clip-r)"/>
+      <polyline points="34,64 34,36 48,50 62,36 62,64" fill="none" stroke="#2fd3e8" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" clip-path="url(#mk-clip-l)"/>
+      <polyline points="34,64 34,36 48,50 62,36 62,64" fill="none" stroke="#2a9fc0" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" clip-path="url(#mk-clip-r)"/>
+      <rect x="24.5" y="40" width="5" height="5" rx="1" fill="#2fd3e8"/>
+      <rect x="24.5" y="51" width="5" height="5" rx="1" fill="#2fd3e8"/>
+      <rect x="66.5" y="40" width="5" height="5" rx="1" fill="#177a9c"/>
+      <rect x="66.5" y="51" width="5" height="5" rx="1" fill="#177a9c"/>
+    </symbol>
+    <symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.6" y2="16.6"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></symbol>
+    <symbol id="i-cpu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M1 9h3M1 15h3M20 9h3M20 15h3"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></symbol>
+    <symbol id="i-trend" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></symbol>
+    <symbol id="i-dollar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+    <symbol id="i-target" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5"/></symbol>
+  </defs>
+</svg>
+
+<!-- ================= PAGE 1 : HOW IT WORKS ================= -->
+<section class="page first">
+  <header class="hero">
+    <div class="brand-lockup">
+      <img class="ms-logo" alt="Medstreaming" src="data:image/png;base64,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">
+      <span class="x-sep">×</span>
+      <svg class="mark"><use href="#mk-matcha"/></svg>
+      <span class="brand-word"><span class="w1">MATCHA</span><span class="w2">AI</span></span>
+      <span class="spacer"></span>
+      <span class="doc-kind">Use Case</span>
+    </div>
+    <h1>Automated Patient History Summarization</h1>
+    <p class="sub">AI Clinical Intelligence &mdash; from years of historical reports to an instant, structured summary inside the existing reporting workflow.</p>
+  </header>
+
+  <h2><span class="n">1</span> How It Works</h2>
+  <p>
+    Clinicians routinely face <b>too much information and too little time</b>: multiple prior imaging
+    reports, historical findings, follow-up recommendations, and years of accumulated history across
+    different modalities. Reviewing all of it manually is slow, easy to overlook, and inconsistent
+    between readers. The solution replaces that manual mental summarization with an
+    <b>AI-generated patient summary</b> that is ready the moment the exam is opened.
+  </p>
+
+  <div class="flow">
+    <div class="card">
+      <div class="tag">Traditional workflow</div>
+      <div class="steps">
+        <span class="s"><svg class="ico"><use href="#i-search"/></svg>Search</span><span class="arrow">&rsaquo;</span>
+        <span class="s"><svg class="ico"><use href="#i-file"/></svg>Open reports</span><span class="arrow">&rsaquo;</span>
+        <span class="s">Read each report</span><span class="arrow">&rsaquo;</span>
+        <span class="s">Build mental summary</span>
+      </div>
+    </div>
+    <div class="card ai">
+      <div class="tag">AI-assisted workflow</div>
+      <div class="steps">
+        <span class="s"><svg class="ico"><use href="#i-file"/></svg>Open exam</span><span class="arrow">&rsaquo;</span>
+        <span class="s"><svg class="ico"><use href="#i-cpu"/></svg>Review AI summary</span><span class="arrow">&rsaquo;</span>
+        <span class="s"><svg class="ico"><use href="#i-check"/></svg>Validate findings</span><span class="arrow">&rsaquo;</span>
+        <span class="s">Report</span>
+      </div>
+    </div>
+  </div>
+
+  <h3>Processing pipeline</h3>
+  <div class="pipe">
+    <div class="node">
+      <svg class="ico" style="width:18px;height:18px;color:var(--matcha-deep)"><use href="#i-file"/></svg>
+      <div class="t">Historical reports</div>
+      <div class="d">Prior exams &amp; longitudinal patient history</div>
+    </div>
+    <div class="conn">&rarr;</div>
+    <div class="node matcha">
+      <svg class="ico" style="width:20px;height:20px"><use href="#mk-matcha"/></svg>
+      <div class="t">Matcha AI mission</div>
+      <div class="d">Secure HTTPS; single summarization mission, no PHI to the browser</div>
+    </div>
+    <div class="conn">&rarr;</div>
+    <div class="node">
+      <svg class="ico" style="width:18px;height:18px;color:var(--matcha-deep)"><use href="#i-check"/></svg>
+      <div class="t">Structured summary</div>
+      <div class="d">Findings, progression, interventions, follow-up</div>
+    </div>
+  </div>
+
+  <div class="grid2">
+    <div class="box">
+      <h3>What the summary contains</h3>
+      <ul class="tight">
+        <li>Significant findings and active problems / risk factors</li>
+        <li>Disease progression across studies over time</li>
+        <li>Prior interventions and procedures</li>
+        <li>Follow-up recommendations and historical trends</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3>AI processing strategy</h3>
+      <ul class="tight">
+        <li><b>Prefetch generation</b> &mdash; triggered when an order is received.</li>
+        <li><b>Final refresh</b> &mdash; triggered when the report is verified by a physician.</li>
+        <li><b>Caching</b> &mdash; reuses results to cut tokens, cost, and latency.</li>
+        <li>Summaries are ready before the clinician needs them &mdash; no on-demand wait.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 style="margin-top:11px">Standards-based clinical intelligence</h3>
+  <div class="std">
+    <div class="box">
+      <div><span class="code">USCDI v4</span> &mdash; U.S. Core Data for Interoperability</div>
+      <div style="color:var(--muted);font-size:9px;margin-top:3px">Standardized data elements: problems &amp; conditions, procedures, medications, allergies, clinical notes, diagnostic reports.</div>
+    </div>
+    <div class="box">
+      <div><span class="code">C-CDA</span> &mdash; Consolidated Clinical Document Architecture</div>
+      <div style="color:var(--muted);font-size:9px;margin-top:3px">Industry-standard document structure: patient history, encounter information, findings, and recommendations.</div>
+    </div>
+  </div>
+  <div class="callout">
+    <div class="h">Embedded, not bolted on</div>
+    One-click access inside the existing reporting experience &mdash; <b>no workflow disruption</b>,
+    a clinically focused presentation, and a single summarization mission that supports all exam types,
+    specialties, and customer environments.
+  </div>
+
+  <footer>
+    <span>Medstreaming &times; Matcha AI &mdash; Patient History Summarization</span>
+    <span>Page 1 of 2</span>
+  </footer>
+</section>
+
+<!-- ================= PAGE 2 : WHERE THE VALUE COMES FROM ================= -->
+<section class="page">
+  <header class="hero">
+    <div class="brand-lockup">
+      <img class="ms-logo" alt="Medstreaming" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIEAAAAiCAYAAAB4KLoQAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsIAAA7CARUoSoAAAAxYSURBVHhe7ZsJlJ7TGcczIyNCVOxbSGxRSy2HUmtRlBbl1LFrbUWtrdDqCXUO2p6ekqM4LdJoLKmI1JIKiS3WIlJLmlKJEDEhJJKQTMZEZtLf737P/cw7SxKaQ5L5/uf851nuc+/7fvfe927vO1WdKiigqanpa1VVVdWon8B5cAH2AtMqWI6xYMGClWj8n8An4RT4HnwL/xBoh6hgeQaNvSsNPQYWgH8+PDhi1sC1HlwLvUvKuByhQ08HNi5iLMP9hiXPZ6DBxyJGwr3hBnAl6PQwk7S3yfMo+rDq6uqJyAqWVdAJrqdBvzDIPxSx2NMF8VvBdcizcrjsbCvDr+PvGa4KvixQ6d+Ds+Fw+FO4F9wDDqNRFgni3oG9o7hFgiwXE+8U8wF8DT4Ln4GvQ8vaJkIr+DJAg1RR6YfB7cKVgH89G8RGXhiIaYBOE4sFYn8YWdsE6SdG6FeCDr9FpA1WhC72nPPvZa7fXT8NMxP9I9RGuAb66voF8WeyFriRmMsx14VvwmnwY9hA7ErE6O+J3A57KrrlbAXXgtZ7PayDIynrMuRXhg7ZCWg8G+NkuBe0cWug8/RQOIJGm1JfXz+ja9euH9OIjXYA5Eak7UneTp07d/498lz81+JbKIgbQyPvRux8bcrpBjGrPoGfpqAKvlzQKJfA2TREAfiGR8giQez3I9tCQdwk6IiwVKNDjQQ0yNE8fYPDLIP2moV/ezg5XAsF5biW2AFuAjeDPeA6sCucA9+Hbh1vYBR4BblUo8N0AhraYfgNGnpd5Axcr8P34ApwMI3VqnN8HlCm64AayndN4HlCBf8veNqOhefDA8L1hUHjrEA5f4AvwTOwN46kCkAaCaiYVRAulJTaH/Nk3AwbtFuC9D0Q+0DTXVk/QuzzyCUCyl+Vp+kd1NVosH6U3aeU8sVAGS76doFPUm5TcnZQUBedEbbzbOsCuzQbUOnbYbSEc14r4O9G/FulkBKwT4vkJQLK2xLOjbJPCHeHAD/Zs4qrkCeFa4mCclen/HPmz59/AfJUuFE+8vRsvACCvxlqAfjPoAf1CjPDc/YliQ24hoss4R58scAP6gIPmTdv3p7hWuZA/e7Nb++D/E64ljSa6AAvM7rOQu/BtWaWvE1NZ3NRn7o34GOh35oSmwHfmnAq9PjzfihmQlfHSwyUd1rcw0eIlh2uXRC/feQbFq5lDty7x9fXwsU+kfw8oHqqoYvhMvJIsGnICfDvJbXTzgR7itYcfeg5rq4fRn8K3flkKmJ6Sm0GfsRGcDe4YxvllEGaq/adiNsV+lZP5Ib/IFgAcXmUaIncGZ8N2S4sg+sWKgPb08N27zXDGPIv1itlY1teR4Tf+bkAntCn4HnwyXAVYB7zhtku2iuftmqCnl4WwQ+6lww+QXfAvUL3ad82QozZBOZDlv3RB6gg7RBlYO8HR6aoQGNj4zh8R0ZIAu7O+C6FE0tRqawpiJPgwLBHRbjxrkV+DcfCGfAF6LBpg5wCH4BjI99/oC+Gbsb0PcHW8B70w5EHwSdgLXZa94TvH9APSj7E/zjyqHThAPY6sA98Hk6DjojDYPmJRV8D3gnPgHbqh6AvjLzniyJmd/gwnE69vIq8fNy4cSumAgC2O6J7oGcQ2lfB/trE34CcjKxFDoVbp0yBIUOGrMC9n45/FJwOPaz645w5c9ZHXk2a9Vq+Vhk4raSXkFZeP4RP5qywT40wb+am8KUeihyt7Y2lAIDPRklAd7oYACeEawFztSv01Evx31fypthP4HthantcqxwQ5a4Cnw6fFfeEukA/EPaF42HqpMiJ2qhDIv+p4f+3knv2BZAxNuzlkabdD14DZ4TPHZP3W0Oex8M3Al4Jbwu7rqGhIb2IQk8LbKTXnoW08f+pT6DfSjl1yP9CG6ox/H3NL9BfDN/6dg6kHX4OdKr2beOj+iLGTt/NfMjVsEeE37ejo1DTxzLGQX/zq5itz4ZIWBW+G8E/D98zYedG2AY2hG9fRA3Sp1b7lxFzcNh+dFFemKH7xKeKQPbXh7xCW6Bb6Zuhej6/D/qbKQGgX2I8C5nciH/SFuj7wmNgF5Kc5+zMPpmNcAt9EVq+HtLKPBGuDe1YF4a/X4Qm4OqFz8q30tPUg9wbf2HBie9nkT9tYZHpOBkpjktBAP0S/QL9TETemh8avjR9oVqv78NJxtTV1fVAr4sYf0OaBurr63vRmdLbTvw76kP6bYO2o0b5qBr9AFgfabeEuwgSesL5BoHDw3etBtInx8q9I+zHIr03nBe+H4TvubBvg5uj7oDcEfohxV8j7UGEn2jlnnyjeZsD35GmCfRjwndl2A7xW6bANkCaT/NUQssfbQh8d5oflLdd+By6fSpfDFcB+PNT5cumMnBtyojmdwcu4C6KmFNMQ54XdstOtY9+Gu7+cCXg6k6s0+4LYW9sHHaaBpF2PPG4dnOQdrcJyE0QO4X+TCQXwHVze7b9tpKEvAbwCdo5fMeFz7nPJyc1OPCAyPT81JvHUWKDZjHtgpj7YM77KWz1IQW+8pkFuodS+raF5bMJdD/KcOgufxaG2/31PDg6XAn4HSXG4K+HeeFpmcdbFnDYdnh2uM0sT2Hom0e8++oJ0GHV6ctR5dOIya+fr0uZop4y8B+rE3lhuBKwtwr/vWHvFnZ6OFBdH2lfoN0c+EbDOSQ7evwu4n4cyQWYP9J/FK4CHDLzEarvwqeU1E7/Io/n375mvZ7VZA32g8jcI9OiBXs2wpcuvYzRR5w99HY4KDiQi9+A/BvJg2BuOF+jeobfErv6h3hfxNSqs1Ieh/CD0NORd0H3t05dLo7SKSfYMO5hfMksgTyrQHc/b5Lu9wEZvvgx3ZNOR7jmfBj/NfBK8kzmGrcjr8b/CvJopI3uojI1Hr53lWCLkC1fRGV/yzOPVI8g33O23/AP10/3CArfMXI/X0PYOWu5tvWYOiqYFLIl0pQB3gpZBAVeysXsJeMQaSuDdEGinYAuvpUyAHRXmvpfC3vLFAjQWx1y4M5bUGNPLkWm2HPCnYDtNPN2pLm4ar2SBaQ5p08zjvkxVRT2EZHvVykogN07/A+EKwE7z+dpHdQeSP92xP0lXGXgcwRx+nFrWa3N0OuqPHfMBOy8iEwjbQb2WfqBnVv7Mg1knmIHa7Pw3F47A3/+TWl6QfYPu9VvwecoOpv7ciRs8ztGR4I8JE+iV6X9I9JR4CX1wD08jc+FLnKjpp5HvMNnWi8AdwQ2iB9PHgqfxudcfVYpuZOr7PxOwu2Pw/oJ8ArKGQ3zyDTZ+8C/BXTL1Jd83aHzvaOF7xXGd+nSJT+F+SlyjeOib+2w/RhEFEYI8BD5fY/gNvW7JVeqNK83Ej5LuiNLPrPwhC0BfzcqtT/35/rkNe8TX3f0nugT4dwU+BlsNJ9Y31o2R3qCSctPen6i80jifF9fU1NTyEf5+YQ35eNeHB31X8Z9W5cuKD2ncXp4DH83+A780LhWIDBtzZBpJ5CBfb5+gZ6HkzxK5Pl5YLiN783NuAVpBePhoRFqbFpAtQR+57mXQ3f6MDbP3fo+hO830/dLBQL0o1IQQHcPn1bcyHPC19ZT0nxL6xYzbZUFuqOd0+CmMG+Zn4MuTt2ru1W0k6bTSeQuEVM4rcSVF3+ePxQOb/ClbS+jWWp87LQWQa6J8LBH3V1Ymmoz8KW2QZZfrLGDSqOIwJ8X+uqePrrTaf4QF+DK37muml4yHD5ScqcLeWNnw/GMAn9OTkC5fiLtkLsqHE5a+bCIPC68PFtwYeS3dPbgRyh3ECydUQeI9elzG+V1XFs4knjm4CHNN+AIyn4QaaxTjIvVrSnHp8wGvoV0TzgTSPMk7VzUg6BbqbtIv568B6LvDwdiv4osgDz7Q3chXtMRypX6IGLLuwbSXX07dLsOmMY9DK2trR3Uo0ePi7FfIfZuruPBjecKo7DLU491QvwvyDsJf/lMRZDmgq876b9FOppYXhVxv0F31OtL2gR4k/EZ5PM3WifWgeulBPweXB0GHfZdT91B3umUYz0NJvZ4ZAUdDXQMp1FHhPLBXwXLGWjcrvA6WFhkC9re4323tG5tHbnbROsjxKUI/Ajvz6mq9QuPChJo3COon7vVqS+n86d0w13weyLp946HMBWMQS574Af6pq/8vX8FrUEduRPy4xDPdspg4epp6IC5c+cu8t/bluqRoILFB+3uyaiL7LUYAVzgejhWWIxXUEE76NTpf/yqnK7lC6pTAAAAAElFTkSuQmCC">
+      <span class="x-sep">×</span>
+      <svg class="mark"><use href="#mk-matcha"/></svg>
+      <span class="brand-word"><span class="w1">MATCHA</span><span class="w2">AI</span></span>
+      <span class="spacer"></span>
+      <span class="doc-kind">Use Case</span>
+    </div>
+    <h1>Where the Value Comes From</h1>
+    <p class="sub">Faster review, better clinical context, and lower cost &mdash; delivered without changing how clinicians already work.</p>
+  </header>
+
+  <div class="metrics">
+    <div class="metric"><div class="big">Seconds</div><div class="lbl">Summary ready on exam open (prefetched)</div></div>
+    <div class="metric"><div class="big">Years &rarr; 1</div><div class="lbl">History condensed to one structured view</div></div>
+    <div class="metric"><div class="big">1</div><div class="lbl">Mission for all exam types &amp; specialties</div></div>
+    <div class="metric"><div class="big">0</div><div class="lbl">Extra clicks / workflow disruption</div></div>
+  </div>
+
+  <h2><span class="n">2</span> The Value</h2>
+  <div class="value-grid">
+    <div class="vcard">
+      <div class="h"><svg class="ico"><use href="#i-clock"/></svg>Faster review</div>
+      <p>Clinicians skip searching and re-reading prior reports. The summary is prefetched and waiting, so review starts immediately instead of after several seconds of on-demand generation.</p>
+    </div>
+    <div class="vcard">
+      <div class="h"><svg class="ico"><use href="#i-target"/></svg>Better clinical context</div>
+      <p>Significant findings, disease progression, and prior interventions are surfaced together, reducing the risk that important historical findings are overlooked.</p>
+    </div>
+    <div class="vcard">
+      <div class="h"><svg class="ico"><use href="#i-users"/></svg>Improved consistency</div>
+      <p>A standards-based structure (USCDI v4 / C-CDA) gives every reader the same organized view, reducing inconsistent understanding between clinicians.</p>
+    </div>
+    <div class="vcard">
+      <div class="h"><svg class="ico"><use href="#i-trend"/></svg>Enhanced productivity</div>
+      <p>Less time rebuilding history mentally means lower reporting workload and more capacity for the exams that need it &mdash; without adding steps to the workflow.</p>
+    </div>
+  </div>
+
+  <div class="grid2" style="margin-top:10px">
+    <div class="box">
+      <h3><svg class="ico" style="color:var(--matcha-deep)"><use href="#i-dollar"/></svg> Cost efficiency &amp; scale</h3>
+      <ul class="tight">
+        <li>Caching reduces repeated AI requests and token consumption.</li>
+        <li>Best-fit Matcha model chosen on quality, speed, and cost.</li>
+        <li>Scales across large, multi-site customer environments.</li>
+        <li>Platform flexibility: Matcha today, open-source models optional.</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3><svg class="ico" style="color:var(--matcha-deep)"><use href="#i-shield"/></svg> Safe &amp; easy to adopt</h3>
+      <ul class="tight">
+        <li>Server-side API key; the browser never talks to Matcha directly.</li>
+        <li>PHI screening before requests leave the web tier.</li>
+        <li>Single mission &rarr; simpler deployment &amp; maintenance.</li>
+        <li>Runs on current v5.21 customers; future rollout on v5.22.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout">
+    <div class="h">Business outcome</div>
+    Clinicians move <b>from historical reports to actionable clinical intelligence</b>: better context,
+    smarter reporting, and AI-powered workflows &mdash; with faster customer feedback, a larger pilot
+    audience, and reduced upgrade barriers.
+  </div>
+
+  <div class="chips" style="margin-top:9px">
+    <span class="chip">Faster review</span>
+    <span class="chip">Better context</span>
+    <span class="chip">Improved consistency</span>
+    <span class="chip">Lower cost per summary</span>
+    <span class="chip">No workflow disruption</span>
+    <span class="chip">Standards-based</span>
+  </div>
+
+  <footer>
+    <span>Medstreaming &times; Matcha AI &mdash; Patient History Summarization</span>
+    <span>Page 2 of 2</span>
+  </footer>
+</section>
+
+</body>
+</html>

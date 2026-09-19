@@ -1,0 +1,447 @@
+<style>* { box-sizing: border-box; }body { margin: 0; padding: 0; }.summary { font-family: Arial, sans-serif; color: #222; line-height: 1.5; font-size: 14px; padding: 16px; max-width: 1100px; margin: 0 auto; }.summary h2 { font-size: 1.1rem; background: #2c3e50; color: #fff; padding: 8px 12px; border-radius: 4px; margin: 20px 0 8px; }.summary h3 { font-size: 0.97rem; color: #2c3e50; border-left: 4px solid #2c3e50; padding-left: 8px; margin: 14px 0 6px; }.summary p { margin: 4px 0 8px; }.summary ul { margin: 4px 0 10px 20px; padding: 0; }.summary li { margin-bottom: 5px; }.summary table { border-collapse: collapse; width: 100%; margin: 8px 0 14px; font-size: 13px; }.summary th { background: #f0f4f8; color: #2c3e50; border: 1px solid #ccc; padding: 7px 9px; text-align: left; }.summary td { border: 1px solid #ccc; padding: 6px 9px; vertical-align: top; }.summary tr:nth-child(even) td { background: #fafafa; }.badge { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 0.78rem; font-weight: bold; white-space: nowrap; }.critical { background: #ffd6d6; color: #8a1f1f; border: 1px solid #f5a0a0; }.warning { background: #fff0c2; color: #7a5a00; border: 1px solid #f0d080; }.stable { background: #d9f2d9; color: #1f6b1f; border: 1px solid #90d090; }.info { background: #d9ecff; color: #1f4f8a; border: 1px solid #90c0f0; }.pending { background: #efe0ff; color: #5f3b8a; border: 1px solid #c0a0e0; }.resolved { background: #e0f7e0; color: #1a5c1a; border: 1px solid #80c080; }.notice { background: #fff8e1; border-left: 4px solid #f0c040; padding: 8px 12px; margin: 8px 0; border-radius: 3px; font-size: 0.88rem; }.section-card { background: #fff; border: 1px solid #dde3ea; border-radius: 6px; padding: 12px 16px; margin-bottom: 14px; }.meta-grid { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 10px; margin: 8px 0; }.meta-item { background: #f7f9fc; border: 1px solid #dde3ea; border-radius: 5px; padding: 8px 12px; }.meta-item .label { font-size: 0.75rem; color: #666; text-transform: uppercase; letter-spacing: 0.04em; }.meta-item .value { font-size: 0.97rem; font-weight: bold; color: #222; margin-top: 2px; }</style>
+<div class="summary">
+
+  <div class="meta-grid">
+    <div class="meta-item">
+      <div class="label">Patient Name</div>
+      <div class="value">Some, One</div>
+    </div>
+    <div class="meta-item">
+      <div class="label">Date of Birth</div>
+      <div class="value">01/01/1950</div>
+    </div>
+    <div class="meta-item">
+      <div class="label">MRN (Primary)</div>
+      <div class="value">123456</div>
+    </div>
+    <div class="meta-item">
+      <div class="label">Sex / Reports Analyzed</div>
+      <div class="value">Male &nbsp;|&nbsp; 4 Reports</div>
+    </div>
+  </div>
+
+ 
+
+  <div class="section-card" id="allergies">
+    <h2>&#9888; Allergies</h2>
+    <p>Not documented in any provided report.</p>
+  </div>
+
+  <div class="section-card" id="problems">
+    <h2>&#9749; Problems / Diagnoses</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Condition</th>
+          <th>Status</th>
+          <th>First Noted</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Bilateral Internal Carotid Artery Severe Stenosis (&gt;70%) — ICD: I65.21 / I65.22</td>
+          <td><span class="badge resolved">Post-Intervention</span></td>
+          <td>2023-03-01</td>
+          <td>Pre-stent: Right ICA PSV 306 cm/s (ratio 3.7); Left ICA PSV 378 cm/s (ratio 6.8). Bilateral TCAR stents placed 2023. Critical finding verbally reported to James Ballard MD at time of initial exam.</td>
+        </tr>
+        <tr>
+          <td>Amaurosis Fugax — Left Eye (Total Blindness Episodes)</td>
+          <td><span class="badge info">Historical</span></td>
+          <td>2023-03-01</td>
+          <td>Reported as presenting symptom: episodic total left eye blindness x 4 months prior to initial carotid US. No cerebrovascular symptoms at 02/13/2025 follow-up.</td>
+        </tr>
+        <tr>
+          <td>Peripheral Arterial Disease — Atherosclerosis with Intermittent Claudication, Bilateral Legs (ICD: I70.213)</td>
+          <td><span class="badge warning">Active / Ongoing</span></td>
+          <td>2023-03-08</td>
+          <td>Bilateral calf pain after ~200 yards walking. Most recently (04/02/2026): left &gt; right calf claudication at &lt;100 yards, especially on incline.</td>
+        </tr>
+        <tr>
+          <td>Atherosclerosis with Ulcer of Heel/Midfoot, Left Leg (ICD: I70.244)</td>
+          <td><span class="badge stable">Healed</span></td>
+          <td>2023-03-08</td>
+          <td>Wound on left 2nd and 3rd toes documented 03/08/2023. Left heel wound reported healed per patient 04/02/2026.</td>
+        </tr>
+        <tr>
+          <td>Right 5th Toe Irritation / Small Wound</td>
+          <td><span class="badge warning">Active</span></td>
+          <td>2026-04-02</td>
+          <td>Small irritation noted on right 5th toe during examination 04/02/2026.</td>
+        </tr>
+        <tr>
+          <td>Occlusion — Left Distal Anterior Tibial Artery &amp; Dorsalis Pedis Artery</td>
+          <td><span class="badge critical">Active / Critical</span></td>
+          <td>2026-04-02</td>
+          <td>Distal ATA and Dorsalis Pedis Doppler silent (PSV = 0) on 04/02/2026 US.</td>
+        </tr>
+        <tr>
+          <td>Occlusion — Right Superficial Femoral Artery</td>
+          <td><span class="badge critical">Active / Critical</span></td>
+          <td>2025-12-29</td>
+          <td>Documented on prior examination (12/29/2025). Right ABI equivalent 0.00–0.49 (class 4 pedal acceleration time — inadequate healing potential).</td>
+        </tr>
+        <tr>
+          <td>Occlusion — Bilateral Anterior Tibial Arteries</td>
+          <td><span class="badge critical">Active / Critical</span></td>
+          <td>2026-04-02</td>
+          <td>Noted in prior summary from 12/29/2025 and confirmed 04/02/2026.</td>
+        </tr>
+        <tr>
+          <td>Hemodynamically Significant Stenosis at Proximal &amp; Distal Anastomoses — Left Popliteal-Posterior Tibial Bypass</td>
+          <td><span class="badge critical">Active / New Finding</span></td>
+          <td>2026-04-02</td>
+          <td>Proximal anastomosis velocity ratio increased 4.07 → 6.92; Distal anastomosis velocity ratio increased 1.82 → 9.78 (vs. 12/29/2025). New finding compared to prior exams.</td>
+        </tr>
+        <tr>
+          <td>Ectatic Distal Abdominal Aorta</td>
+          <td><span class="badge warning">Monitor</span></td>
+          <td>2023-03-08</td>
+          <td>Distal aorta measures 2.9 x 2.8 cm. No hemodynamically significant aortic or iliac stenosis identified. Minimal atherosclerotic plaque in abdominal aorta. Sub-aneurysmal; surveillance recommended.</td>
+        </tr>
+        <tr>
+          <td>Elevated Velocities — Right Proximal External Carotid Artery (with Post-stenotic Turbulence)</td>
+          <td><span class="badge warning">Active / Monitor</span></td>
+          <td>2025-02-13</td>
+          <td>Right ECA PSV 387 cm/s noted on 02/13/2025. No significant change from prior carotid exam (8/12/2023). Bilateral ICA stents remain patent.</td>
+        </tr>
+        <tr>
+          <td>Presence of Other Vascular Implants and Grafts (ICD: Z95.828)</td>
+          <td><span class="badge info">Ongoing</span></td>
+          <td>2023-04-18</td>
+          <td>Multiple stents and bypass graft in situ. See Procedures section for full inventory.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section-card" id="medications">
+    <h2>&#128138; Medications</h2>
+    <p>Not documented in any provided report.</p>
+  </div>
+
+  <div class="section-card" id="procedures">
+    <h2>&#128295; Procedures / Vascular Surgery History</h2>
+    <p><em>Listed most recent first. All procedures are vascular interventions performed at Oregon Vascular Specialists unless otherwise noted.</em></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Procedure</th>
+          <th>Laterality</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>2025-07-12</td>
+          <td>Re-stenting of proximal superficial femoral artery</td>
+          <td>Left</td>
+          <td><span class="badge resolved">Completed</span></td>
+        </tr>
+        <tr>
+          <td>2025-07-11</td>
+          <td>Lower extremity thrombolysis and angioplasty of superficial femoral and popliteal artery stents</td>
+          <td>Left</td>
+          <td><span class="badge resolved">Completed</span></td>
+        </tr>
+        <tr>
+          <td>2025-06-25</td>
+          <td>Proximal posterior tibial artery stenting</td>
+          <td>Left</td>
+          <td><span class="badge resolved">Completed</span></td>
+        </tr>
+        <tr>
+          <td>2025-06-04</td>
+          <td>Thrombectomy of superficial femoral, popliteal, popliteal-posterior tibial artery bypass and posterior tibial artery; angioplasty of SFA and distal anastomosis of popliteal-posterior tibial bypass</td>
+          <td>Left</td>
+          <td><span class="badge resolved">Completed</span></td>
+        </tr>
+        <tr>
+          <td>2025-06-03</td>
+          <td>Lower extremity thrombolysis</td>
+          <td>Left</td>
+          <td><span class="badge resolved">Completed</span></td>
+        </tr>
+        <tr>
+          <td>2025-05-02</td>
+          <td>Leg thrombectomy; superficial femoral and popliteal arteries Shockwave angioplasty and stenting; popliteal artery to posterior tibial artery bypass (nonautologous conduit)</td>
+          <td>Left</td>
+          <td><span class="badge resolved">Completed</span></td>
+        </tr>
+        <tr>
+          <td>2025-04-15</td>
+          <td>Stenting of proximal-mid and proximal anterior tibial artery; atherectomy of distal superficial femoral artery; angioplasty of proximal-mid SFA and distal popliteal artery</td>
+          <td>Left</td>
+          <td><span class="badge resolved">Completed</span></td>
+        </tr>
+        <tr>
+          <td>2023-08-01</td>
+          <td>Right carotid artery stent — TCAR method (Right distal CCA to mid ICA)</td>
+          <td>Right</td>
+          <td><span class="badge stable">Patent / Satisfactory</span></td>
+        </tr>
+        <tr>
+          <td>2023-05-05</td>
+          <td>Left carotid artery stent — TCAR method (Left distal CCA to proximal ICA)</td>
+          <td>Left</td>
+          <td><span class="badge stable">Patent / Satisfactory</span></td>
+        </tr>
+        <tr>
+          <td>2023-04-18</td>
+          <td>Left superficial femoral artery stent (initial)</td>
+          <td>Left</td>
+          <td><span class="badge info">Historical — subsequent re-interventions required</span></td>
+        </tr>
+      </tbody>
+    </table>
+ 
+  </div>
+
+  <div class="section-card" id="results">
+    <h2>&#128202; Diagnostic Results</h2>
+
+    <h3>04/02/2026 — Lower Extremity Arterial Duplex US, Left (Accession #1171166) <span class="badge critical">Critical Findings Present</span></h3>
+    <table>
+      <thead>
+        <tr><th>Finding</th><th>Detail</th><th>Interpretation</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Left femoropopliteal stents</td>
+          <td>Slightly elevated velocity proximally (Origin: 60; Prox: 112 cm/s); low velocity distally</td>
+          <td><span class="badge stable">Patent — Minor Proximal Elevation</span></td>
+        </tr>
+        <tr>
+          <td>Left popliteal–posterior tibial bypass (Graft 1)</td>
+          <td>Prox anastomosis PSV 90 cm/s (inflow 13 cm/s → ratio 6.92); Dist anastomosis PSV 323 cm/s (outflow 40 cm/s → ratio 9.78)</td>
+          <td><span class="badge critical">Hemodynamically Significant Stenosis — Both Anastomoses (NEW vs. 12/29/2025)</span></td>
+        </tr>
+        <tr>
+          <td>Left proximal posterior tibial artery stent</td>
+          <td>Not visualized — heavy calcification / acoustic shadowing</td>
+          <td><span class="badge warning">Unable to Assess</span></td>
+        </tr>
+        <tr>
+          <td>Left distal anterior tibial artery</td>
+          <td>PSV 0, color and spectral Doppler silent</td>
+          <td><span class="badge critical">Occluded</span></td>
+        </tr>
+        <tr>
+          <td>Dorsalis Pedis artery (Left)</td>
+          <td>PSV 0</td>
+          <td><span class="badge critical">Occluded</span></td>
+        </tr>
+        <tr>
+          <td>Right SFA (per prior 12/29/2025)</td>
+          <td>Occluded (documented prior exam)</td>
+          <td><span class="badge critical">Occluded</span></td>
+        </tr>
+        <tr>
+          <td>Left ABI equivalent (pedal acceleration time)</td>
+          <td>Class 2 (121–180 ms) → ABI 0.69–0.89</td>
+          <td><span class="badge stable">Adequate Healing Potential</span></td>
+        </tr>
+        <tr>
+          <td>Right ABI equivalent (pedal acceleration time)</td>
+          <td>Class 4 (&gt;225 ms) → ABI 0.00–0.49</td>
+          <td><span class="badge critical">Inadequate Healing Potential</span></td>
+        </tr>
+        <tr>
+          <td>Left common/profunda femoral arteries</td>
+          <td>Mild calcific plaque; multiphasic flow</td>
+          <td><span class="badge info">Mild Atherosclerosis</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>02/13/2025 — Carotid Artery US Bilateral (Accession #198813) <span class="badge stable">Stable — No Significant Change</span></h3>
+    <table>
+      <thead>
+        <tr><th>Finding</th><th>Key Values</th><th>Interpretation</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Right common-internal carotid artery stent</td>
+          <td>Mid stent PSV 75 cm/s; no focal velocity increase</td>
+          <td><span class="badge stable">Patent — Satisfactory Hemodynamics</span></td>
+        </tr>
+        <tr>
+          <td>Left common-internal carotid artery stent</td>
+          <td>Pre-stent PSV 65; mid stent PSV 45 cm/s; no focal velocity increase</td>
+          <td><span class="badge stable">Patent — Satisfactory Hemodynamics</span></td>
+        </tr>
+        <tr>
+          <td>Right proximal external carotid artery</td>
+          <td>PSV 387 cm/s with post-stenotic turbulence</td>
+          <td><span class="badge warning">Elevated Velocity — Monitor</span></td>
+        </tr>
+        <tr>
+          <td>Bilateral vertebral arteries</td>
+          <td>Antegrade flow bilaterally</td>
+          <td><span class="badge stable">Normal</span></td>
+        </tr>
+        <tr>
+          <td>Interval change vs. 08/12/2023</td>
+          <td>—</td>
+          <td><span class="badge stable">No Significant Change</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>03/08/2023 — Aortic Complete US (Accession #140318)</h3>
+    <table>
+      <thead>
+        <tr><th>Finding</th><th>Key Values</th><th>Interpretation</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Distal abdominal aorta</td>
+          <td>Sagittal 2.89 cm; Trans 2.77 cm (reported as 2.9 x 2.8 cm ectatic)</td>
+          <td><span class="badge warning">Ectatic — Sub-aneurysmal; Surveillance Warranted</span></td>
+        </tr>
+        <tr>
+          <td>Abdominal aorta (mid/distal) and bilateral iliac arteries</td>
+          <td>No focal velocity increase; multiphasic waveforms throughout</td>
+          <td><span class="badge stable">No Hemodynamically Significant Stenosis</span></td>
+        </tr>
+        <tr>
+          <td>Proximal aorta</td>
+          <td>Not identified — obscured by bowel gas</td>
+          <td><span class="badge info">Not Visualized</span></td>
+        </tr>
+        <tr>
+          <td>Abdominal aortic plaque</td>
+          <td>Minimal atherosclerotic plaque</td>
+          <td><span class="badge info">Mild Atherosclerosis</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>03/01/2023 — Carotid Artery US Bilateral (Accession #140212) <span class="badge critical">Critical — Severe Bilateral ICA Stenosis</span></h3>
+    <table>
+      <thead>
+        <tr><th>Vessel</th><th>PSV (cm/s)</th><th>ICA/CCA Ratio</th><th>Plaque</th><th>Interpretation</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Right Proximal ICA</td>
+          <td>306</td>
+          <td>3.7</td>
+          <td>Heterogeneous, irregular</td>
+          <td><span class="badge critical">Severe Stenosis &gt;70%</span></td>
+        </tr>
+        <tr>
+          <td>Left Proximal ICA</td>
+          <td>378</td>
+          <td>6.8</td>
+          <td>Calcific, irregular</td>
+          <td><span class="badge critical">Severe Stenosis &gt;70%</span></td>
+        </tr>
+        <tr>
+          <td>Bilateral Vertebral Arteries</td>
+          <td>—</td>
+          <td>—</td>
+          <td>—</td>
+          <td><span class="badge stable">Antegrade Flow (Right: higher resistance)</span></td>
+        </tr>
+      </tbody>
+    </table>
+   
+  </div>
+
+  <div class="section-card" id="careteam">
+    <h2>&#128101; Care Team</h2>
+    <table>
+      <thead>
+        <tr><th>Role</th><th>Name</th><th>Context</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Ordering Physician</td>
+          <td>Ballard, James MD</td>
+          <td>Ordering provider on all carotid and lower extremity studies</td>
+        </tr>
+        <tr>
+          <td>Referring Provider</td>
+          <td>Grimes, Kayleigh PA-C</td>
+          <td>Referring on all studies</td>
+        </tr>
+        <tr>
+          <td>Care Coordinator / CC</td>
+          <td>Spicher, Jonathan MD</td>
+          <td>Copied on 04/02/2026 lower extremity arterial study</td>
+        </tr>
+        <tr>
+          <td>Reading Physician</td>
+          <td>Nelson, Wayne MD</td>
+          <td>Read 02/13/2025 carotid US (signed 02/14/2025) and 03/08/2023 aortic US (signed 03/09/2023)</td>
+        </tr>
+        <tr>
+          <td>Reading Physician</td>
+          <td>Long, Paul MD</td>
+          <td>Read 03/01/2023 carotid US (signed 03/03/2023) and 04/02/2026 LE arterial US (signed 04/02/2026)</td>
+        </tr>
+        <tr>
+          <td>Sonographer</td>
+          <td>Lindsey, Gunnard BS, RVT</td>
+          <td>Performed 03/01/2023, 03/08/2023, and 02/13/2025 studies</td>
+        </tr>
+        <tr>
+          <td>Sonographer</td>
+          <td>Mick, Jacque BS, RVT</td>
+          <td>Performed 04/02/2026 lower extremity arterial study</td>
+        </tr>
+        <tr>
+          <td>Facility</td>
+          <td>Oregon Vascular Specialists — Klamath Falls</td>
+          <td>4052 South 6th St., Klamath Falls, OR 97603 | Phone: (541)313-8111</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section-card" id="encounters">
+    <h2>&#128197; Encounters</h2>
+    <table>
+      <thead>
+        <tr><th>Date</th><th>Study / Encounter Type</th><th>CPT</th><th>ICD Indication</th><th>Reading Physician</th><th>Key Outcome</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>2026-04-02</td>
+          <td>Lower Extremity Arterial US — Left (Accession #1171166)</td>
+          <td>93926</td>
+          <td>I70.244 / Z95.828</td>
+          <td>Long, Paul MD</td>
+          <td><span class="badge critical">Critical — New bypass anastomosis stenoses; bilateral AT/DP occlusions; right ABI 0.00–0.49</span></td>
+        </tr>
+        <tr>
+          <td>2025-02-13</td>
+          <td>Carotid Artery US Bilateral (Accession #198813)</td>
+          <td>93880</td>
+          <td>I65.21</td>
+          <td>Nelson, Wayne MD</td>
+          <td><span class="badge stable">Bilateral carotid stents patent; no significant change from prior; right ECA elevated velocity</span></td>
+        </tr>
+        <tr>
+          <td>2023-03-08</td>
+          <td>Aortic Complete US (Accession #140318)</td>
+          <td>93978</td>
+          <td>I70.213</td>
+          <td>Nelson, Wayne MD</td>
+          <td><span class="badge warning">Ectatic distal aorta 2.9×2.8 cm; no hemodynamically significant aortoiliac stenosis</span></td>
+        </tr>
+        <tr>
+          <td>2023-03-01</td>
+          <td>Carotid Artery US Bilateral (Accession #140212)</td>
+          <td>93880</td>
+          <td>I65.22</td>
+          <td>Long, Paul MD</td>
+          <td><span class="badge critical">Critical — Severe bilateral ICA stenosis (&gt;70%); critical results called to Ballard MD; led to bilateral TCAR stenting</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>

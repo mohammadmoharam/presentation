@@ -1,0 +1,622 @@
+<style>* { box-sizing: border-box; }body { margin: 0; padding: 0; }.summary { font-family: Arial, sans-serif; color: #222; line-height: 1.5; font-size: 14px; padding: 16px; max-width: 1100px; margin: 0 auto; }.summary h2 { font-size: 1.1rem; background: #2c3e50; color: #fff; padding: 8px 12px; border-radius: 4px; margin: 20px 0 8px; }.summary h3 { font-size: 0.97rem; color: #2c3e50; border-left: 4px solid #2c3e50; padding-left: 8px; margin: 14px 0 6px; }.summary p { margin: 4px 0 8px; }.summary ul { margin: 4px 0 10px 20px; padding: 0; }.summary li { margin-bottom: 5px; }.summary table { border-collapse: collapse; width: 100%; margin: 8px 0 14px; font-size: 13px; }.summary th { background: #f0f4f8; color: #2c3e50; border: 1px solid #ccc; padding: 7px 9px; text-align: left; }.summary td { border: 1px solid #ccc; padding: 6px 9px; vertical-align: top; }.summary tr:nth-child(even) td { background: #fafafa; }.badge { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 0.78rem; font-weight: bold; white-space: nowrap; }.critical { background: #ffd6d6; color: #8a1f1f; border: 1px solid #f5a0a0; }.warning { background: #fff0c2; color: #7a5a00; border: 1px solid #f0d080; }.stable { background: #d9f2d9; color: #1f6b1f; border: 1px solid #90d090; }.info { background: #d9ecff; color: #1f4f8a; border: 1px solid #90c0f0; }.pending { background: #efe0ff; color: #5f3b8a; border: 1px solid #c0a0e0; }.resolved { background: #e0f7e0; color: #1a5c1a; border: 1px solid #80c080; }.notice { background: #fff8e1; border-left: 4px solid #f0c040; padding: 8px 12px; margin: 8px 0; border-radius: 3px; font-size: 0.88rem; }.section-card { background: #fff; border: 1px solid #dde3ea; border-radius: 6px; padding: 12px 16px; margin-bottom: 14px; }.meta-grid { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 10px; margin: 8px 0; }.meta-item { background: #f7f9fc; border: 1px solid #dde3ea; border-radius: 5px; padding: 8px 12px; }.meta-item .label { font-size: 0.75rem; color: #666; text-transform: uppercase; letter-spacing: 0.04em; }.meta-item .value { font-size: 0.97rem; font-weight: bold; color: #222; margin-top: 2px; }</style>
+<div class="summary">
+
+  <div class="meta-grid">
+    <div class="meta-item">
+      <div class="label">Patient Name</div>
+      <div class="value">Yeargain, William</div>
+    </div>
+    <div class="meta-item">
+      <div class="label">DOB</div>
+      <div class="value">04/07/1941</div>
+    </div>
+    <div class="meta-item">
+      <div class="label">MRN</div>
+      <div class="value">2015122322350784</div>
+    </div>
+    <div class="meta-item">
+      <div class="label">Sex</div>
+      <div class="value">Male</div>
+    </div>
+    <div class="meta-item">
+      <div class="label">Reports Analyzed</div>
+      <div class="value">10</div>
+    </div>
+    <div class="meta-item">
+      <div class="label">Report Date Range</div>
+      <div class="value">02/08/2016 – 07/02/2020</div>
+    </div>
+    <div class="meta-item">
+      <div class="label">Study Type</div>
+      <div class="value">Carotid / Cerebrovascular Duplex</div>
+    </div>
+    <div class="meta-item">
+      <div class="label">Facility</div>
+      <div class="value">Vascular Institute of Chattanooga</div>
+    </div>
+  </div>
+
+  <div class="section-card" id="allergies">
+    <h2>Allergies</h2>
+    <p>Not documented in any of the provided reports.</p>
+  </div>
+
+  <div class="section-card" id="problems">
+    <h2>Problems / Active Conditions</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Condition</th>
+          <th>Status</th>
+          <th>First Documented</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Right Internal Carotid Artery Stenosis — 1–49% (Grade I), Irregular Heterogeneous Plaque</td>
+          <td><span class="badge warning">Active / Under Surveillance</span></td>
+          <td>02/08/2016</td>
+          <td>Persistent and stable across all exams (2016–2020). Most recent: &lt;50%, 07/02/2020.</td>
+        </tr>
+        <tr>
+          <td>Left Internal Carotid Artery Stenosis — 50–69% (Grade II), Irregular Heterogeneous Plaque</td>
+          <td><span class="badge resolved">Treated via CEA (06/03/2019)</span></td>
+          <td>02/08/2016</td>
+          <td>Pre-CEA: progressive 50–69% stenosis 2016–2019. Post-CEA (06/26/2019 onward): no significant recurrent stenosis identified. See procedure note.</td>
+        </tr>
+        <tr>
+          <td>Bilateral Subclavian Artery Stenosis (Mild to Moderate)</td>
+          <td><span class="badge warning">Active / Intermittent Elevated Velocities</span></td>
+          <td>02/08/2016</td>
+          <td>Mild-moderate stenosis bilateral SCA noted in 2016. Elevated velocities noted in right SCA on 10/04/2018 and 04/05/2019. Right SCA turbulence without prior elevated velocities on 03/29/2018. Left SCA elevated velocities noted 09/06/2017.</td>
+        </tr>
+        <tr>
+          <td>Diabetes Mellitus</td>
+          <td><span class="badge stable">Stable — Chronic Risk Factor</span></td>
+          <td>02/08/2016</td>
+          <td>Consistently documented as risk factor across all reports. No glucose values provided in these vascular studies.</td>
+        </tr>
+        <tr>
+          <td>Hypertension</td>
+          <td><span class="badge stable">Stable — Chronic Risk Factor</span></td>
+          <td>02/08/2016</td>
+          <td>Consistently documented. Brachial BP recorded 02/08/2016: Right 148/80, Left 152/75.</td>
+        </tr>
+        <tr>
+          <td>Hyperlipidemia</td>
+          <td><span class="badge stable">Stable — Chronic Risk Factor</span></td>
+          <td>02/08/2016</td>
+          <td>Consistently documented as risk factor across all reports.</td>
+        </tr>
+        <tr>
+          <td>Carotid Artery Disease (Bilateral) — ICD I65.23</td>
+          <td><span class="badge warning">Active / Under Surveillance</span></td>
+          <td>02/08/2016</td>
+          <td>Primary indication for all serial surveillance ultrasound examinations. Cardiac disease also noted as risk factor in 02/08/2016 report; not repeated in subsequent reports.</td>
+        </tr>
+        <tr>
+          <td>Carotid Bruit</td>
+          <td><span class="badge info">Historical — 2016 Only</span></td>
+          <td>02/08/2016</td>
+          <td>Documented as risk factor in 02/08/2016 report only. Not re-documented in subsequent reports.</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="notice"><strong>Clinical Note (04/05/2019):</strong> Reading physician (Elizabeth Hartmann, MD) noted that gray scale imaging and ICA/CCA ratio (2.9) on the left may suggest a degree of stenosis <em>higher</em> than the 50–69% range, despite velocity-based classification. Left CEA was subsequently performed on 06/03/2019.</div>
+  </div>
+
+  <div class="section-card" id="medications">
+    <h2>Medications</h2>
+    <p>Not documented in any of the provided vascular imaging reports.</p>
+  </div>
+
+  <div class="section-card" id="procedures">
+    <h2>Procedures</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Procedure</th>
+          <th>Date</th>
+          <th>Status</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Left Carotid Endarterectomy (Lt CEA)</td>
+          <td>06/03/2019</td>
+          <td><span class="badge resolved">Completed</span></td>
+          <td>Performed for left ICA 50–69% stenosis. Post-operative surveillance scans (06/26/2019, 01/02/2020, 07/02/2020) demonstrate no significant recurrent stenosis. Left vertebral flow remains antegrade post-procedure.</td>
+        </tr>
+        <tr>
+          <td>Duplex Scan of Extracranial Arteries — Complete Bilateral (CPT 93880)</td>
+          <td>02/08/2016</td>
+          <td><span class="badge resolved">Completed</span></td>
+          <td>Acc# 2272. Sonographer: William Russell, RVT. Reader: Christopher LeSar, MD.</td>
+        </tr>
+        <tr>
+          <td>Duplex Scan of Extracranial Arteries — Complete Bilateral (CPT 93880)</td>
+          <td>08/03/2016</td>
+          <td><span class="badge resolved">Completed</span></td>
+          <td>Acc# 3003. Sonographer: Tina Creek, RVT. Reader: Christopher LeSar, MD.</td>
+        </tr>
+        <tr>
+          <td>Duplex Scan of Extracranial Arteries — Complete Bilateral (CPT 93880)</td>
+          <td>02/14/2017</td>
+          <td><span class="badge resolved">Completed</span></td>
+          <td>Acc# 9115. Sonographer: William Russell, RVT. Reader: Christopher LeSar, MD.</td>
+        </tr>
+        <tr>
+          <td>Duplex Scan of Extracranial Arteries — Complete Bilateral (CPT 93880)</td>
+          <td>09/06/2017</td>
+          <td><span class="badge resolved">Completed</span></td>
+          <td>Acc# 17138. Sonographer: William Russell, RVT. Reader: Christopher LeSar, MD, FACS.</td>
+        </tr>
+        <tr>
+          <td>Duplex Scan of Extracranial Arteries — Complete Bilateral (CPT 93880)</td>
+          <td>03/29/2018</td>
+          <td><span class="badge resolved">Completed</span></td>
+          <td>Acc# 39643. Sonographer: Linda Tallent, RVT. Reader: Christopher LeSar, MD.</td>
+        </tr>
+        <tr>
+          <td>Duplex Scan of Extracranial Arteries — Complete Bilateral (CPT 93880)</td>
+          <td>10/04/2018</td>
+          <td><span class="badge resolved">Completed</span></td>
+          <td>Acc# 40566. Sonographer: Sarah Gooch, RVT. Reader: Elizabeth Hartmann, MD.</td>
+        </tr>
+        <tr>
+          <td>Duplex Scan of Extracranial Arteries — Complete Bilateral (CPT 93880)</td>
+          <td>04/05/2019</td>
+          <td><span class="badge resolved">Completed</span></td>
+          <td>Acc# 58493. Sonographer: Brandie Lane, RVT. Reader: Elizabeth Hartmann, MD.</td>
+        </tr>
+        <tr>
+          <td>Duplex Scan of Extracranial Arteries — Unilateral/Limited, Left Only (CPT 93882)</td>
+          <td>06/26/2019</td>
+          <td><span class="badge resolved">Completed</span></td>
+          <td>Acc# 81124. Post-CEA surveillance, left side only. Sonographer: Karena Gubaci, RVT. Reader: Joseph Coatti, MD.</td>
+        </tr>
+        <tr>
+          <td>Duplex Scan of Extracranial Arteries — Complete Bilateral (CPT 93880)</td>
+          <td>01/02/2020</td>
+          <td><span class="badge resolved">Completed</span></td>
+          <td>Acc# 81698. Sonographer: Karena Gubaci, RVT. Reader: Joseph Coatti, MD.</td>
+        </tr>
+        <tr>
+          <td>Duplex Scan of Extracranial Arteries — Complete Bilateral (CPT 93880)</td>
+          <td>07/02/2020</td>
+          <td><span class="badge resolved">Completed</span></td>
+          <td>Acc# 112936. Sonographer: Lauren Cook, RVT. Reader: Daniel Krcelic, MD.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section-card" id="results">
+    <h2>Results — Serial Carotid Duplex Findings (Chronological)</h2>
+
+    <h3>Right Internal Carotid Artery (ICA) — Stenosis Trend</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Exam Date</th>
+          <th>Stenosis Grade</th>
+          <th>Plaque Character</th>
+          <th>ICA/CCA Ratio</th>
+          <th>Key Finding</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>02/08/2016</td>
+          <td><span class="badge warning">1–49% (Grade I)</span></td>
+          <td>Irregular Heterogeneous</td>
+          <td>0.80</td>
+          <td>No elevated velocities. Mild-moderate right SCA stenosis.</td>
+        </tr>
+        <tr>
+          <td>08/03/2016</td>
+          <td><span class="badge warning">1–49%</span></td>
+          <td>Irregular Heterogeneous</td>
+          <td>0.96</td>
+          <td>No elevated velocities. Stable vs. prior.</td>
+        </tr>
+        <tr>
+          <td>02/14/2017</td>
+          <td><span class="badge warning">1–49%</span></td>
+          <td>Irregular Heterogeneous</td>
+          <td>1.10</td>
+          <td>No elevated velocities. Stable.</td>
+        </tr>
+        <tr>
+          <td>09/06/2017</td>
+          <td><span class="badge warning">1–49%</span></td>
+          <td>Irregular Heterogeneous</td>
+          <td>0.90</td>
+          <td>No elevated velocities in ICA. Elevated velocities in right SCA.</td>
+        </tr>
+        <tr>
+          <td>03/29/2018</td>
+          <td><span class="badge warning">1–49%</span></td>
+          <td>Irregular Heterogeneous</td>
+          <td>1.20</td>
+          <td>No elevated ICA velocities. Right SCA turbulence; prior SCA elevated velocities not seen.</td>
+        </tr>
+        <tr>
+          <td>10/04/2018</td>
+          <td><span class="badge warning">1–49%</span></td>
+          <td>Irregular Heterogeneous (implied)</td>
+          <td>0.80</td>
+          <td>No elevated ICA velocities. Right SCA elevated velocities with turbulence.</td>
+        </tr>
+        <tr>
+          <td>04/05/2019</td>
+          <td><span class="badge warning">1–49%</span></td>
+          <td>Irregular Heterogeneous</td>
+          <td>1.00</td>
+          <td>No elevated ICA velocities. Right SCA elevated velocities with turbulence.</td>
+        </tr>
+        <tr>
+          <td>06/26/2019</td>
+          <td colspan="4"><em>Right side not assessed — limited left-only post-CEA study (CPT 93882).</em></td>
+        </tr>
+        <tr>
+          <td>01/02/2020</td>
+          <td><span class="badge warning">1–49%</span></td>
+          <td>Irregular Heterogeneous</td>
+          <td>0.79</td>
+          <td>No elevated velocities. Stable vs. 06/26/2019.</td>
+        </tr>
+        <tr>
+          <td>07/02/2020</td>
+          <td><span class="badge warning">&lt;50%</span></td>
+          <td>Irregular Heterogeneous</td>
+          <td>1.10</td>
+          <td>No elevated velocities. Stable vs. prior. Most recent exam.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Left Internal Carotid Artery (ICA) — Stenosis Trend (Pre- and Post-CEA)</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Exam Date</th>
+          <th>Stenosis Grade</th>
+          <th>Plaque Character</th>
+          <th>ICA/CCA Ratio</th>
+          <th>Key Finding</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>02/08/2016</td>
+          <td><span class="badge critical">50–69% (Grade II)</span></td>
+          <td>Irregular Heterogeneous</td>
+          <td>2.00</td>
+          <td>Elevated velocities and PST. Mild-moderate left SCA stenosis.</td>
+        </tr>
+        <tr>
+          <td>08/03/2016</td>
+          <td><span class="badge critical">50–69%</span></td>
+          <td>Irregular Heterogeneous</td>
+          <td>1.90</td>
+          <td>Elevated velocities. Endpoint seen but not measured. Stable vs. prior.</td>
+        </tr>
+        <tr>
+          <td>02/14/2017</td>
+          <td><span class="badge critical">50–69%</span></td>
+          <td>Irregular Heterogeneous</td>
+          <td>2.80</td>
+          <td>Elevated velocities, turbulent flow. Endpoint measured at 1.3 cm. Velocities slightly increased vs. prior.</td>
+        </tr>
+        <tr>
+          <td>09/06/2017</td>
+          <td><span class="badge critical">50–69%</span></td>
+          <td>Irregular Heterogeneous</td>
+          <td>2.20</td>
+          <td>Elevated velocities, turbulent flow. Endpoint measured at 1.35 cm. Elevated left SCA velocities.</td>
+        </tr>
+        <tr>
+          <td>03/29/2018</td>
+          <td><span class="badge critical">50–69%</span></td>
+          <td>Irregular Heterogeneous</td>
+          <td>1.70</td>
+          <td>Elevated velocities, turbulent flow. Stable vs. prior. Left SCA prior elevated velocities not seen.</td>
+        </tr>
+        <tr>
+          <td>10/04/2018</td>
+          <td><span class="badge critical">50–69%</span></td>
+          <td>Irregular Heterogeneous (implied)</td>
+          <td>2.10</td>
+          <td>Elevated velocities, PST noted. Essentially stable.</td>
+        </tr>
+        <tr>
+          <td>04/05/2019</td>
+          <td><span class="badge critical">50–69% (possibly higher)</span></td>
+          <td>Irregular Heterogeneous</td>
+          <td>2.90</td>
+          <td>Elevated velocities, PST. PICA PSV 331 cm/s. Physician noted gray scale and ICA/CCA ratio may suggest stenosis exceeding 50–69% range. CEA planned.</td>
+        </tr>
+        <tr>
+          <td>06/26/2019</td>
+          <td><span class="badge stable">Post-CEA &lt;50%</span></td>
+          <td>Post-endarterectomy site</td>
+          <td>1.40</td>
+          <td>Left CEA performed 06/03/2019. No significant recurrent stenosis. No elevated velocities in post-endart site.</td>
+        </tr>
+        <tr>
+          <td>01/02/2020</td>
+          <td><span class="badge stable">Post-CEA — WNL</span></td>
+          <td>Post-endarterectomy site</td>
+          <td>1.07</td>
+          <td>No recurrent stenosis. Essentially stable vs. 06/26/2019.</td>
+        </tr>
+        <tr>
+          <td>07/02/2020</td>
+          <td><span class="badge stable">Post-CEA — WNL</span></td>
+          <td>Post-endarterectomy site</td>
+          <td>1.10</td>
+          <td>No recurrent stenosis. Essentially stable. Most recent exam.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Vertebral Arteries — All Exams</h3>
+    <p><span class="badge stable">Antegrade Bilaterally</span> — Antegrade vertebral artery flow documented bilaterally across all 10 examinations (2016–2020). No retrograde flow or vertebral steal identified at any time point.</p>
+
+    <h3>Subclavian Arteries — Summary</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Exam Date</th>
+          <th>Right SCA</th>
+          <th>Left SCA</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>02/08/2016</td>
+          <td>Mild-moderate stenosis; heterogeneous plaque (PSV 278)</td>
+          <td>Mild-moderate stenosis; heterogeneous plaque (PSV 226)</td>
+        </tr>
+        <tr>
+          <td>08/03/2016</td>
+          <td>PSV 105 (no EDV recorded)</td>
+          <td>PSV 165</td>
+        </tr>
+        <tr>
+          <td>02/14/2017</td>
+          <td>PSV 165</td>
+          <td>PSV 211</td>
+        </tr>
+        <tr>
+          <td>09/06/2017</td>
+          <td>Elevated velocities; heterogeneous plaque (PSV 244)</td>
+          <td>Elevated velocities; heterogeneous plaque (PSV 257)</td>
+        </tr>
+        <tr>
+          <td>03/29/2018</td>
+          <td>Turbulence; prior elevated velocities not seen (PSV 233)</td>
+          <td>PSV 186</td>
+        </tr>
+        <tr>
+          <td>10/04/2018</td>
+          <td>Elevated velocities with turbulence (PSV 248)</td>
+          <td>PSV 130</td>
+        </tr>
+        <tr>
+          <td>04/05/2019</td>
+          <td>Elevated velocities with turbulence (PSV 184)</td>
+          <td>PSV 171</td>
+        </tr>
+        <tr>
+          <td>01/02/2020</td>
+          <td>PSV 273</td>
+          <td>PSV 174</td>
+        </tr>
+        <tr>
+          <td>07/02/2020</td>
+          <td>PSV 215</td>
+          <td>PSV 202</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="notice"><strong>Note on Left Stenosis Degree (04/05/2019):</strong> Reading physician Elizabeth Hartmann, MD documented that while velocity criteria place the left ICA in the 50–69% range, the gray scale appearance and an ICA/CCA ratio of 2.9 may be indicative of a higher degree of stenosis. This finding appears to have contributed to the clinical decision to proceed with left CEA on 06/03/2019.</div>
+  </div>
+
+  <div class="section-card" id="careteam">
+    <h2>Care Team</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Role</th>
+          <th>Name</th>
+          <th>Associated Reports / Dates</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Primary Care Physician</td>
+          <td>Eugene Ryan, MD</td>
+          <td>All reports (2016–2020) — Referring / Primary Care</td>
+        </tr>
+        <tr>
+          <td>Reading Physician</td>
+          <td>Christopher LeSar, MD, FACS</td>
+          <td>02/08/2016, 08/03/2016, 02/14/2017, 09/06/2017, 03/29/2018</td>
+        </tr>
+        <tr>
+          <td>Reading Physician</td>
+          <td>Elizabeth Hartmann, MD</td>
+          <td>10/04/2018, 04/05/2019</td>
+        </tr>
+        <tr>
+          <td>Reading Physician</td>
+          <td>Joseph Coatti, MD</td>
+          <td>06/26/2019, 01/02/2020 — also ordering physician 06/26/2019</td>
+        </tr>
+        <tr>
+          <td>Reading Physician</td>
+          <td>Daniel Krcelic, MD</td>
+          <td>07/02/2020</td>
+        </tr>
+        <tr>
+          <td>Ordering / Advanced Practice Provider</td>
+          <td>Stephanie Sheridan, DNP</td>
+          <td>01/02/2020</td>
+        </tr>
+        <tr>
+          <td>Ordering / Advanced Practice Provider</td>
+          <td>Jennifer Wilson, FNP-C</td>
+          <td>03/29/2018, 10/04/2018, 04/05/2019</td>
+        </tr>
+        <tr>
+          <td>Ordering / Advanced Practice Provider</td>
+          <td>Veronica O'Steen, FNP-C</td>
+          <td>07/02/2020</td>
+        </tr>
+        <tr>
+          <td>Copy-To Physician</td>
+          <td>Joshua Willis, MD</td>
+          <td>09/06/2017, 10/04/2018, 03/29/2018</td>
+        </tr>
+        <tr>
+          <td>Sonographer / RVT</td>
+          <td>William Russell, RVT</td>
+          <td>02/08/2016, 02/14/2017, 09/06/2017</td>
+        </tr>
+        <tr>
+          <td>Sonographer / RVT</td>
+          <td>Tina Creek, RVT</td>
+          <td>08/03/2016</td>
+        </tr>
+        <tr>
+          <td>Sonographer / RVT</td>
+          <td>Linda Tallent, RVT</td>
+          <td>03/29/2018</td>
+        </tr>
+        <tr>
+          <td>Sonographer / RVT</td>
+          <td>Sarah Gooch, RVT</td>
+          <td>10/04/2018</td>
+        </tr>
+        <tr>
+          <td>Sonographer / RVT</td>
+          <td>Brandie Lane, RVT</td>
+          <td>04/05/2019</td>
+        </tr>
+        <tr>
+          <td>Sonographer / RVT</td>
+          <td>Karena Gubaci, RVT</td>
+          <td>06/26/2019, 01/02/2020</td>
+        </tr>
+        <tr>
+          <td>Sonographer / RVT</td>
+          <td>Lauren Cook, RVT</td>
+          <td>07/02/2020</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section-card" id="encounters">
+    <h2>Encounters (Most Recent First)</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Encounter Type</th>
+          <th>Accession #</th>
+          <th>Location</th>
+          <th>Key Conclusions</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>07/02/2020</td>
+          <td>Carotid Duplex — Bilateral (CPT 93880)</td>
+          <td>112936</td>
+          <td>VIC Lifestyle Way</td>
+          <td>Rt ICA &lt;50% stable; Lt post-CEA no recurrent stenosis; vertebrals antegrade bilaterally.</td>
+          <td><span class="badge stable">Stable</span></td>
+        </tr>
+        <tr>
+          <td>01/02/2020</td>
+          <td>Carotid Duplex — Bilateral (CPT 93880)</td>
+          <td>81698</td>
+          <td>VIC Lifestyle Way</td>
+          <td>Rt ICA 1–49% stable; Lt post-CEA WNL; vertebrals antegrade bilaterally.</td>
+          <td><span class="badge stable">Stable</span></td>
+        </tr>
+        <tr>
+          <td>06/26/2019</td>
+          <td>Carotid Duplex — Unilateral Left Post-CEA (CPT 93882)</td>
+          <td>81124</td>
+          <td>VIC Lifestyle Way</td>
+          <td>Post-CEA left vessel without significant recurrent stenosis. Left vertebral antegrade.</td>
+          <td><span class="badge stable">Post-Op Surveillance — Favorable</span></td>
+        </tr>
+        <tr>
+          <td>04/05/2019</td>
+          <td>Carotid Duplex — Bilateral (CPT 93880)</td>
+          <td>58493</td>
+          <td>VIC Lifestyle Way</td>
+          <td>Rt ICA 1–49%; Lt ICA 50–69% (possible higher degree per gray scale/ratio); Rt SCA turbulence. CEA subsequently planned.</td>
+          <td><span class="badge warning">Elevated — Action Taken</span></td>
+        </tr>
+        <tr>
+          <td>10/04/2018</td>
+          <td>Cerebrovascular Duplex — Bilateral (CPT 93880)</td>
+          <td>40566</td>
+          <td>VIC Lifestyle Way</td>
+          <td>Rt ICA 1–49%; Lt ICA 50–69%; Rt SCA elevated velocities/turbulence. Stable.</td>
+          <td><span class="badge warning">Active Monitoring</span></td>
+        </tr>
+        <tr>
+          <td>03/29/2018</td>
+          <td>Cerebrovascular Duplex — Bilateral (CPT 93880)</td>
+          <td>39643</td>
+          <td>VIC Lifestyle Way</td>
+          <td>Rt ICA 1–49%; Lt ICA 50–69%; Rt SCA turbulence without prior elevated velocities. Stable.</td>
+          <td><span class="badge stable">Stable</span></td>
+        </tr>
+        <tr>
+          <td>09/06/2017</td>
+          <td>Cerebrovascular Duplex — Bilateral (CPT 93880)</td>
+          <td>17138</td>
+          <td>VIC Lifestyle Way</td>
+          <td>Rt ICA 1–49%; Lt ICA 50–69%; bilateral SCA elevated velocities. Stable.</td>
+          <td><span class="badge warning">Active Monitoring</span></td>
+        </tr>
+        <tr>
+          <td>02/14/2017</td>
+          <td>Cerebrovascular Duplex — Bilateral (CPT 93880)</td>
+          <td>9115</td>
+          <td>VIC Lifestyle Way</td>
+          <td>Rt ICA 1–49%; Lt ICA 50–69% (velocities slightly increased vs. prior). Essentially stable.</td>
+          <td><span class="badge warning">Active Monitoring</span></td>
+        </tr>
+        <tr>
+          <td>08/03/2016</td>
+          <td>Cerebrovascular Duplex — Bilateral (CPT 93880)</td>
+          <td>3003</td>
+          <td>VIC Lifestyle Way</td>
+          <td>Rt ICA 1–49%; Lt ICA 50–69%. Stable vs. 02/08/2016.</td>
+          <td><span class="badge stable">Stable</span></td>
+        </tr>
+        <tr>
+          <td>02/08/2016</td>
+          <td>Cerebrovascular Duplex — Bilateral (CPT 93880)</td>
+          <td>2272</td>
+          <td>VIC Lifestyle Way</td>
+          <td>Rt ICA 1–49% (Grade I); Lt ICA 50–69% (Grade II); bilateral SCA mild-moderate stenosis. Baseline study in this record set.</td>
+          <td><span class="badge info">Baseline</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>

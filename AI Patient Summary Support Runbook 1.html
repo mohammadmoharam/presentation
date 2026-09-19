@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Patient Summary - Support Runbook</title>
+<style>
+  * { box-sizing: border-box; }
+
+  :root {
+    --bg: #f4f7fb;
+    --card: #ffffff;
+    --text: #182230;
+    --muted: #5f6e82;
+    --border: #dbe3ed;
+    --blue: #175cff;
+    --blue-soft: #eaf0ff;
+    --green: #0f9d8b;
+    --amber: #a96b08;
+    --amber-soft: #fff4dd;
+    --red: #c53b3b;
+    --red-soft: #fde9e9;
+    --shadow: 0 10px 28px rgba(24, 34, 48, 0.08);
+  }
+
+  body {
+    margin: 0;
+    font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.55;
+  }
+
+  .wrap {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 24px;
+  }
+
+  .hero {
+    background: linear-gradient(135deg, #102749 0%, #175cff 100%);
+    color: #fff;
+    border-radius: 18px;
+    box-shadow: var(--shadow);
+    padding: 24px 26px;
+  }
+
+  .hero h1 {
+    margin: 0 0 8px;
+    font-size: 30px;
+    letter-spacing: -0.03em;
+  }
+
+  .hero p {
+    margin: 0;
+    color: rgba(255,255,255,0.9);
+    max-width: 920px;
+  }
+
+  .badges {
+    margin-top: 14px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .badge {
+    background: rgba(255,255,255,0.14);
+    border-radius: 999px;
+    padding: 6px 10px;
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 16px;
+  }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 18px;
+    box-shadow: var(--shadow);
+  }
+
+  h2 {
+    margin: 0 0 10px;
+    font-size: 20px;
+    letter-spacing: -0.02em;
+  }
+
+  h3 {
+    margin: 14px 0 8px;
+    font-size: 16px;
+  }
+
+  p { margin: 0 0 10px; }
+
+  ul, ol {
+    margin: 8px 0 0;
+    padding-left: 20px;
+  }
+
+  li { margin: 4px 0; }
+
+  .note {
+    border-left: 4px solid var(--blue);
+    background: var(--blue-soft);
+    border-radius: 10px;
+    padding: 10px 12px;
+    margin-top: 10px;
+    color: #1d3f75;
+  }
+
+  .warn {
+    border-left: 4px solid var(--amber);
+    background: var(--amber-soft);
+    border-radius: 10px;
+    padding: 10px 12px;
+    margin-top: 10px;
+    color: #7a5315;
+  }
+
+  .error {
+    border-left: 4px solid var(--red);
+    background: var(--red-soft);
+    border-radius: 10px;
+    padding: 10px 12px;
+    margin-top: 10px;
+    color: #8f2f2f;
+  }
+
+  pre {
+    margin: 10px 0 0;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: #0f172a;
+    color: #e5edf8;
+    overflow-x: auto;
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 12px;
+    line-height: 1.45;
+  }
+
+  code {
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 12px;
+    background: #eef2f7;
+    border: 1px solid #d9e3ef;
+    border-radius: 6px;
+    padding: 1px 6px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 8px;
+    font-size: 13px;
+  }
+
+  th, td {
+    border: 1px solid var(--border);
+    padding: 8px 10px;
+    text-align: left;
+    vertical-align: top;
+  }
+
+  th {
+    background: #f7faff;
+    color: #1e3658;
+    font-weight: 700;
+  }
+
+  .span-2 { grid-column: 1 / -1; }
+
+  @media (max-width: 980px) {
+    .grid { grid-template-columns: 1fr; }
+    .span-2 { grid-column: auto; }
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="hero">
+      <h1>AI Patient Summary - Support Runbook</h1>
+      <p>
+        Operational guide for support teams: feature enablement, configuration, trigger behavior,
+        manual execution patterns, and verification steps.
+      </p>
+      <div class="badges">
+        <span class="badge">Enablement</span>
+        <span class="badge">Trigger Flow</span>
+        <span class="badge">Manual/API Call</span>
+        <span class="badge">Troubleshooting</span>
+      </div>
+    </header>
+
+    <section class="grid">
+      <article class="card">
+        <h2>1) What the feature does</h2>
+        <ul>
+          <li>Generates two patient-level HTML reports after exam finalization:</li>
+          <li>Detailed report: <code>PatientHistoryDetails.html</code></li>
+          <li>Summary report: <code>PatientHistorySummary.html</code></li>
+          <li>Stores reports under patient repository path: <code>{Repository.Root}\{PatientId}\</code></li>
+          <li>Sample path: <code>C:\Medstreaming\demomode\dbRepository\PatientHistory\1\PatientHistoryDetails.html</code></li>
+          <li>Reports are accessed in UI from Previous Exams tab using AI History Details and AI History Summary tabs.</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <h2>2) When job starts</h2>
+        <ul>
+          <li>Primary trigger: exam finalization flow in business layer.</li>
+          <li>If no patient history file exists, baseline job is created.</li>
+          <li>If history file exists, incremental job is created.</li>
+          <li>Job XML is written to configured spool directory and picked by standalone parser timer loop.</li>
+        </ul>
+        <div class="note">
+          Web service decides whether to enqueue based on <code>FeaturePatientHistoryAiSummaryEnabled</code>.
+          Standalone parser reads full AI settings at startup.
+        </div>
+      </article>
+
+      <article class="card span-2">
+        <h2>3) Required configuration</h2>
+        <p>All parser settings are under <code>PatientHistoryAiSummarySettings</code> in <code>Server.xml</code>.</p>
+        <h3>Server.xml sample</h3>
+<pre>&lt;PatientHistoryAiSummarySettings&gt;
+  &lt;FeaturePatientHistoryAiSummaryEnabled&gt;true&lt;/FeaturePatientHistoryAiSummaryEnabled&gt;
+  &lt;BaselineMissionId&gt;39535&lt;/BaselineMissionId&gt;
+  &lt;IncrementalMissionId&gt;39538&lt;/IncrementalMissionId&gt;
+  &lt;BaselineFolderId&gt;30992&lt;/BaselineFolderId&gt;
+  &lt;IncrementalFolderId&gt;30993&lt;/IncrementalFolderId&gt;
+  &lt;EnableRetrieveForHistory&gt;false&lt;/EnableRetrieveForHistory&gt;
+  &lt;ReArchiveAfterHistory&gt;true&lt;/ReArchiveAfterHistory&gt;
+  &lt;ImportCycleInterval&gt;5&lt;/ImportCycleInterval&gt;
+  &lt;StartupOptions&gt;&lt;/StartupOptions&gt;
+&lt;/PatientHistoryAiSummarySettings&gt;</pre>
+        <table>
+          <thead>
+            <tr><th>Setting</th><th>Type</th><th>Purpose</th><th>Typical value</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>FeaturePatientHistoryAiSummaryEnabled</td><td>bool</td><td>Master feature switch for enqueue from finalization flow</td><td>true/false</td></tr>
+            <tr><td>BaselineMissionId</td><td>string</td><td>Mission used for first patient-level generation</td><td>Example: 39535</td></tr>
+            <tr><td>IncrementalMissionId</td><td>string</td><td>Mission used for updates after baseline exists</td><td>Example: 39538</td></tr>
+            <tr><td>BaselineFolderId</td><td>string</td><td>Matcha folder for baseline uploads</td><td>Configured per environment</td></tr>
+            <tr><td>IncrementalFolderId</td><td>string</td><td>Matcha folder for incremental uploads</td><td>Configured per environment</td></tr>
+            <tr><td>EnableRetrieveForHistory</td><td>bool</td><td>If exam is archived, attempt retrieve before AI call</td><td>false by default</td></tr>
+            <tr><td>ReArchiveAfterHistory</td><td>bool</td><td>Re-archive after processing retrieved studies</td><td>true by default</td></tr>
+            <tr><td>ImportCycleInterval</td><td>int</td><td>Queue poll interval in seconds</td><td>5</td></tr>
+            <tr><td>StartupOptions</td><td>string</td><td>Optional startup switches for standalone parser</td><td>Environment specific</td></tr>
+          </tbody>
+        </table>
+        <div class="warn">
+          API key is read from environment variable <code>MATCHA_API_KEY</code> by standalone parser at startup,
+          not from web.config.
+        </div>
+      </article>
+
+      <article class="card span-2">
+        <h2>4) Call path (receive -> route -> process)</h2>
+        <ol>
+          <li>Receive: User finalizes report in UI.</li>
+          <li>Route: Finalization handler checks patient history file existence and routes as baseline or incremental.</li>
+          <li>Enqueue: <code>JobManager.AddJob(job, PatientHistoryAiSummaryJobStorageDir)</code> writes job XML.</li>
+          <li>Pickup: <code>SAPatientHistoryAiSummaryQueue</code> polls spool directory at <code>ImportCycleInterval</code>.</li>
+          <li>Process: <code>PatientHistoryAiSummaryProcessor</code> anonymizes PDF, calls AI mission, re-injects PHI, writes HTML.</li>
+          <li>Publish: UI tabs read generated files in Previous Exams area.</li>
+        </ol>
+        <div class="note">
+          This feature is handled by a separate standalone parser EXE, so it does not change the normal JobParser pipeline or the HL7Outbound parser flow.
+        </div>
+      </article>
+
+      <article class="card span-2">
+        <h2>5) How to call it manually</h2>
+        <h3>Option A - Normal application flow (recommended)</h3>
+        <ol>
+          <li>Set <code>FeaturePatientHistoryAiSummaryEnabled=true</code>.</li>
+          <li>Finalize an exam for a patient.</li>
+          <li>Verify job XML appears in patient history spool directory.</li>
+          <li>Wait for parser cycle, then verify two HTML files are created in patient folder.</li>
+        </ol>
+
+        <h3>Option B - API baseline trigger (if endpoint is enabled in your build)</h3>
+        <p>Endpoint documented in implementation plan:</p>
+        <pre>POST /api/PatientHistorySummary/RequestBaseline/{patientId}</pre>
+        <p>Example:</p>
+        <pre>curl -X POST "http://localhost/MedStreaming.WebService/api/PatientHistorySummary/RequestBaseline/12345"</pre>
+
+        <h3>Option C - Batch generation pattern using SQLCMD (support operation)</h3>
+        <p>
+          Similar to your ForwardingUtility pattern, generate a daily batch that calls baseline endpoint per patient.
+          Update URL, auth headers, and SQL filter for your environment.
+        </p>
+<pre>@echo off
+set MEDSTREAMING_SQL=YOUR_SQL_SERVER
+set MEDSTREAMING_API_BASE=http://localhost/MedStreaming.WebService
+
+for /f "tokens=1-4 delims=/- " %%A in ('date /t') do set today=%%A%%B%%C
+
+"C:\Program Files (x86)\Microsoft SQL Server\Client SDK\ODBC\130\Tools\Binn\SQLCMD" -S %MEDSTREAMING_SQL% -d Medstreaming -Q "SET NOCOUNT ON;
+SELECT TOP 1000
+'curl -X POST ""'+ '%MEDSTREAMING_API_BASE%' + '/api/PatientHistorySummary/RequestBaseline/' + CONVERT(varchar, Exam.PatientId, 10) + '""'
+FROM Exam
+WHERE DATEDIFF(DD, Exam.DateTime, GETDATE()) > 180
+  AND (Exam.IsDeleted IS NULL OR Exam.IsDeleted <> 1)
+GROUP BY Exam.PatientId
+ORDER BY MIN(Exam.DateTime) ASC" -h -1 > C:\Medstreaming\config\AI_PatientSummary\RunBaseline_%today%.bat
+
+call C:\Medstreaming\config\AI_PatientSummary\RunBaseline_%today%.bat</pre>
+
+        <div class="note">
+          Use patient-level triggering for baseline to avoid unnecessary duplicate exam-level calls.
+        </div>
+      </article>
+
+      <article class="card span-2">
+        <h2>6) Standalone parser EXE and folders</h2>
+        <p>
+          The feature runs in its own executable: <code>MedStreaming.PatientHistoryAiSummary.exe</code>.
+          It owns its own queue path and processing folders so it stays isolated from other parsers.
+        </p>
+        <table>
+          <thead>
+            <tr><th>Path</th><th>Purpose</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>PatientHistoryAiSummaryJobStorageDir</code></td><td>Queue folder where job XML is written and picked by the standalone parser</td></tr>
+            <tr><td><code>...\error\</code></td><td>Move failed job XML or failed work items for support review</td></tr>
+            <tr><td><code>...\processed\</code></td><td>Move successfully processed job XML after completion</td></tr>
+          </tbody>
+        </table>
+        <div class="warn">
+          The queue, error, and processed folders are only for the new PatientHistoryAiSummary parser. They do not affect the JobParser or HL7Outbound parser paths.
+        </div>
+      </article>
+
+      <article class="card">
+        <h2>7) Verification checklist</h2>
+        <ul>
+          <li>Feature flag is enabled.</li>
+          <li>Mission and folder IDs are valid for baseline and incremental.</li>
+          <li>Spool directory exists and job XML files are created.</li>
+          <li>Standalone parser process is running and polling.</li>
+          <li>Output files exist in patient folder.</li>
+          <li>UI Previous Exams shows AI History Details and AI History Summary tabs.</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <h2>8) Fast troubleshooting</h2>
+        <h3>Receive stage</h3>
+        <ul>
+          <li>No job queued after finalize: check feature flag and finalization success path.</li>
+          <li>Wrong job type: verify history file existence logic baseline vs incremental.</li>
+        </ul>
+        <h3>Route stage</h3>
+        <ul>
+          <li>Job XML not in spool: check write permissions and configured storage directory.</li>
+          <li>Duplicate baseline jobs: validate concurrent finalize behavior and patient sequencing.</li>
+        </ul>
+        <h3>Process stage</h3>
+        <ul>
+          <li>Parser not processing: verify parser service/process startup and poll interval.</li>
+          <li>AI call fails: verify <code>MATCHA_API_KEY</code>, mission IDs, folder IDs, outbound connectivity.</li>
+          <li>Archived exam skip: review <code>EnableRetrieveForHistory</code> and retrieval flow status.</li>
+        </ul>
+        <div class="error">
+          If processing fails repeatedly, preserve spool XML and logs before manual cleanup for RCA.
+        </div>
+      </article>
+    </section>
+  </div>
+</body>
+</html>

@@ -1,0 +1,474 @@
+<style>* { box-sizing: border-box; }body { margin: 0; padding: 0; }.summary { font-family: Arial, sans-serif; color: #222; line-height: 1.5; font-size: 14px; padding: 16px; max-width: 1100px; margin: 0 auto; }.summary h2 { font-size: 1.1rem; background: #2c3e50; color: #fff; padding: 8px 12px; border-radius: 4px; margin: 20px 0 8px; }.summary h3 { font-size: 0.97rem; color: #2c3e50; border-left: 4px solid #2c3e50; padding-left: 8px; margin: 14px 0 6px; }.summary p { margin: 4px 0 8px; }.summary ul { margin: 4px 0 10px 20px; padding: 0; }.summary li { margin-bottom: 5px; }.summary table { border-collapse: collapse; width: 100%; margin: 8px 0 14px; font-size: 13px; }.summary th { background: #f0f4f8; color: #2c3e50; border: 1px solid #ccc; padding: 7px 9px; text-align: left; }.summary td { border: 1px solid #ccc; padding: 6px 9px; vertical-align: top; }.summary tr:nth-child(even) td { background: #fafafa; }.badge { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 0.78rem; font-weight: bold; white-space: nowrap; }.critical { background: #ffd6d6; color: #8a1f1f; border: 1px solid #f5a0a0; }.warning { background: #fff0c2; color: #7a5a00; border: 1px solid #f0d080; }.stable { background: #d9f2d9; color: #1f6b1f; border: 1px solid #90d090; }.info { background: #d9ecff; color: #1f4f8a; border: 1px solid #90c0f0; }.pending { background: #efe0ff; color: #5f3b8a; border: 1px solid #c0a0e0; }.resolved { background: #e0f7e0; color: #1a5c1a; border: 1px solid #80c080; }.notice { background: #fff8e1; border-left: 4px solid #f0c040; padding: 8px 12px; margin: 8px 0; border-radius: 3px; font-size: 0.88rem; }.section-card { background: #fff; border: 1px solid #dde3ea; border-radius: 6px; padding: 12px 16px; margin-bottom: 14px; }.meta-grid { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 10px; margin: 8px 0; }.meta-item { background: #f7f9fc; border: 1px solid #dde3ea; border-radius: 5px; padding: 8px 12px; }.meta-item .label { font-size: 0.75rem; color: #666; text-transform: uppercase; letter-spacing: 0.04em; }.meta-item .value { font-size: 0.97rem; font-weight: bold; color: #222; margin-top: 2px; }</style>
+<div class="summary">
+
+  <div class="meta-grid">
+    <div class="meta-item">
+      <div class="label">Patient Name</div>
+      <div class="value">Yeargain, William</div>
+    </div>
+    <div class="meta-item">
+      <div class="label">DOB</div>
+      <div class="value">1941-04-07</div>
+    </div>
+    <div class="meta-item">
+      <div class="label">MRN</div>
+      <div class="value">2015122322350784</div>
+    </div>
+    <div class="meta-item">
+      <div class="label">Reports Analyzed</div>
+      <div class="value">10 Vascular Duplex Studies (2016–2020)</div>
+    </div>
+  </div>
+
+  <div class="section-card" id="allergies">
+    <h2>Allergies</h2>
+    <p>Not documented in any provided report.</p>
+  </div>
+
+  <div class="section-card" id="problems">
+    <h2>Active Problems / Risk Factors</h2>
+    <table>
+      <thead>
+        <tr><th>Condition</th><th>Status</th><th>First Noted in Record</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Carotid Artery Disease — Right ICA Stenosis (ICD: I65.23)</td>
+          <td><span class="badge stable">Stable</span></td>
+          <td>2016-02-08 (earliest report)</td>
+          <td>Consistently 1–49% stenosis across all studies 2016–2020. Irregular heterogeneous plaque in right ICA throughout. No progression.</td>
+        </tr>
+        <tr>
+          <td>Carotid Artery Disease — Left ICA Stenosis (ICD: I65.23)</td>
+          <td><span class="badge resolved">Post-CEA / Resolved Significant Stenosis</span></td>
+          <td>2016-02-08</td>
+          <td>50–69% stenosis documented 2016–Apr 2019. Left CEA performed 2019-06-03. Post-CEA surveillance (Jun 2019, Jan 2020, Jul 2020) shows no significant recurrent stenosis (&lt;50%).</td>
+        </tr>
+        <tr>
+          <td>Atherosclerosis of Subclavian Arteries (ICD: I70.8)</td>
+          <td><span class="badge warning">Active – Intermittent Elevation</span></td>
+          <td>2016-02-08</td>
+          <td>Bilateral mild-to-moderate subclavian stenosis with elevated velocities and turbulence documented on multiple exams (2016, 2017, 2018). Right subclavian turbulence noted in 2018–2019; not consistently elevated on later exams.</td>
+        </tr>
+        <tr>
+          <td>Diabetes Mellitus</td>
+          <td><span class="badge stable">Active – Stable (Risk Factor)</span></td>
+          <td>2016-02-08 (earliest report)</td>
+          <td>Consistently listed as risk factor across all 10 reports. No glycemic data in these documents.</td>
+        </tr>
+        <tr>
+          <td>Hypertension</td>
+          <td><span class="badge stable">Active – Stable (Risk Factor)</span></td>
+          <td>2016-02-08 (earliest report)</td>
+          <td>Consistently listed as risk factor across all 10 reports. Brachial BP documented 2016-02-08: Right 148/80, Left 152/75 mmHg.</td>
+        </tr>
+        <tr>
+          <td>Hyperlipidemia</td>
+          <td><span class="badge stable">Active – Stable (Risk Factor)</span></td>
+          <td>2016-02-08 (earliest report)</td>
+          <td>Consistently listed as risk factor across all 10 reports.</td>
+        </tr>
+        <tr>
+          <td>Cardiac Disease</td>
+          <td><span class="badge info">Historical</span></td>
+          <td>2016-02-08</td>
+          <td>Listed as risk factor in the 2016-02-08 report only; not carried forward in subsequent reports. No additional detail provided.</td>
+        </tr>
+        <tr>
+          <td>Carotid Bruit</td>
+          <td><span class="badge info">Historical</span></td>
+          <td>2016-02-08</td>
+          <td>Listed as risk factor in the 2016-02-08 report only; not mentioned in subsequent reports.</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="notice"><strong>Clinical Note – Left ICA (Apr 2019):</strong> The 2019-04-05 report noted that while velocities placed the left ICA in the 50–69% stenosis range, the gray-scale appearance and elevated ICA/CCA ratio (2.9) may suggest a <em>higher degree</em> of stenosis. Left CEA was subsequently performed on 2019-06-03.</div>
+  </div>
+
+  <div class="section-card" id="medications">
+    <h2>Medications</h2>
+    <p>Not documented in any provided report.</p>
+  </div>
+
+  <div class="section-card" id="procedures">
+    <h2>Procedures</h2>
+    <table>
+      <thead>
+        <tr><th>Procedure</th><th>Date</th><th>Status</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Left Carotid Endarterectomy (Lt CEA)</td>
+          <td>2019-06-03</td>
+          <td><span class="badge resolved">Completed</span></td>
+          <td>Performed for left ICA 50–69% stenosis with possible higher degree suggested by ICA/CCA ratio. Referenced consistently in all post-2019 imaging reports. Post-operative surveillance shows no significant recurrent stenosis.</td>
+        </tr>
+        <tr>
+          <td>Carotid Artery Duplex Ultrasound – Complete Bilateral (CPT 93880)</td>
+          <td>Serial: 2016-02-08, 2016-08-03, 2017-02-14, 2017-09-06, 2018-03-29, 2018-10-04, 2019-04-05, 2020-01-02, 2020-07-02</td>
+          <td><span class="badge resolved">Completed (Serial)</span></td>
+          <td>9 complete bilateral duplex studies performed at Vascular Institute of Chattanooga for surveillance of bilateral carotid stenosis.</td>
+        </tr>
+        <tr>
+          <td>Carotid Artery Duplex Ultrasound – Unilateral/Limited (CPT 93882)</td>
+          <td>2019-06-26</td>
+          <td><span class="badge resolved">Completed</span></td>
+          <td>Post-CEA limited left-sided study performed 23 days post-operatively. Confirmed no significant recurrent stenosis at left endarterectomy site.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section-card" id="results">
+    <h2>Results — Serial Carotid Duplex Ultrasound Findings</h2>
+    <p>All studies performed at <strong>Vascular Institute of Chattanooga</strong>. Patient asymptomatic (denied symptoms) across all documented encounters.</p>
+
+    <h3>Longitudinal Stenosis Summary (Most Recent First)</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Exam Date</th>
+          <th>Accession #</th>
+          <th>Right ICA Stenosis</th>
+          <th>Right ICA Plaque</th>
+          <th>Right ICA/CCA Ratio</th>
+          <th>Left ICA Stenosis</th>
+          <th>Left ICA Plaque / Status</th>
+          <th>Left ICA/CCA Ratio</th>
+          <th>Vertebral Flow</th>
+          <th>Key Additional Finding</th>
+          <th>Reading Physician</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>2020-07-02</td>
+          <td>112936</td>
+          <td><span class="badge stable">1–49%</span></td>
+          <td>Irregular heterogeneous</td>
+          <td>1.1</td>
+          <td><span class="badge resolved">No significant recurrent stenosis (Post-CEA)</span></td>
+          <td>Post-endarterectomy site</td>
+          <td>1.1</td>
+          <td>Antegrade bilaterally</td>
+          <td>Stable vs. prior exam</td>
+          <td>Daniel Krcelic MD</td>
+        </tr>
+        <tr>
+          <td>2020-01-02</td>
+          <td>81698</td>
+          <td><span class="badge stable">1–49%</span></td>
+          <td>Irregular heterogeneous</td>
+          <td>0.79</td>
+          <td><span class="badge resolved">No significant recurrent stenosis (Post-CEA)</span></td>
+          <td>Post-endarterectomy site</td>
+          <td>1.07</td>
+          <td>Antegrade bilaterally</td>
+          <td>Stable vs. prior exam</td>
+          <td>Joseph Coatti MD</td>
+        </tr>
+        <tr>
+          <td>2019-06-26</td>
+          <td>81124</td>
+          <td>Not evaluated (limited study)</td>
+          <td>—</td>
+          <td>—</td>
+          <td><span class="badge resolved">&lt;50% (Post-CEA, 23 days post-op)</span></td>
+          <td>Post-endarterectomy site; no elevated velocities</td>
+          <td>1.4</td>
+          <td>Antegrade (left)</td>
+          <td>First post-CEA surveillance; left-only study</td>
+          <td>Joseph Coatti MD</td>
+        </tr>
+        <tr>
+          <td>2019-04-05</td>
+          <td>58493</td>
+          <td><span class="badge stable">1–49%</span></td>
+          <td>Irregular heterogeneous</td>
+          <td>1.0</td>
+          <td><span class="badge warning">50–69% (possibly higher — see notice)</span></td>
+          <td>Irregular heterogeneous; elevated velocities &amp; PST</td>
+          <td>2.9</td>
+          <td>Antegrade bilaterally</td>
+          <td>Right subclavian: elevated velocities with turbulence. Left CEA performed 2019-06-03 after this exam.</td>
+          <td>Elizabeth Hartmann MD</td>
+        </tr>
+        <tr>
+          <td>2018-10-04</td>
+          <td>40566</td>
+          <td><span class="badge stable">1–49%</span></td>
+          <td>Irregular heterogeneous</td>
+          <td>0.8</td>
+          <td><span class="badge warning">50–69%</span></td>
+          <td>Irregular heterogeneous; elevated velocities &amp; PST</td>
+          <td>2.1</td>
+          <td>Antegrade bilaterally</td>
+          <td>Right subclavian: elevated velocities with turbulence</td>
+          <td>Elizabeth Hartmann MD</td>
+        </tr>
+        <tr>
+          <td>2018-03-29</td>
+          <td>39643</td>
+          <td><span class="badge stable">1–49%</span></td>
+          <td>Irregular heterogeneous</td>
+          <td>1.2</td>
+          <td><span class="badge warning">50–69%</span></td>
+          <td>Irregular heterogeneous; elevated velocities &amp; turbulence</td>
+          <td>1.7</td>
+          <td>Antegrade bilaterally</td>
+          <td>Right SCA: turbulence noted; previous elevated velocities not seen today. Stable vs. prior.</td>
+          <td>Christopher LeSar MD</td>
+        </tr>
+        <tr>
+          <td>2017-09-06</td>
+          <td>17138</td>
+          <td><span class="badge stable">1–49%</span></td>
+          <td>Irregular heterogeneous</td>
+          <td>0.9</td>
+          <td><span class="badge warning">50–69%</span></td>
+          <td>Irregular heterogeneous; elevated velocities &amp; turbulence; endpoint 1.35 cm</td>
+          <td>2.2</td>
+          <td>Antegrade bilaterally</td>
+          <td>Bilateral subclavian elevated velocities (heterogeneous plaque). Stable vs. prior.</td>
+          <td>Christopher LeSar MD, FACS</td>
+        </tr>
+        <tr>
+          <td>2017-02-14</td>
+          <td>9115</td>
+          <td><span class="badge stable">1–49%</span></td>
+          <td>Irregular heterogeneous</td>
+          <td>1.1</td>
+          <td><span class="badge warning">50–69% (velocities slightly increased)</span></td>
+          <td>Irregular heterogeneous; elevated velocities &amp; turbulence; endpoint 1.3 cm</td>
+          <td>2.8</td>
+          <td>Antegrade bilaterally</td>
+          <td>Left ICA velocities slightly increased vs. prior exam. Otherwise stable.</td>
+          <td>Christopher LeSar MD</td>
+        </tr>
+        <tr>
+          <td>2016-08-03</td>
+          <td>3003</td>
+          <td><span class="badge stable">1–49%</span></td>
+          <td>Irregular heterogeneous</td>
+          <td>0.96</td>
+          <td><span class="badge warning">50–69%</span></td>
+          <td>Irregular heterogeneous; elevated velocities &amp; turbulence; endpoint seen (not measured)</td>
+          <td>1.9</td>
+          <td>Antegrade bilaterally</td>
+          <td>Stable vs. prior exam</td>
+          <td>Christopher LeSar MD</td>
+        </tr>
+        <tr>
+          <td>2016-02-08</td>
+          <td>2272</td>
+          <td><span class="badge stable">1–49% (Grade I)</span></td>
+          <td>Irregular heterogeneous</td>
+          <td>0.8</td>
+          <td><span class="badge warning">50–69% (Grade II)</span></td>
+          <td>Irregular heterogeneous; elevated velocities &amp; PST</td>
+          <td>2.0</td>
+          <td>Antegrade bilaterally</td>
+          <td>Bilateral subclavian arteries: mild-to-moderate stenosis. Brachial BP: R 148/80, L 152/75 mmHg. Earliest study on record.</td>
+          <td>Christopher LeSar MD</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="notice"><strong>Clinical Trend Note – Left ICA:</strong> Left ICA consistently demonstrated 50–69% stenosis (Grade II) from February 2016 through April 2019, with velocities slightly increasing in the 2017-02-14 exam. The April 2019 exam noted an ICA/CCA ratio of 2.9 and a reader comment that gray-scale findings may indicate a <em>degree of stenosis higher than 50–69%</em>. Left CEA was performed on <strong>2019-06-03</strong>. All three post-CEA studies (June 2019, January 2020, July 2020) confirm no significant recurrent stenosis.</div>
+
+    <div class="notice"><strong>Clinical Trend Note – Right ICA:</strong> Right ICA has maintained stable 1–49% heterogeneous plaque with no elevated velocities throughout the entire surveillance period (2016–2020). No progression documented. Vertebral arteries have demonstrated antegrade flow bilaterally on every study.</div>
+
+    <div class="notice"><strong>Subclavian Arteries:</strong> Mild-to-moderate bilateral subclavian stenosis was documented on the 2016-02-08 exam. Elevated right subclavian velocities with turbulence were noted on 2018-10-04 and 2019-04-05. SCA findings were variable on other exams (turbulence without marked elevation on 2018-03-29; bilateral SCA elevation on 2017-09-06). No dedicated subclavian intervention documented.</div>
+  </div>
+
+  <div class="section-card" id="careteam">
+    <h2>Care Team</h2>
+    <table>
+      <thead>
+        <tr><th>Provider</th><th>Role</th><th>Associated Encounters</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Eugene Ryan MD</td>
+          <td>Primary Care Physician / Referring Physician</td>
+          <td>All 10 studies (2016–2020)</td>
+        </tr>
+        <tr>
+          <td>Christopher LeSar MD, FACS</td>
+          <td>Reading Physician – Vascular Institute of Chattanooga</td>
+          <td>2016-02-08, 2016-08-03, 2017-02-14, 2017-09-06, 2018-03-29</td>
+        </tr>
+        <tr>
+          <td>Elizabeth Hartmann MD</td>
+          <td>Reading Physician – Vascular Institute of Chattanooga</td>
+          <td>2018-10-04, 2019-04-05</td>
+        </tr>
+        <tr>
+          <td>Joseph Coatti MD</td>
+          <td>Reading Physician / Ordering Physician – Vascular Institute of Chattanooga</td>
+          <td>2019-06-26 (ordering &amp; reading), 2020-01-02 (reading)</td>
+        </tr>
+        <tr>
+          <td>Daniel Krcelic MD</td>
+          <td>Reading Physician – Vascular Institute of Chattanooga</td>
+          <td>2020-07-02</td>
+        </tr>
+        <tr>
+          <td>Joshua Willis MD</td>
+          <td>CC Recipient</td>
+          <td>2018-10-04, 2018-03-29, 2017-09-06</td>
+        </tr>
+        <tr>
+          <td>Jennifer Wilson FNP-C</td>
+          <td>Ordering Provider</td>
+          <td>2018-10-04, 2019-04-05, 2018-03-29</td>
+        </tr>
+        <tr>
+          <td>Veronica O'Steen FNP-C</td>
+          <td>Ordering Provider</td>
+          <td>2020-07-02</td>
+        </tr>
+        <tr>
+          <td>Stephanie Sheridan DNP</td>
+          <td>Ordering Provider</td>
+          <td>2020-01-02</td>
+        </tr>
+        <tr>
+          <td>Lauren Cook RVT</td>
+          <td>Sonographer</td>
+          <td>2020-07-02</td>
+        </tr>
+        <tr>
+          <td>Karena Gubaci RVT</td>
+          <td>Sonographer</td>
+          <td>2020-01-02, 2019-06-26</td>
+        </tr>
+        <tr>
+          <td>Brandie Lane RVT</td>
+          <td>Sonographer</td>
+          <td>2019-04-05</td>
+        </tr>
+        <tr>
+          <td>Sarah Gooch RVT</td>
+          <td>Sonographer</td>
+          <td>2018-10-04</td>
+        </tr>
+        <tr>
+          <td>Linda Tallent RVT</td>
+          <td>Sonographer</td>
+          <td>2018-03-29</td>
+        </tr>
+        <tr>
+          <td>William Russell RVT</td>
+          <td>Sonographer</td>
+          <td>2016-02-08, 2017-02-14, 2017-09-06</td>
+        </tr>
+        <tr>
+          <td>Tina Creek RVT</td>
+          <td>Sonographer</td>
+          <td>2016-08-03</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section-card" id="encounters">
+    <h2>Encounters</h2>
+    <table>
+      <thead>
+        <tr><th>Date</th><th>Encounter Type</th><th>Location</th><th>Accession #</th><th>CPT</th><th>ICD Indication</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>2020-07-02</td>
+          <td>Carotid Artery Ultrasound – Complete Bilateral <span class="badge stable">Stable</span></td>
+          <td>VIC LW (Vascular Institute – Lifestyle Way)</td>
+          <td>112936</td>
+          <td>93880</td>
+          <td>I65.23</td>
+        </tr>
+        <tr>
+          <td>2020-01-02</td>
+          <td>Carotid Artery Ultrasound – Complete Bilateral <span class="badge stable">Stable</span></td>
+          <td>VIC Lifestyle Way, Chattanooga, TN</td>
+          <td>81698</td>
+          <td>93880</td>
+          <td>I65.23</td>
+        </tr>
+        <tr>
+          <td>2019-06-26</td>
+          <td>Carotid Artery Ultrasound – Unilateral/Limited (Post-CEA Surveillance) <span class="badge resolved">Post-CEA</span></td>
+          <td>Vascular Institute of Chattanooga</td>
+          <td>81124</td>
+          <td>93882</td>
+          <td>I65.23</td>
+        </tr>
+        <tr>
+          <td>2019-06-03</td>
+          <td>Left Carotid Endarterectomy (Lt CEA) <span class="badge resolved">Procedure</span></td>
+          <td>Not specified in records</td>
+          <td>—</td>
+          <td>—</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td>2019-04-05</td>
+          <td>Carotid Artery Ultrasound – Complete Bilateral <span class="badge warning">Left ICA – Possible Higher Stenosis</span></td>
+          <td>Vascular Institute of Chattanooga</td>
+          <td>58493</td>
+          <td>93880</td>
+          <td>I65.23</td>
+        </tr>
+        <tr>
+          <td>2018-10-04</td>
+          <td>Cerebrovascular Ultrasound – Complete Bilateral <span class="badge stable">Stable</span></td>
+          <td>Vascular Institute of Chattanooga</td>
+          <td>40566</td>
+          <td>93880</td>
+          <td>I65.23, I70.8</td>
+        </tr>
+        <tr>
+          <td>2018-03-29</td>
+          <td>Cerebrovascular Ultrasound – Complete Bilateral <span class="badge stable">Stable</span></td>
+          <td>Vascular Institute of Chattanooga</td>
+          <td>39643</td>
+          <td>93880</td>
+          <td>I65.23</td>
+        </tr>
+        <tr>
+          <td>2017-09-06</td>
+          <td>Cerebrovascular Duplex Scan – Complete Bilateral <span class="badge stable">Stable</span></td>
+          <td>Vascular Institute of Chattanooga</td>
+          <td>17138</td>
+          <td>93880</td>
+          <td>I65.23, I70.8</td>
+        </tr>
+        <tr>
+          <td>2017-02-14</td>
+          <td>Cerebrovascular Duplex Scan – Complete Bilateral <span class="badge warning">Left ICA Velocities Slightly Increased</span></td>
+          <td>Vascular Institute of Chattanooga</td>
+          <td>9115</td>
+          <td>93880</td>
+          <td>I65.23</td>
+        </tr>
+        <tr>
+          <td>2016-08-03</td>
+          <td>Cerebrovascular Duplex Scan – Complete Bilateral <span class="badge stable">Stable</span></td>
+          <td>Vascular Institute of Chattanooga</td>
+          <td>3003</td>
+          <td>93880</td>
+          <td>I65.23</td>
+        </tr>
+        <tr>
+          <td>2016-02-08</td>
+          <td>Cerebrovascular Duplex Scan – Complete Bilateral <span class="badge info">Earliest Record</span></td>
+          <td>Vascular Institute of Chattanooga</td>
+          <td>2272</td>
+          <td>93880</td>
+          <td>I65.23, I70.8</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
