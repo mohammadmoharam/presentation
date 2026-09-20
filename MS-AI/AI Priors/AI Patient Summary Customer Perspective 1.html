@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Patient Summary - Customer Perspective</title>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<style>
+  * { box-sizing: border-box; }
+
+  :root {
+    --bg: #f4f7fb;
+    --surface: #ffffff;
+    --surface-soft: #f8fafc;
+    --text: #182230;
+    --muted: #617085;
+    --border: #d9e1ea;
+    --primary: #175cff;
+    --primary-deep: #0f46cc;
+    --accent: #0f9d8b;
+    --accent-soft: #ddf6f2;
+    --warning: #b7791f;
+    --warning-soft: #fff4db;
+    --danger: #c53b3b;
+    --danger-soft: #fde8e8;
+    --shadow: 0 16px 40px rgba(24, 34, 48, 0.08);
+    --shadow-soft: 0 8px 20px rgba(24, 34, 48, 0.05);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+    background:
+      radial-gradient(circle at top left, rgba(23, 92, 255, 0.10), transparent 30%),
+      radial-gradient(circle at top right, rgba(15, 157, 139, 0.08), transparent 28%),
+      var(--bg);
+    color: var(--text);
+    line-height: 1.55;
+  }
+
+  .page {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 28px 24px 56px;
+  }
+
+  .hero {
+    background: linear-gradient(135deg, #0f2448 0%, #173a7a 45%, #175cff 100%);
+    color: white;
+    border-radius: 24px;
+    padding: 30px 32px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .hero::after {
+    content: "";
+    position: absolute;
+    inset: auto -80px -80px auto;
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    filter: blur(2px);
+  }
+
+  .hero-top {
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.14);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    margin: 14px 0 10px;
+    font-size: clamp(30px, 4vw, 48px);
+    line-height: 1.06;
+    letter-spacing: -0.04em;
+  }
+
+  .hero p {
+    max-width: 760px;
+    margin: 0;
+    color: rgba(255, 255, 255, 0.90);
+    font-size: 16px;
+  }
+
+  .hero-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 18px;
+  }
+
+  .badge {
+    border-radius: 999px;
+    padding: 8px 12px;
+    background: rgba(255, 255, 255, 0.12);
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 20px;
+    margin-top: 22px;
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    box-shadow: var(--shadow-soft);
+    padding: 22px;
+  }
+
+  .card h2 {
+    margin: 0 0 10px;
+    font-size: 22px;
+    letter-spacing: -0.02em;
+  }
+
+  .card h3 {
+    margin: 0 0 10px;
+    font-size: 16px;
+  }
+
+  .muted {
+    color: var(--muted);
+  }
+
+  .value-stack {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .value {
+    background: var(--surface-soft);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 14px;
+  }
+
+  .value strong {
+    display: block;
+    margin-bottom: 4px;
+    color: var(--primary-deep);
+  }
+
+  .section {
+    margin-top: 22px;
+  }
+
+  .section-title {
+    margin: 0 0 14px;
+    font-size: 20px;
+    letter-spacing: -0.02em;
+  }
+
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  .step {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 18px;
+    position: relative;
+    box-shadow: var(--shadow-soft);
+  }
+
+  .step-number {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 12px;
+    background: linear-gradient(135deg, var(--primary), var(--primary-deep));
+    color: white;
+    font-weight: 800;
+  }
+
+  .step h4 {
+    margin: 0 0 8px;
+    font-size: 15px;
+  }
+
+  .step p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 13px;
+  }
+
+  .shots {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  figure {
+    margin: 0;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: var(--shadow-soft);
+  }
+
+  .shot-frame {
+    min-height: 360px;
+    background: linear-gradient(180deg, #eef3f9 0%, #ffffff 100%);
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .embedded-shot {
+    width: 100%;
+    border-radius: 16px;
+    background: #eef2f7;
+    border: 1px solid #d8e0ea;
+    box-shadow: 0 14px 32px rgba(24, 34, 48, 0.14);
+    overflow: hidden;
+  }
+
+  .embedded-shot.chrome {
+    background: linear-gradient(180deg, #3b4a5c 0%, #2f3947 100%);
+    color: #f8fafc;
+  }
+
+  .shot-bar {
+    height: 26px;
+    background: linear-gradient(180deg, #394958 0%, #2f3947 100%);
+    display: flex;
+    align-items: center;
+    padding: 0 14px;
+    gap: 8px;
+  }
+
+  .shot-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.65);
+  }
+
+  .shot-toolbar {
+    background: #35485d;
+    color: white;
+    padding: 10px 12px;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 700;
+  }
+
+  .shot-body {
+    background: #ffffff;
+    padding: 14px;
+    color: #233044;
+  }
+
+  .shot-summary-title {
+    background: linear-gradient(180deg, #4f6780 0%, #40556d 100%);
+    color: white;
+    border-radius: 8px;
+    padding: 12px 14px;
+    margin-bottom: 12px;
+  }
+
+  .shot-summary-title strong,
+  .shot-detail-title strong {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+
+  .shot-summary-title span,
+  .shot-detail-title span {
+    font-size: 11px;
+    opacity: 0.92;
+  }
+
+  .shot-item {
+    display: grid;
+    grid-template-columns: 18px 1fr;
+    gap: 10px;
+    align-items: start;
+    padding: 10px 4px;
+    border-bottom: 1px solid #dde5ef;
+  }
+
+  .shot-item:last-child {
+    border-bottom: none;
+  }
+
+  .shot-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 20px;
+    border-radius: 999px;
+    font-size: 10px;
+    font-weight: 700;
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+
+  .shot-badge.critical { background: #ffe0e0; color: #bf2d2d; }
+  .shot-badge.abnormal { background: #fff1cb; color: #a56a00; }
+  .shot-badge.context { background: #dbeafe; color: #1d4ed8; }
+
+  .shot-dot-red { width: 10px; height: 10px; border-radius: 50%; margin-top: 5px; background: #e24a4a; box-shadow: 0 0 0 3px #fde8e8; }
+  .shot-dot-amber { width: 10px; height: 10px; border-radius: 50%; margin-top: 5px; background: #e3a72c; box-shadow: 0 0 0 3px #fff4db; }
+  .shot-dot-blue { width: 10px; height: 10px; border-radius: 50%; margin-top: 5px; background: #4f7cff; box-shadow: 0 0 0 3px #e7f0ff; }
+
+  .shot-text strong {
+    font-size: 13px;
+    color: #1f2a3a;
+  }
+
+  .shot-text span {
+    font-size: 12px;
+    color: #4f6478;
+  }
+
+  .shot-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11px;
+    margin-top: 10px;
+  }
+
+  .shot-table th,
+  .shot-table td {
+    border: 1px solid #dce5ee;
+    padding: 6px 8px;
+    text-align: left;
+  }
+
+  .shot-table th {
+    background: #eef2f7;
+    color: #42566d;
+    font-weight: 700;
+  }
+
+  .shot-note {
+    margin-top: 12px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    background: #fff7da;
+    color: #7a5315;
+    font-size: 11px;
+    border-left: 4px solid #e1a12d;
+  }
+
+  .shot-panel {
+    padding: 12px;
+  }
+
+  .shot-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .shot-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border-radius: 999px;
+    padding: 4px 8px;
+    font-size: 10px;
+    font-weight: 700;
+    margin-right: 6px;
+  }
+
+  .shot-chip.red { background: #fee2e2; color: #b42318; }
+  .shot-chip.amber { background: #fef3c7; color: #92400e; }
+  .shot-chip.blue { background: #dbeafe; color: #1d4ed8; }
+
+  .detail-cards {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .detail-card {
+    background: #f7f9fc;
+    border: 1px solid #dce5ee;
+    border-radius: 8px;
+    padding: 8px;
+    min-height: 54px;
+  }
+
+  .detail-card label {
+    display: block;
+    font-size: 9px;
+    font-weight: 800;
+    color: #6b7f93;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 4px;
+  }
+
+  .detail-card span {
+    font-size: 11px;
+    color: #1f2a3a;
+    font-weight: 600;
+  }
+
+  .alert-banner {
+    background: #fff7da;
+    border: 1px solid #f1cf78;
+    border-left: 4px solid #d59b21;
+    color: #6d4a10;
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 11px;
+    margin-bottom: 12px;
+  }
+
+  .section-box {
+    border: 1px solid #d9e2eb;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 10px;
+  }
+
+  .section-box-title {
+    background: #33475b;
+    color: white;
+    padding: 8px 10px;
+    font-size: 11px;
+    font-weight: 800;
+  }
+
+  .section-box-body {
+    background: white;
+    padding: 10px;
+  }
+
+  .detail-row {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid #e3eaf2;
+  }
+
+  .detail-row:last-child {
+    border-bottom: none;
+  }
+
+  .detail-row .label {
+    font-size: 11px;
+    color: #4b6075;
+    font-weight: 700;
+  }
+
+  .detail-row .value {
+    font-size: 11px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .critical-box {
+    background: #fff3f3;
+    border: 1px solid #f3b8b8;
+    border-left: 4px solid #cf3c3c;
+    border-radius: 8px;
+    padding: 10px 12px;
+  }
+
+  .critical-box h4 {
+    margin: 0 0 8px;
+    color: #8e2f2f;
+    font-size: 12px;
+  }
+
+  .critical-grid {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 8px 12px;
+    font-size: 11px;
+  }
+
+  .critical-grid .k {
+    color: #7c3a3a;
+    font-weight: 700;
+  }
+
+  .critical-grid .v {
+    color: #3c4150;
+  }
+
+  figcaption {
+    padding: 16px 18px 18px;
+  }
+
+  figcaption h3 {
+    margin-bottom: 6px;
+  }
+
+  .note {
+    border-radius: 18px;
+    padding: 16px 18px;
+    background: var(--warning-soft);
+    border: 1px solid #f7d089;
+    color: #7a5315;
+    box-shadow: var(--shadow-soft);
+  }
+
+  .note strong {
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .benefits {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  .benefit {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 18px;
+    box-shadow: var(--shadow-soft);
+  }
+
+  .benefit h4 {
+    margin: 0 0 8px;
+    font-size: 15px;
+  }
+
+  .benefit p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 13px;
+  }
+
+  .workflow {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    box-shadow: var(--shadow-soft);
+    overflow: hidden;
+  }
+
+  .workflow-header {
+    padding: 18px 20px 0;
+  }
+
+  .workflow-body {
+    padding: 14px 18px 8px;
+  }
+
+  .workflow-foot {
+    padding: 0 20px 18px;
+    color: var(--muted);
+    font-size: 13px;
+  }
+
+  .disclaimer {
+    margin-top: 22px;
+    padding: 14px 18px;
+    border-radius: 16px;
+    background: #f9fbff;
+    border: 1px solid #dce7f8;
+    color: #4d647d;
+    font-size: 13px;
+  }
+
+  .disclaimer strong {
+    color: var(--text);
+  }
+
+  @media (max-width: 980px) {
+    .grid,
+    .steps,
+    .shots,
+    .benefits {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .page { padding: 14px 12px 36px; }
+    .hero { padding: 22px 18px; border-radius: 18px; }
+    .card, .workflow { border-radius: 18px; }
+    .value-stack { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+    <header class="hero">
+      <div class="hero-top">
+        <div>
+          <div class="eyebrow">AI Patient Summary</div>
+          <h1>Patient history, summarized for faster review</h1>
+          <p>
+            This customer-facing view explains how the AI Patient Summary feature helps users quickly understand a patient's prior exams,
+            spot important findings, and move from a detailed record to a concise decision-ready summary.
+          </p>
+          <div class="hero-badges">
+            <span class="badge">Summary at a glance</span>
+            <span class="badge">Detailed history view</span>
+            <span class="badge">Critical findings highlighted</span>
+            <span class="badge">Designed for fast review</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section class="grid section">
+      <div class="card">
+        <h2>What the customer gets</h2>
+        <p class="muted">
+          The feature turns multiple prior exams into a single readable history that surfaces the most important findings first.
+          Instead of opening each exam one by one, the user can review a patient-level summary and drill into details only when needed.
+        </p>
+        <div class="value-stack" style="margin-top:16px;">
+          <div class="value"><strong>Faster review</strong>Important findings are grouped and highlighted for quick understanding.</div>
+          <div class="value"><strong>Better context</strong>Users can see how the current exam relates to the patient’s earlier history.</div>
+          <div class="value"><strong>Clear prioritization</strong>Critical or abnormal items are visually separated from routine information.</div>
+          <div class="value"><strong>Two levels of detail</strong>Summary view for quick use, detail view for deeper review.</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>How it feels in the UI</h2>
+        <p class="muted">
+          From the customer’s perspective, the experience is straightforward: open the patient history area, review the summary,
+          and switch to detailed history when a closer look is required.
+        </p>
+        <div class="value-stack" style="margin-top:16px;">
+          <div class="value"><strong>When the job starts</strong>The AI patient summary job starts after an exam is finalized, so the report is generated automatically in the background.</div>
+          <div class="value"><strong>Where to access it</strong>Customers can open the report from the Previous Exams tab, where the AI History Summary and AI History Details are shown.</div>
+          <div class="value"><strong>Patient History Summary</strong>Concise narrative with major findings and next-step guidance.</div>
+          <div class="value"><strong>Patient History Details</strong>Exam-level data with structured findings and severity markers.</div>
+          <div class="value"><strong>Clinical alerts</strong>Important conditions are called out early so they are hard to miss.</div>
+          <div class="value"><strong>Actionable layout</strong>Useful for radiology, clinical review, and follow-up conversations.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">Attached screenshots</h2>
+      <p class="muted" style="margin-top:-4px; margin-bottom:14px;">
+        The screenshots are embedded directly in the document below so the page is self-contained.
+      </p>
+
+      <div class="shots">
+        <figure>
+          <div class="shot-frame">
+            <div class="embedded-shot chrome" aria-label="Embedded Patient History Summary screenshot">
+              <div class="shot-bar">
+                <span class="shot-dot"></span>
+                <span class="shot-dot"></span>
+                <span class="shot-dot"></span>
+              </div>
+              <div class="shot-toolbar">Patient History Summary</div>
+              <div class="shot-body">
+                <div class="shot-summary-title">
+                  <strong>High-Priority Cardiac Findings — Immediate Action Required</strong>
+                  <span>Echocardiographic report · Mission 49269 · Exams 1884332–1884335</span>
+                </div>
+                <div class="shot-grid">
+                  <div class="shot-item">
+                    <div class="shot-dot-red"></div>
+                    <div class="shot-text"><span class="shot-badge critical">Critical</span><strong>Right Atrial Thrombus (Appendage)</strong> — Moderate-sized, pedunculated, fixed (sessile), cystic/hypoechoic thrombus in the right atrial appendage. High thromboembolic risk. Anticoagulation and cardiology review urgently required.</div>
+                  </div>
+                  <div class="shot-item">
+                    <div class="shot-dot-red"></div>
+                    <div class="shot-text"><span class="shot-badge critical">Critical</span><strong>Right Atrial Mass — IVC Origin</strong> — Moderate-sized, multilobular, hypoechoic mass extending from the inferior vena cava into the right atrium. Differential includes tumor thrombus or bland thrombus. Cross-sectional imaging recommended.</div>
+                  </div>
+                  <div class="shot-item">
+                    <div class="shot-dot-amber"></div>
+                    <div class="shot-text"><span class="shot-badge abnormal">Abnormal</span><strong>Right Atrial Enlargement</strong> — Enlarged right atrial cavity, likely secondary to hemodynamic effects of the above lesions.</div>
+                  </div>
+                  <div class="shot-item">
+                    <div class="shot-dot-blue"></div>
+                    <div class="shot-text"><span class="shot-badge context">Context</span><strong>Dual Pathology</strong> — Two simultaneous and potentially independent right heart lesions identified. Multidisciplinary review strongly advised.</div>
+                  </div>
+                </div>
+                <table class="shot-table">
+                  <thead>
+                    <tr><th>Finding</th><th>Location</th><th>Size</th><th>Key Features</th><th>Priority</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>Thrombus</td><td>RA Appendage</td><td>Moderate</td><td>Pedunculated, Sessile, Cystic</td><td><span class="shot-chip red">Critical</span></td></tr>
+                    <tr><td>Mass</td><td>RA → IVC</td><td>Moderate</td><td>Multilobular, Hypoechoic</td><td><span class="shot-chip red">Critical</span></td></tr>
+                    <tr><td>RA Enlargement</td><td>Right Atrium</td><td>—</td><td>Cavity enlarged</td><td><span class="shot-chip amber">Abnormal</span></td></tr>
+                  </tbody>
+                </table>
+                <div class="shot-note">
+                  Recommended next steps include urgent multidisciplinary review, cross-sectional imaging, and anticoagulation evaluation.
+                </div>
+              </div>
+            </div>
+          </div>
+          <figcaption>
+            <h3>Patient History Summary</h3>
+            <p class="muted">
+              This embedded panel mirrors the summary view, where the customer sees the key findings first, followed by a quick-reference table and next-step guidance.
+            </p>
+          </figcaption>
+        </figure>
+
+        <figure>
+          <div class="shot-frame">
+            <div class="embedded-shot" aria-label="Embedded Patient History Details screenshot">
+              <div class="shot-bar">
+                <span class="shot-dot"></span>
+                <span class="shot-dot"></span>
+                <span class="shot-dot"></span>
+              </div>
+              <div class="shot-toolbar">Patient History Details</div>
+              <div class="shot-body">
+                <div class="detail-cards">
+                  <div class="detail-card"><label>Patient</label><span>[ANONYMIZED]</span></div>
+                  <div class="detail-card"><label>Mission ID</label><span>49269</span></div>
+                  <div class="detail-card"><label>Folder ID</label><span>30992</span></div>
+                  <div class="detail-card"><label>Report Generated</label><span>2026-09-09</span></div>
+                </div>
+
+                <div class="alert-banner">
+                  <strong>Clinical Alert:</strong> This summary is derived solely from echocardiographic conclusions provided for the above exam IDs. Right atrial thrombus and a separate IVC-extending intracardiac mass are both present simultaneously.
+                </div>
+
+                <div class="section-box">
+                  <div class="section-box-title">Section 1 — Detailed History with Exam-Level Findings</div>
+                  <div class="section-box-body">
+                    <div class="detail-row">
+                      <div class="label">Right Atrial Cavity Size</div>
+                      <div class="value">Enlarged <span class="shot-chip amber" style="margin-left:8px;">Abnormal</span></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="section-box">
+                  <div class="section-box-title">Right Atrial Thrombus</div>
+                  <div class="section-box-body">
+                    <div class="critical-box">
+                      <h4>Presence: Confirmed — right atrial thrombus identified.</h4>
+                      <div class="critical-grid">
+                        <div class="k">Size</div><div class="v">Moderate</div>
+                        <div class="k">Location</div><div class="v">Right atrial appendage (RAA)</div>
+                        <div class="k">Morphology / Shape</div><div class="v">Pedunculated</div>
+                        <div class="k">Internal Texture</div><div class="v">Hypoechoic interior — cystic characteristics</div>
+                        <div class="k">Mobility / Attachment</div><div class="v">Fixed (sessile)</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <figcaption>
+            <h3>Patient History Details</h3>
+            <p class="muted">
+              This embedded panel mirrors the detailed view, where the customer can inspect the patient metadata, clinical alert, and exam-level findings.
+            </p>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">Why it matters</h2>
+      <div class="benefits">
+        <div class="benefit">
+          <h4>Less scanning, more understanding</h4>
+          <p>The user does not have to jump across multiple reports to reconstruct the patient story.</p>
+        </div>
+        <div class="benefit">
+          <h4>Better focus on important findings</h4>
+          <p>Critical and abnormal items are surfaced early so they can be prioritized in the review process.</p>
+        </div>
+        <div class="benefit">
+          <h4>Consistent experience</h4>
+          <p>The same summary pattern can be used whenever the customer needs a quick and reliable patient history view.</p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: "base",
+    securityLevel: "loose",
+    themeVariables: {
+      primaryColor: "#dbeafe",
+      primaryTextColor: "#0f2448",
+      primaryBorderColor: "#175cff",
+      lineColor: "#93a8c7",
+      secondaryColor: "#ddf6f2",
+      tertiaryColor: "#fff4db",
+      background: "#ffffff",
+      mainBkg: "#ffffff",
+      fontFamily: "Segoe UI, Arial, sans-serif"
+    }
+  });
+</script>
+</body>
+</html>
