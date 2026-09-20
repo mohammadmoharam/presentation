@@ -12,8 +12,10 @@ modified.
 | `AI-Executive-Overview.pdf` | PDF export (LibreOffice) |
 | `previews/slide-1.png` … `slide-3.png` | Rendered previews used for visual QA |
 | `slide-2-preview.png` | Standalone preview of the redesigned slide 2 |
+| `slide-3-preview.png` | Standalone preview of the redesigned slide 3 |
 | `generate_presentation.py` | Reproducible generation script |
 | `update_slide_2.py` | Rebuilds **only** slide 2 in the existing PPTX (slides 1 and 3 untouched) |
+| `update_slide_3.py` | Rebuilds **only** slide 3 in the existing PPTX (slides 1 and 2 untouched) |
 | `assets/ai-history-summary-crop.png` | Tightly cropped product screenshot (demo data, identifiers removed) |
 
 ## The story
@@ -31,9 +33,10 @@ modified.
    storage capacity and performance degradation prediction, with queue backlog forecasting
    *in progress* and prioritized remediation recommendations *next*), and the business
    impact that follows. AI Copilot for Operations is the next step.
-3. **Next — four investment themes.** Reporting quality & safety, operational
-   intelligence, engineering productivity, and PACS independence & platform
-   modernisation, with one recommended starting point.
+3. **Next — three priority themes.** Reporting quality & safety, operational
+   intelligence and engineering productivity, presented as focus areas and business
+   value. No effort sizing, proposed next steps or roadmap commitments appear on the
+   visible slide; the wider initiative list and open questions stay in the notes.
 
 ## Source mapping
 
@@ -45,17 +48,20 @@ modified.
 
 Theme composition (full mapping, also summarised in the slide-3 speaker notes):
 
-- **Reporting quality & safety** — AI report discrepancy detector (critical/major/follow-up/
-  laterality/measurement checks, pre-sign-off warning, prelim-to-final quality score),
-  follow-up recommendation tracking, ORU/report enrichment.
-- **Operational intelligence** — interface issue triage, HL7 troubleshooting executive
-  summary mode, AI log analysis, log error grouping, AI dashboard ↔ CRM contract alerts,
-  continued HL7/PACS monitoring.
-- **Engineering productivity** — EHR Orchestrator test-automation POC, natural-language
-  codebase knowledge access, dead-code cleanup.
-- **PACS independence & platform modernisation** — remove the out-of-support EMR module and
-  move needed logic to PACS, thick-client/web separation with cross-OS file handling,
-  admin tool for PACS-only installations, OCI bucket storage POC, AI ECG findings.
+- **Reporting quality & safety** (on slide: AI Report Discrepancy Detector, AI ECG findings
+  from signals) — discrepancy detection covers critical/major/follow-up/laterality/
+  measurement changes with a pre-sign-off warning and a prelim-to-final quality score;
+  follow-up recommendation tracking and ORU/report enrichment stay in the notes.
+- **Operational intelligence** (on slide: unified PACS / HL7 investigation, proactive log
+  analysis) — interface issue triage, HL7 troubleshooting executive summary mode, log error
+  grouping and AI dashboard ↔ CRM contract alerts stay in the notes.
+- **Engineering productivity** (on slide: AI-assisted test orchestration, codebase knowledge
+  assistant) — EHR Orchestrator test-automation POC and natural-language codebase knowledge
+  access; dead-code cleanup stays in the notes.
+- **Not shown as a theme** — PACS independence & platform modernisation (EMR dependency
+  removal, thick-client/web separation with cross-OS file handling, admin tool for PACS-only
+  installations, OCI bucket storage POC) is kept out of the three-theme portfolio; AI ECG
+  findings moved into reporting quality & safety.
 
 Deliberately excluded from the visible slide (kept in notes): the Us2.ai and Intelerad
 market comparators — they are references to what the market is doing, **not** our
@@ -81,7 +87,7 @@ achievements.
 | --- | --- | --- |
 | Slide 1 (delivered) | “Effort not documented” | No source records delivery effort. Known effort concentrations (Matcha model evaluation, caching) are described qualitatively in the Priors deck, slides 8–9. |
 | Slide 2 (in progress) | “Sizing to be confirmed” + named remaining work | The project description states file transfer provides “policy decisions and audit records before enabling full real file streaming”, and that AgentRelay is “introduced and validated in stages”. No sizing or dates exist in any source. |
-| Slide 3 (future) | Small / Medium / Large, labelled **Preliminary R&D sizing** | Qualitative judgement from documented scope and dependency breadth only — clinical validation needs, reuse of the existing Sentinel platform, an existing POC, or platform-wide database/business-logic/deployment change. No source contains effort figures. Prototype-scale evidence was **not** extrapolated into full-product delivery estimates. |
+| Slide 3 (future) | No effort statement | Effort, sizing and proposed next steps were removed from the visible slide by design; sizing remains an open discovery question recorded in the speaker notes. No source contains effort figures, and prototype-scale evidence was **not** extrapolated into delivery estimates. |
 
 ## Assumptions and unresolved questions
 
@@ -105,8 +111,7 @@ achievements.
    in the sources for either project; the recommended next step on slide 1 is to agree the
    metrics that would produce them.
 7. **Word budget.** Slides 1 and 2 sit inside the ~60–90 visible-word guidance; slide 3 is
-   slightly above it because the portfolio table carries four required columns
-   (Theme / Business Value / Effort / Proposed Next Step) across four themes.
+   marginally above it once the eyebrow, theme numbers and “VALUE” labels are counted.
 
 ## Regeneration
 
@@ -114,8 +119,9 @@ achievements.
 pip install python-pptx pillow            # deck generation
 python3 MS-AI/Executive-Presentation/generate_presentation.py
 
-# slide 2 only, edited in place in the existing deck
+# slide 2 or slide 3 only, edited in place in the existing deck
 cd MS-AI/Executive-Presentation && python3 update_slide_2.py
+cd MS-AI/Executive-Presentation && python3 update_slide_3.py
 
 # optional: PDF export and PNG previews (LibreOffice + PyMuPDF)
 sudo apt-get install -y libreoffice-impress

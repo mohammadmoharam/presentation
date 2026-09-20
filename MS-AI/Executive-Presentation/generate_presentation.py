@@ -400,127 +400,142 @@ Monitoring, Alerting, and Auto-Remediation Solution_20260513141714.pptx (slides 
 # Slide 3 - Future and next ideas
 # --------------------------------------------------------------------------
 def slide_three(prs):
-    s = blank(prs)
+    build_slide_three(blank(prs))
+
+
+def build_slide_three(s):
+    """Future R&D ideas as three priority themes."""
     chrome(
         s,
-        "NEXT  ·  INVESTMENT OPTIONS FOR Q4 AND 2027",
-        "Four Themes, One Recommended Starting Point",
-        "Preliminary R&D sizing, not delivery commitments; full initiative "
-        "list in the notes.",
+        "NEXT  \u00b7  AI R&D PORTFOLIO",
+        "Future AI R&D Opportunities",
+        "Focused portfolio for safer reporting, smarter operations and "
+        "scalable engineering",
     )
 
-    top = Inches(2.28)
-    rows = [
-        ("Reporting quality & safety",
-         "Catch prelim-vs-final discrepancies",
-         "Medium–Large",
-         "Pilot with one customer"),
-        ("Operational intelligence",
-         "AI triage of HL7 and interface failures",
-         "Medium",
-         "Extend Sentinel to HL7 / PACS"),
-        ("Engineering productivity",
-         "AI test automation and codebase access",
-         "Small–Medium",
-         "Continue the existing POC"),
-        ("PACS independence & platform",
-         "Retire EMR dependency; object storage",
-         "Large",
-         "Run the object-storage POC first"),
+    cy = Inches(2.24)
+    ch = Inches(3.62)
+    gap = Inches(0.26)
+    w = int((CONTENT_W - 2 * gap) / 3)
+    cards = [
+        ("01", "Reporting Quality & Safety", TEAL, [
+            "AI Report Discrepancy Detector",
+            "AI ECG Findings from Signals",
+        ], "Safer workflows, earlier discrepancy awareness, structured "
+           "interpretation support"),
+        ("02", "Operational Intelligence", NAVY_SOFT, [
+            "Unified PACS / HL7 Investigation",
+            "Proactive Log Analysis",
+        ], "Earlier detection, faster triage and root cause, less manual "
+           "investigation"),
+        ("03", "Engineering Productivity", NAVY, [
+            "AI-Assisted Test Orchestration",
+            "Codebase Knowledge Assistant",
+        ], "Faster validation, better regression coverage, reusable "
+           "knowledge"),
     ]
-    headers = ("THEME", "BUSINESS VALUE", "EFFORT", "PROPOSED NEXT STEP")
-    widths = [Inches(2.75), Inches(4.35), Inches(1.55), Inches(3.44)]
-    header_h = Inches(0.38)
-    row_h = Inches(0.86)
+    for i, (num, title, colour, items, value) in enumerate(cards):
+        x = MARGIN + i * (w + gap)
+        card = rect(s, x, cy, Emu(w), ch, fill=WHITE, line_color=LINE)
+        tab = s.shapes.add_shape(MSO_SHAPE.RECTANGLE, x, cy, Emu(w), Pt(5))
+        tab.fill.solid()
+        tab.fill.fore_color.rgb = colour
+        tab.line.fill.background()
+        tab.shadow.inherit = False
 
-    x = MARGIN
-    for w, head in zip(widths, headers):
-        _, tf = textbox(s, x + Inches(0.1), top, w - Inches(0.1), header_h)
-        write(tf, head, size=12, color=TEAL, bold=True, first=True,
-              space_after=0)
-        x += w
+        tf = card.text_frame
+        tf.vertical_anchor = MSO_ANCHOR.TOP
+        tf.margin_left = tf.margin_right = Inches(0.16)
+        tf.margin_top = Inches(0.20)
+        write(tf, num, size=12, color=colour, bold=True, first=True,
+              space_after=2, line=1.0, align=PP_ALIGN.LEFT)
+        write(tf, title, size=16, color=NAVY, bold=True, space_after=10,
+              line=1.05, align=PP_ALIGN.LEFT)
+        for text in items:
+            write(tf, [("\u25aa  ", {"color": colour, "bold": True}),
+                       (text, {})],
+                  size=14, color=NAVY_SOFT, space_after=7, line=1.08,
+                  align=PP_ALIGN.LEFT)
 
-    for r, row in enumerate(rows):
-        y = top + header_h + r * row_h
-        if r % 2 == 0:
-            rect(s, MARGIN, y, CONTENT_W, row_h - Inches(0.06),
-                 fill=GREY_LIGHT, line_color=None, adj=0.08)
-        x = MARGIN
-        for c, (w, cell) in enumerate(zip(widths, row)):
-            _, tf = textbox(s, x + Inches(0.1), y + Inches(0.08),
-                            w - Inches(0.2), row_h - Inches(0.16),
-                            anchor=MSO_ANCHOR.MIDDLE)
-            write(tf, cell, size=16,
-                  color=NAVY if c == 0 else (AMBER if c == 2 else GREY),
-                  bold=(c == 0 or c == 2), first=True, space_after=0,
-                  line=1.05)
-            x += w
+        vy = cy + ch - Inches(1.34)
+        panel = rect(s, x + Inches(0.14), vy, Emu(w) - 2 * Inches(0.14),
+                     Inches(1.18), fill=GREY_LIGHT, line_color=None, adj=0.08)
+        vtf = panel.text_frame
+        vtf.margin_left = vtf.margin_right = Inches(0.12)
+        vtf.margin_top = vtf.margin_bottom = Inches(0.08)
+        vtf.vertical_anchor = MSO_ANCHOR.TOP
+        write(vtf, "VALUE", size=10, color=colour, bold=True, first=True,
+              space_after=3, line=1.0, align=PP_ALIGN.LEFT)
+        write(vtf, value, size=12, color=GREY, space_after=0, line=1.16,
+              align=PP_ALIGN.LEFT)
 
-    ask_y = top + header_h + len(rows) * row_h + Inches(0.14)
-    ask = rect(s, MARGIN, ask_y, CONTENT_W, Inches(0.92), fill=NAVY,
-               line_color=None)
-    tf = ask.text_frame
+    by = cy + ch + Inches(0.30)
+    strip = rect(s, MARGIN, by, CONTENT_W, Inches(0.70), fill=NAVY,
+                 line_color=None)
+    tf = strip.text_frame
     tf.vertical_anchor = MSO_ANCHOR.MIDDLE
-    write(tf, "RECOMMENDATION — NO ASK DOCUMENTED IN SOURCES",
-          size=11, color=TEAL_LIGHT, bold=True, first=True, space_after=4)
-    write(tf, "Approve discovery funding for the discrepancy detector; confirm "
-              "HL7/PACS in the next Sentinel increment.",
-          size=18, color=WHITE, bold=True, space_after=0, line=1.05)
+    write(tf, [("Portfolio intent:  ", {"bold": True, "color": WHITE}),
+               ("Prioritize pilots that improve safety, reduce operational "
+                "burden and scale team productivity.", {"color": TEAL_LIGHT})],
+          size=15, first=True, space_after=0, line=1.0,
+          align=PP_ALIGN.CENTER)
 
     notes(s, """
-Opening: the planning material holds roughly twenty ideas. Rather than read a feature
-list, I have grouped them into four investment themes and put one recommendation in front
-of you.
+Opening: this slide groups the next R&D ideas into three priority themes rather than a long
+feature list, so we can talk about where to focus rather than what exists on paper.
 
-Why these four, and what is behind each theme (all from
-MS-AI/Next Ideas/Q4 and 2027 ideas.docx):
-1. Reporting quality & safety — AI report discrepancy detector comparing preliminary and
-   final reports (critical, major, follow-up, laterality and measurement discrepancies with
-   a pre-sign-off warning), findings-vs-impression consistency checks, critical result
-   detection, template completeness and a prelim-to-final quality score, plus follow-up
-   recommendation tracking that creates tasks in PACS or an administrative dashboard, and
-   ORU / report enrichment for referring physicians.
-2. Operational intelligence — HL7 and interface issue triage from interface-engine logs,
-   HL7 troubleshooting executive summary mode, AI log analysis, error-grouping over logs
-   already collected, and integration of the AI dashboard with CRM contract data to raise
-   alerts when storage or concurrent-user limits are exceeded.
-3. Engineering productivity — the EHR Orchestrator test-automation proof of concept
-   (chat-driven, record, test and AI modes across desktop and web, which already surfaced
-   defects logged in TFS), natural-language codebase knowledge access, and dead-code
-   cleanup.
-4. PACS independence & platform modernisation — removing the out-of-support EMR module and
-   moving required logic to PACS, separating thick-client and web business logic with
-   cross-OS file handling, an admin tool for PACS-only installations, object storage in an
-   OCI bucket, and AI-generated ECG findings from ECG signals.
+Why the themes matter to management: the first protects patients and reduces reporting
+risk, the second reduces operational burden and improves how quickly we respond to
+customers, and the third increases how much the engineering team can deliver with the
+people we already have.
 
-Deliberately kept off the slide: the market comparators — Us2.ai for automated
-echocardiography reporting and Intelerad for detection and triage. They are evidence that
-the market is moving toward AI measurement extraction and worklist prioritisation; they are
-not our achievements and should not be presented as such. Also omitted for space: the ECG
-finding generation idea, which is scientifically attractive but carries the heaviest
-regulatory load, and the autonomous infrastructure-remediation agent concept.
+1. Reporting Quality & Safety. The AI Report Discrepancy Detector compares the preliminary
+   report against the final report and flags clinically meaningful changes before sign-off -
+   positive to negative findings, critical findings added or removed, severity, laterality,
+   anatomy, significant measurement changes, impression conflicting with findings, and
+   removed follow-up recommendations. The documented workflow is a warning before finalising
+   the report: continue, revise, or add an addendum. The source also describes related
+   checks - critical result detection, template completeness, and a prelim-to-final quality
+   score by site, modality, provider or exam type. AI-generated ECG findings from ECG signals
+   is listed as a research opportunity for structured interpretation support. In both cases
+   AI assists review; it does not replace clinician judgement.
 
-Gap to flag: secure image and report sharing was requested as a topic, but I could not find
-it anywhere in the planning document. If leadership expects it in the portfolio, the idea
-needs to be supplied before it can be positioned.
+2. Operational Intelligence. Unified PACS / HL7 monitoring and investigation builds directly
+   on the dashboard direction shown on the previous slide, and the ideas document adds
+   interface issue triage from interface-engine logs (connectivity, ACK timeout, application
+   reject, data validation, destination downtime) plus an executive summary mode that states
+   what happened, when it started, which facility is affected and how many studies are
+   impacted. Log analysis and proactive problem detection groups recurring errors, ranks them
+   by severity and explains the likely cause in plain language, which cuts manual log review
+   and improves support response and customer communication.
 
-Effort basis and uncertainty: Small / Medium / Large here are preliminary R&D judgements
-based on documented scope and dependency breadth — discrepancy detection needs clinical
-validation and sign-off workflow changes; operational intelligence largely reuses the
-Sentinel platform; engineering productivity already has a working proof of concept; PACS
-independence touches database, business logic and deployment across every customer. No
-source contains effort figures or dates, and none of the proofs of concept justify
-estimating full-product delivery. Treat all four as recommendations for discovery, not
-commitments.
+3. Engineering Productivity. AI-assisted test orchestration comes from the EHR Orchestrator
+   proof of concept - chat-driven, record, structured test and AI modes across desktop and
+   web - which already surfaced defects logged in TFS; it can reduce manual QA effort and
+   make validation repeatable. An internal codebase knowledge assistant lets teams query a
+   large, poorly documented codebase in natural language, reducing dependency on a few senior
+   experts and shortening onboarding.
 
-Why the recommended starting point: the discrepancy detector addresses patient-safety and
-liability risk — the highest-value problem in the set — while the Sentinel HL7/PACS
-extension gives the fastest return because the platform already exists. Both are testable
-at small scale.
+Status framing: these are candidate R&D opportunities, not delivery commitments. No dates,
+sizing, ROI, accuracy or production-readiness claims are implied, because the sources contain
+none.
 
-The ask: approve discovery funding for a discrepancy-detector pilot with one customer, and
-confirm whether HL7/PACS monitoring belongs in the next Sentinel increment. Each of the
-other themes returns with a sized proposal once discovery output is available.
+Source review notes on MS-AI/Next Ideas/Q4 and 2027 ideas.docx. Other documented ideas are
+intentionally not on the slide to keep it readable: follow-up recommendation tracking, ORU /
+report enrichment, AI dashboard integration with CRM contract data, dead-code cleanup, EMR
+dependency removal, thick-client/web separation for cross-OS support, an admin tool for
+PACS-only installations, and an OCI bucket storage POC. The Us2.ai and Intelerad entries are
+market comparators, not our work, and are excluded for that reason.
+
+Open questions to flag: several items (the log analysis platform, the log error-grouping
+service and the codebase assistant) are written in the first person but reference an external
+organisation, and the figures quoted there should not be presented as our results until
+ownership is confirmed. Effort and sizing are deliberately absent from the slide and remain
+an open analysis item for discovery. Secure image and report sharing was raised previously
+but does not appear anywhere in the source document.
+
+The ask: the proposed decision is to select the highest-value pilots for discovery and
+validation.
 """)
 
 
