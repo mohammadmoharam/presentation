@@ -263,49 +263,47 @@ MS-AI/AI Priors/AI Patient Summary Support Runbook 1.html (sections 1-4).
 # Slide 2 - AI project in progress
 # --------------------------------------------------------------------------
 def slide_two(prs):
-    s = blank(prs)
+    build_slide_two(blank(prs))
+
+
+def build_slide_two(s):
+    """Executive view of the AI Operations Intelligence Dashboard."""
     chrome(
         s,
-        "IN PROGRESS  ·  SENTINEL AI OPERATIONS DASHBOARD",
-        "Governed Console for Server Health and AI Forecasts",
-        "Monitoring, approval-gated actions and forecasting are built; "
-        "secure file transfer and agent relay remain.",
+        "AI OPERATIONS  ·  PACS / HL7 SERVICE INTELLIGENCE",
+        "AI Operations Intelligence Dashboard",
+        "From reactive monitoring to predictive PACS / HL7 operations",
     )
 
-    top = Inches(2.30)
-    # Operational workflow band
-    band = rect(s, MARGIN, top, CONTENT_W, Inches(0.64), fill=TEAL_LIGHT,
-                line_color=None)
-    tf = band.text_frame
-    tf.vertical_anchor = MSO_ANCHOR.MIDDLE
-    write(tf, [("Detect  →  Forecast  →  Recommend  →  Approve  →  "
-                "Act  →  Audit", {})],
-          size=17, color=NAVY, bold=True, first=True, space_after=0,
-          align=PP_ALIGN.CENTER)
-
-    # Completed / In progress / Next columns
-    cy = top + Inches(0.80)
-    ch = Inches(2.80)
-    gap = Inches(0.22)
+    # ---- Three value cards -------------------------------------------------
+    cy = Inches(2.10)
+    ch = Inches(3.04)
+    gap = Inches(0.26)
     w = int((CONTENT_W - 2 * gap) / 3)
-    cols = [
-        ("COMPLETED", TEAL, [
-            "Health and capacity dashboard",
-            "Approval-gated commands, audited",
-            "Disk, memory, CPU forecasts",
+    cards = [
+        ("COMPLETED FOUNDATION", "Built and running", TEAL, TEAL_LIGHT, [
+            ("PACS / HL7 service monitoring", None),
+            ("Queue and interface visibility", None),
+            ("Operational status mapping", None),
+            ("Automation", None),
+            ("Automated issue classification", None),
         ]),
-        ("IN PROGRESS", AMBER, [
-            "Governed file transfer",
-            "Staged relay rollout",
-            "Automation rules",
+        ("AI INTELLIGENCE LAYER", "What AI adds", NAVY_SOFT, GREY_LIGHT, [
+            ("Risk forecasting", None),
+            ("Storage capacity prediction", None),
+            ("Performance degradation prediction", None),
+            ("Queue backlog forecasting", "In\u00a0Progress"),
+            ("Prioritized remediation recommendations", "Next"),
         ]),
-        ("NEXT", NAVY_SOFT, [
-            "HL7 and PACS monitoring",
-            "Contract alerts from CRM",
-            "Plain-language ops assistant",
+        ("BUSINESS IMPACT", "Why it matters", NAVY, GREY_LIGHT, [
+            ("Earlier detection", None),
+            ("Faster resolution", None),
+            ("Reduced operational effort", None),
+            ("Better customer experience", None),
+            ("Improved system availability", None),
         ]),
     ]
-    for i, (label, colour, items) in enumerate(cols):
+    for i, (label, kicker, colour, tint, items) in enumerate(cards):
         x = MARGIN + i * (w + gap)
         card = rect(s, x, cy, Emu(w), ch, fill=WHITE, line_color=LINE)
         tab = s.shapes.add_shape(MSO_SHAPE.RECTANGLE, x, cy, Emu(w), Pt(5))
@@ -314,69 +312,87 @@ def slide_two(prs):
         tab.line.fill.background()
         tab.shadow.inherit = False
         tf = card.text_frame
-        tf.margin_top = Inches(0.16)
+        tf.vertical_anchor = MSO_ANCHOR.TOP
+        tf.margin_left = tf.margin_right = Inches(0.13)
+        tf.margin_top = Inches(0.18)
         write(tf, label, size=13, color=colour, bold=True, first=True,
-              space_after=8)
-        for item in items:
-            write(tf, [("·  ", {"color": colour, "bold": True}), (item, {})],
-                  size=16, color=GREY, space_after=7, line=1.05)
+              space_after=1)
+        write(tf, kicker, size=11, color=GREY, space_after=9, line=1.0)
+        for text, badge in items:
+            runs = [("▪  ", {"color": colour, "bold": True}),
+                    (text, {})]
+            if badge:
+                runs.append(("   " + badge, {"color": AMBER, "bold": True,
+                                             "size": 11}))
+            write(tf, runs, size=13, color=NAVY_SOFT, space_after=7,
+                  line=1.05)
 
-    value_strip(s, [
-        ("BUSINESS VALUE", "Faster triage; fewer inbound paths to customers"),
-        ("IMPACT / EVIDENCE", "Expected benefits; no measured MTTR data yet"),
-        ("EFFORT & DEPENDENCIES", "Sizing to be confirmed · agent rollout, Matcha"),
-    ])
+    # ---- Status / roadmap strip -------------------------------------------
+    sy = cy + ch + Inches(0.20)
+    sh_h = Inches(0.70)
+    for i, (label, colour, body) in enumerate([
+        ("COMPLETED", TEAL, "Monitoring + automation"),
+        ("IN PROGRESS", AMBER, "Forecasting + queue backlog prediction"),
+        ("NEXT", NAVY_SOFT, "AI Copilot for Operations"),
+    ]):
+        x = MARGIN + i * (w + gap)
+        pill = rect(s, x, sy, Emu(w), sh_h, fill=GREY_LIGHT, line_color=LINE)
+        tf = pill.text_frame
+        tf.margin_left = tf.margin_right = Inches(0.12)
+        tf.vertical_anchor = MSO_ANCHOR.MIDDLE
+        write(tf, label, size=11, color=colour, bold=True, first=True,
+              space_after=2, line=1.0)
+        write(tf, body, size=12.5, color=NAVY_SOFT, space_after=0, line=1.0)
+
+    # ---- Business benefits strip ------------------------------------------
+    by = sy + sh_h + Inches(0.24)
+    strip = rect(s, MARGIN, by, CONTENT_W, Inches(0.62), fill=NAVY,
+                 line_color=None)
+    tf = strip.text_frame
+    tf.vertical_anchor = MSO_ANCHOR.MIDDLE
+    write(tf, [("Business Benefits:  ", {"bold": True, "color": WHITE}),
+               ("Prevent outages  |  Better planning  |  Reduced "
+                "emergency work  |  Capacity optimization",
+                {"color": TEAL_LIGHT})],
+          size=14, first=True, space_after=0, line=1.0,
+          align=PP_ALIGN.CENTER)
 
     notes(s, """
-Opening: the same AI approach is now pointed at our own cost base — the effort our support
-and operations teams spend keeping customer server environments healthy.
+Opening: this slide is about our own operations. PACS and HL7 problems are still found
+reactively - a queue backs up, an interface fails or a volume fills, and we hear about it
+after the customer is already affected. Every one of those events then costs manual
+investigation time.
 
-The problem: teams work reactively across PACS environments, HL7 interfaces, archives and
-storage growth. Alerts arrive after business impact has started, investigation is manual,
-and the effort scales with every new customer environment ("Proactive Infrastructure
-Management…pptx", slide 2 and notes).
+What is already completed: PACS / HL7 service monitoring, queue and interface visibility,
+operational status mapping, automation, and automated issue classification. That is the
+foundation - we can see the estate and act on it in a standard way.
 
-What Sentinel enables: a single dashboard for server inventory, health, performance,
-storage and incidents; a Windows agent that executes only allow-listed commands with
-risk classification and approval gates; browser-based RDP that keeps RDP credentials out
-of the platform; and AI forecasting for disk, memory and CPU risk with deterministic
-fallbacks ("AI Dashboard Brief Project Description.docx", Key Capabilities).
+What AI adds on top: risk forecasting, storage capacity prediction and performance
+degradation prediction, plus prioritized remediation recommendations so the team is told
+what to do first, not just what is broken. Queue backlog forecasting is in progress, and
+the prioritized remediation recommendations are the next increment.
 
-Why management should care: it reduces time to resolution, removes the need for inbound
-access and VPN routing into customer networks because agents connect outbound, and it
-leaves an audit record for every login, command, approval and remote session — which is
-exactly what customers ask us for during security reviews.
+What is next after that: an AI Copilot for Operations - plain-language questions such as
+"why is HL7 failing?" or "which server is most at risk?" - so investigation is not limited
+to the few engineers who know where to look.
 
-Status and evidence limits: the capability list is documented as built, but the document
-itself signals unfinished work — the file transfer layer today returns policy decisions
-and audit records "before enabling full real file streaming", and the newer AgentRelay
-capability is being "introduced and validated in stages" while direct connectivity
-remains. Note a discrepancy the executives should know about: the May 2026 deck is an
-AI-assisted proof of concept with generated mockups (slide 15), whereas the project
-description describes a working platform. I am presenting the project description as the
-status of record and treating the deck's autonomous-operations phases as roadmap, not
-delivery.
+Business impact: earlier detection, faster resolution, reduced operational effort, a better
+customer experience, improved system availability, and better capacity planning because
+growth is forecast instead of discovered.
 
-Effort, dependencies, risk: remaining effort is not sized in any source, so the honest
-answer is "to be confirmed"; I would not quote a date. Dependencies are Matcha AI through
-the abstraction layer, Azure AD / Microsoft Identity for dashboard sign-in, Zoho Vault for
-secret lookup, PostgreSQL/SQLite telemetry storage, and customer willingness to install
-the agent. Main risks: agent rollout friction, forecast trust, and scope creep toward
-autonomous remediation before approval controls are proven.
+Framing for this audience: this is an operational efficiency and customer experience
+initiative, not only a technical dashboard. It changes how much unplanned, out-of-hours
+work we absorb and how early we can talk to a customer.
 
-Decision / next step: confirm the next milestone — complete governed file transfer and
-staged relay validation on a defined set of internal servers — and approve whether HL7 and
-PACS monitoring is in scope for the next increment, since that is what converts this from
-an IT tool into a managed-services differentiator.
-
-Transition: with one capability delivered and one in flight, the question becomes where we
-invest next.
+Evidence discipline: I am deliberately not quoting savings, percentages, ROI, dates or
+production scope - the source material does not contain them. The benefits listed are
+expected benefits, and the next useful step is agreeing the two or three operational
+metrics (time to detect, time to resolve, volume of emergency work) that would prove them.
 
 Sources: MS-AI/AI Dashboard/AI Dashboard Brief Project Description.docx (Objectives, Key
-Capabilities, Business Value); MS-AI/AI Dashboard/Proactive Infrastructure Management_…
-_20260513141714.pptx (slides 2-9, 13-15 + notes); "next" items also appear in
-MS-AI/Next Ideas/Q4 and 2027 ideas.docx (AI monitoring dashboard for HL7/PACS; CRM
-contract alerts).
+Capabilities, Business Value); MS-AI/AI Dashboard/Proactive Infrastructure Management_ A
+Monitoring, Alerting, and Auto-Remediation Solution_20260513141714.pptx (slides 2-3, 5, 7,
+9, 13-14).
 """)
 
 

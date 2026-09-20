@@ -11,7 +11,9 @@ modified.
 | `AI-Executive-Overview.pptx` | Exactly 3 editable slides (shapes, text and cards are native PowerPoint objects) with embedded speaker notes |
 | `AI-Executive-Overview.pdf` | PDF export (LibreOffice) |
 | `previews/slide-1.png` … `slide-3.png` | Rendered previews used for visual QA |
+| `slide-2-preview.png` | Standalone preview of the redesigned slide 2 |
 | `generate_presentation.py` | Reproducible generation script |
+| `update_slide_2.py` | Rebuilds **only** slide 2 in the existing PPTX (slides 1 and 3 untouched) |
 | `assets/ai-history-summary-crop.png` | Tightly cropped product screenshot (demo data, identifiers removed) |
 
 ## The story
@@ -22,11 +24,13 @@ modified.
    into one structured, prioritised patient view that is prefetched and waiting inside the
    existing reporting workflow. Built and generating summaries; pilot/production adoption
    is *not* evidenced by the sources.
-2. **In progress — Sentinel AI operations dashboard.** One governed console for server
-   health, approval-gated remote action and AI capacity forecasting, replacing reactive,
-   manual support effort. Monitoring, approvals, forecasting and browser RDP are described
-   as built; governed real file transfer and the agent-mediated relay are still being
-   completed.
+2. **In progress — AI Operations Intelligence Dashboard.** Moving PACS / HL7 operations
+   from reactive monitoring to predictive service intelligence: a completed foundation
+   (monitoring, queue and interface visibility, operational status mapping, automation and
+   automated issue classification), an AI intelligence layer on top (risk forecasting,
+   storage capacity and performance degradation prediction, with queue backlog forecasting
+   *in progress* and prioritized remediation recommendations *next*), and the business
+   impact that follows. AI Copilot for Operations is the next step.
 3. **Next — four investment themes.** Reporting quality & safety, operational
    intelligence, engineering productivity, and PACS independence & platform
    modernisation, with one recommended starting point.
@@ -109,6 +113,9 @@ achievements.
 ```bash
 pip install python-pptx pillow            # deck generation
 python3 MS-AI/Executive-Presentation/generate_presentation.py
+
+# slide 2 only, edited in place in the existing deck
+cd MS-AI/Executive-Presentation && python3 update_slide_2.py
 
 # optional: PDF export and PNG previews (LibreOffice + PyMuPDF)
 sudo apt-get install -y libreoffice-impress
