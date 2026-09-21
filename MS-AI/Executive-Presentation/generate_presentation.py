@@ -14,6 +14,7 @@ Optional rendering (PDF + PNG previews) requires LibreOffice:
 
 from pathlib import Path
 
+from PIL import Image
 from pptx import Presentation
 from pptx.dml.color import RGBColor
 from pptx.enum.shapes import MSO_SHAPE
@@ -539,12 +540,138 @@ validation.
 """)
 
 
+# --------------------------------------------------------------------------
+# Supporting slides - AI Dashboard screenshots (appendix, after slide 3)
+# --------------------------------------------------------------------------
+SHOTS_DIR = HERE / "assets" / "dashboard-screenshots"
+SHOTS = [
+    ("Screenshot_1.png", "Storage Monitoring",
+     "Drive usage and capacity planning with AI volume-capacity forecasts"),
+    ("Screenshot_2.png", "CPU & Memory Process Insights",
+     "Top resource consumers per server"),
+    ("Screenshot_3.png", "Alert Management & Failures Control Center",
+     "Real-time monitoring and incident response"),
+    ("Screenshot_4.png", "Automation Rules & Actions Engine",
+     "Threshold-based automated actions"),
+]
+
+LINK_SHAPE_NAME = "screenshot-appendix-link"
+
+
+def nav_button(slide, x, y, w, h, text, target, primary=False):
+    """Small pill button hyperlinked to another slide in the same deck."""
+    btn = rect(slide, x, y, w, h,
+               fill=NAVY if primary else WHITE,
+               line_color=None if primary else LINE, adj=0.5)
+    tf = btn.text_frame
+    tf.margin_left = tf.margin_right = Inches(0.08)
+    tf.margin_top = tf.margin_bottom = 0
+    tf.vertical_anchor = MSO_ANCHOR.MIDDLE
+    write(tf, text, size=11.5, color=WHITE if primary else NAVY_SOFT,
+          bold=True, first=True, space_after=0, line=1.0,
+          align=PP_ALIGN.CENTER)
+    btn.click_action.target_slide = target
+    return btn
+
+
+def add_screenshot_link(slide, target):
+    """Subtle 'View Dashboard Screenshots' button, bottom-right of slide 2."""
+    w, h = Inches(2.30), Inches(0.32)
+    x = SW - MARGIN - w
+    y = SH - Inches(0.52)
+    btn = nav_button(slide, x, y, w, h, "View Dashboard Screenshots ›", target)
+    btn.name = LINK_SHAPE_NAME
+    btn.line.color.rgb = TEAL
+    for para in btn.text_frame.paragraphs:
+        for run in para.runs:
+            run.font.color.rgb = TEAL
+    return btn
+
+
+def build_screenshot_appendix(prs, slide_two_ref):
+    """Four supporting slides, one dashboard screenshot each, cross-linked."""
+    slides = [blank(prs) for _ in SHOTS]
+    for i, (s, (name, title, caption)) in enumerate(zip(slides, SHOTS)):
+        bar = s.shapes.add_shape(MSO_SHAPE.RECTANGLE, 0, 0, Inches(0.16), SH)
+        bar.fill.solid()
+        bar.fill.fore_color.rgb = NAVY
+        bar.line.fill.background()
+        bar.shadow.inherit = False
+
+        _, tf = textbox(s, MARGIN, Inches(0.34), CONTENT_W, Inches(0.26))
+        write(tf, "SUPPORTING SCREENSHOTS \u2014 OPTIONAL DEEP DIVE", size=11,
+              color=TEAL, bold=True, first=True, space_after=0)
+
+        _, tf = textbox(s, MARGIN, Inches(0.60), Inches(8.2), Inches(0.44))
+        write(tf, "AI Dashboard Screenshots", size=24, color=NAVY, bold=True,
+              first=True, space_after=0, line=1.0)
+
+        _, tf = textbox(s, MARGIN, Inches(1.06), Inches(9.4), Inches(0.34))
+        write(tf, [(f"{i + 1} of {len(SHOTS)}  \u00b7  ",
+                    {"color": GREY, "bold": True}),
+                   (title, {"color": NAVY_SOFT, "bold": True}),
+                   (f"  \u2014 {caption}", {"color": GREY})],
+              size=13, first=True, space_after=0, line=1.05)
+
+        path = SHOTS_DIR / name
+        if path.exists():
+            box_y = Inches(1.52)
+            box_h = Inches(5.24)
+            box_w = CONTENT_W
+            with Image.open(path) as im:
+                px_w, px_h = im.size
+            w = box_w
+            h = int(w * px_h / px_w)
+            if h > box_h:
+                h = box_h
+                w = int(h * px_w / px_h)
+            x = MARGIN + int((box_w - w) / 2)
+            s.shapes.add_picture(str(path), x, box_y, width=Emu(w),
+                                 height=Emu(h))
+            frame = rect(s, Emu(x - 9525), box_y - Emu(9525),
+                         Emu(w + 19050), Emu(h + 19050), fill=None,
+                         line_color=LINE, shape=MSO_SHAPE.RECTANGLE)
+            frame.line.width = Pt(1.0)
+            _, tf = textbox(s, MARGIN, Inches(6.86), Inches(6.0), Inches(0.3))
+            write(tf, f"Source: MS-AI/AI Dashboard/Screenshots/{name} "
+                  "\u2014 user identity redacted",
+                  size=10, color=GREY, first=True, space_after=0, line=1.0)
+
+        # Navigation: Back to slide 2 (always) + Previous / Next
+        bw, bh = Inches(1.72), Inches(0.34)
+        gap = Inches(0.12)
+        y = Inches(6.84)
+        right = SW - MARGIN
+        nav_button(s, right - bw, y, bw, bh, "Back to Slide 2", slide_two_ref,
+                   primary=True)
+        if i + 1 < len(slides):
+            nav_button(s, right - 2 * bw - gap, y, bw, bh,
+                       "Next Screenshot \u203a", slides[i + 1])
+        if i > 0:
+            offset = 3 if i + 1 < len(slides) else 2
+            nav_button(s, right - offset * bw - (offset - 1) * gap, y, bw, bh,
+                       "\u2039 Previous", slides[i - 1])
+
+        notes(s, f"""
+Supporting screenshot {i + 1} of {len(SHOTS)} for the AI Operations Intelligence
+Dashboard (slide 2): {title} \u2014 {caption}. Optional deep dive only; it is not part
+of the three-slide executive story. Use "Back to Slide 2" to return to the main flow.
+
+Source image: MS-AI/AI Dashboard/Screenshots/{name}, MS-TEST environment. The signed-in
+user chip (and, on the automation slide, the requester email address) is pixelated; no
+credentials, API keys, patient data or configuration secrets are shown.
+""")
+    return slides
+
+
 def main():
     prs = Presentation()
     prs.slide_width, prs.slide_height = SW, SH
     slide_one(prs)
     slide_two(prs)
     slide_three(prs)
+    appendix = build_screenshot_appendix(prs, prs.slides[1])
+    add_screenshot_link(prs.slides[1], appendix[0])
     prs.save(OUT)
     print(f"Wrote {OUT} ({len(prs.slides.__iter__.__self__._sldIdLst)} slides)")
 
