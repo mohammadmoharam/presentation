@@ -8,18 +8,24 @@ modified.
 
 | File | Description |
 | --- | --- |
-| `AI-Executive-Overview.pptx` | 3 editable executive slides (shapes, text and cards are native PowerPoint objects) with embedded speaker notes, plus 4 supporting screenshot slides appended after slide 3 |
+| `AI-Executive-Overview.pptx` | 3 editable executive slides (shapes, text and cards are native PowerPoint objects) with embedded speaker notes, plus 4 supporting screenshot slides and 2 supporting record slides appended after slide 3 |
 | `AI-Executive-Overview.pdf` | PDF export (LibreOffice) |
-| `previews/slide-1.png` … `slide-7.png` | Rendered previews used for visual QA (4–7 are the screenshot appendix) |
+| `previews/slide-1.png` … `slide-9.png` | Rendered previews used for visual QA (4–7 are the screenshot appendix, 8–9 the record appendix) |
 | `slide-2-preview.png` | Standalone preview of the redesigned slide 2 |
 | `slide-3-preview.png` | Standalone preview of the redesigned slide 3 |
 | `slide-2-with-screenshot-link.png` | Preview of slide 2 showing the **View Dashboard Screenshots** button |
+| `slide-1-with-record-link.png` | Preview of slide 1 showing the **View AI Priors Records** button and the tool/agent badge |
+| `slide-2-with-tool-agent-badge.png` | Preview of slide 2 showing the tool/agent badge (screenshot link unchanged) |
 | `screenshot-appendix-1.png` … `-4.png` | Previews of the four supporting screenshot slides |
+| `record-appendix-1.png`, `-2.png` | Previews of the two supporting record slides |
 | `generate_presentation.py` | Reproducible generation script |
 | `update_slide_2.py` | Rebuilds **only** slide 2 in the existing PPTX (slides 1 and 3 untouched) |
 | `update_slide_3.py` | Rebuilds **only** slide 3 in the existing PPTX (slides 1 and 2 untouched) |
 | `add_screenshot_appendix.py` | Rebuilds the 4 screenshot appendix slides and the slide-2 link (idempotent; slides 1–3 otherwise untouched) |
+| `add_record_appendix.py` | Rebuilds the 2 record appendix slides, the slide-1 record link and the slide-1/2 tool–agent badges (idempotent; slides 1–3 otherwise untouched) |
 | `prepare_screenshots.py` | Builds the redacted copies of the four AI Dashboard screenshots used by the appendix |
+| `prepare_record_posters.py` | Builds the generated navy cover cards used as the poster frames of the two recordings |
+| `assets/record-posters/old-flow.png`, `new-flow.png` | Generated cover cards (no frame of the recordings is reproduced) |
 | `assets/dashboard-screenshots/Screenshot_1.png` … `_4.png` | Redacted copies of `MS-AI/AI Dashboard/Screenshots/*` (signed-in user chip and one requester email pixelated; no crop, aspect ratio unchanged) |
 | `assets/ai-history-summary-crop.png` | Tightly cropped product screenshot (demo data, identifiers removed) |
 
@@ -71,6 +77,46 @@ definitions — no credentials, API keys, patient data or configuration secrets.
 `prepare_screenshots.py` before `add_screenshot_appendix.py` if the sources change. Re-run
 `add_screenshot_appendix.py` after `update_slide_2.py`, which rebuilds slide 2 from
 scratch and therefore removes the link button.
+
+## Record appendix (supporting deep dive)
+
+The two screen recordings in `MS-AI/AI Priors/Records/` (`Old Flow.mp4`, 1920×1080,
+01:30 and `New flow.mp4`, 1920×1080, 00:54) are the optional demo material for slide 1.
+They are **embedded** in the deck as PowerPoint movie objects — one recording per slide,
+placed in a 16:9 box so the native aspect ratio is preserved — on two supporting slides
+appended after the screenshot appendix:
+
+| Slide | Content | Navigation |
+| --- | --- | --- |
+| 1 | Executive summary (unchanged) | Small outlined **View AI Priors Records ›** button, bottom-right corner |
+| 8 | `Old Flow.mp4` — manual prior-report review | Next Record · Back to Slide 1 |
+| 9 | `New flow.mp4` — AI patient history summary | Previous Record · Back to Slide 1 |
+
+All navigation uses internal PowerPoint slide hyperlinks. The slides are labelled
+`SUPPORTING RECORDS — OPTIONAL DEEP DIVE`, left visible (like the screenshot appendix) so
+the PDF and PNG exports contain them, and are not part of the three-slide story.
+
+**Sensitivity.** The recordings are screen captures of the patient-summary workflow and
+may show demo clinical content, so no frame of them is reproduced as a static image: the
+poster frame shown on the slide (and therefore in the PDF and the PNG previews) is a
+generated navy title card built by `prepare_record_posters.py`. The recording itself plays
+only when the deck is opened in PowerPoint, i.e. only when a presenter deliberately starts
+it. The source path `MS-AI/AI Priors/Records/<file>` is printed on each slide and in the
+speaker notes.
+
+## Tool and agent badges
+
+Slides 1 and 2 carry a small grey pill in the bottom-left footer, in the existing navy /
+teal / light-grey palette:
+
+| Slide | Badge |
+| --- | --- |
+| 1 | **Tool:** Matcha AI Platform · **Agent:** Claude Sonnet |
+| 2 | **Tool:** Matcha AI Platform · **Agent:** Gemini Flash Lite 3.1 |
+
+The matching one-sentence note is appended to the slide-1 and slide-2 speaker notes under
+“How it was built (only if asked)”, so the spoken storyline stays on business value rather
+than model names. Nothing else on slides 1–3 changed.
 
 ## Source mapping
 
@@ -161,6 +207,11 @@ cd MS-AI/Executive-Presentation && python3 update_slide_3.py
 # (idempotent; slides 1-3 and their speaker notes are kept as they are)
 cd MS-AI/Executive-Presentation && python3 prepare_screenshots.py
 cd MS-AI/Executive-Presentation && python3 add_screenshot_appendix.py
+
+# record appendix slides, slide-1 record link and the slide-1/2 tool-agent badges
+# (idempotent; run after add_screenshot_appendix.py, which drops every slide after 3)
+cd MS-AI/Executive-Presentation && python3 prepare_record_posters.py
+cd MS-AI/Executive-Presentation && python3 add_record_appendix.py
 
 # optional: PDF export and PNG previews (LibreOffice + PyMuPDF)
 sudo apt-get install -y libreoffice-impress

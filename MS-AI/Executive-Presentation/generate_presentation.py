@@ -249,6 +249,11 @@ Decision / next step: approve a measured pilot — agree the sites, the baseline
 or three metrics (review time, findings surfaced, clinician acceptance) so the next review
 reports evidence instead of intent.
 
+How it was built (only if asked): the capability runs on the Matcha AI Platform, with
+Claude Sonnet as the agent used to build it. Two optional demo recordings - the old
+manual flow and the new AI flow - are linked from the "View AI Priors Records" button in
+the bottom-right corner as supporting reference material.
+
 Transition: that is value delivered. Next, the value we are building for our own
 operations teams.
 
@@ -389,6 +394,9 @@ Evidence discipline: I am deliberately not quoting savings, percentages, ROI, da
 production scope - the source material does not contain them. The benefits listed are
 expected benefits, and the next useful step is agreeing the two or three operational
 metrics (time to detect, time to resolve, volume of emergency work) that would prove them.
+
+How it was built (only if asked): the dashboard uses the Matcha AI Platform, with Gemini
+Flash Lite 3.1 as the agent used to build it.
 
 Sources: MS-AI/AI Dashboard/AI Dashboard Brief Project Description.docx (Objectives, Key
 Capabilities, Business Value); MS-AI/AI Dashboard/Proactive Infrastructure Management_ A
@@ -664,6 +672,151 @@ credentials, API keys, patient data or configuration secrets are shown.
     return slides
 
 
+# --------------------------------------------------------------------------
+# Supporting slides - AI Priors records (appendix, after the screenshots)
+# --------------------------------------------------------------------------
+RECORDS_DIR = HERE.parent / "AI Priors" / "Records"
+POSTERS_DIR = HERE / "assets" / "record-posters"
+
+# (video file, poster, title, caption, duration)
+RECORDS = [
+    ("Old Flow.mp4", "old-flow.png", "Old Flow \u2014 Manual Prior-Report Review",
+     "Baseline workflow: searching and reading each prior report before "
+     "reporting", "01:30"),
+    ("New flow.mp4", "new-flow.png", "New Flow \u2014 AI Patient History Summary",
+     "The AI summary is waiting in the reporting workflow when the exam opens",
+     "00:54"),
+]
+
+RECORD_LINK_SHAPE_NAME = "record-appendix-link"
+RECORD_SLIDE_MARKER = "record-appendix-slide"
+BADGE_SHAPE_NAME = "tool-agent-badge"
+
+TOOL_NAME = "Matcha AI Platform"
+
+
+def add_tool_agent_badge(slide, agent, tool=TOOL_NAME):
+    """Small, subtle 'Tool / Agent' footer badge, bottom-left of the slide."""
+    text = f"Tool: {tool}   \u00b7   Agent: {agent}"
+    h = Inches(0.30)
+    w = Emu(int(Inches(0.36) + Pt(5.4) * len(text)))
+    badge = rect(slide, MARGIN, SH - Inches(0.36), w, h,
+                 fill=GREY_LIGHT, line_color=LINE, adj=0.5)
+    badge.name = BADGE_SHAPE_NAME
+    tf = badge.text_frame
+    tf.margin_left = tf.margin_right = Inches(0.14)
+    tf.margin_top = tf.margin_bottom = 0
+    tf.vertical_anchor = MSO_ANCHOR.MIDDLE
+    write(tf, [("Tool: ", {"color": TEAL, "bold": True}),
+               (tool, {"color": NAVY_SOFT}),
+               ("   \u00b7   ", {"color": LINE}),
+               ("Agent: ", {"color": TEAL, "bold": True}),
+               (agent, {"color": NAVY_SOFT})],
+          size=10, first=True, space_after=0, line=1.0)
+    return badge
+
+
+def add_record_link(slide, target):
+    """Subtle 'View AI Priors Records' button, bottom-right of slide 1."""
+    w, h = Inches(2.30), Inches(0.30)
+    x = SW - MARGIN - w
+    y = SH - Inches(0.36)
+    btn = nav_button(slide, x, y, w, h, "View AI Priors Records \u203a", target)
+    btn.name = RECORD_LINK_SHAPE_NAME
+    btn.line.color.rgb = TEAL
+    for para in btn.text_frame.paragraphs:
+        for run in para.runs:
+            run.font.color.rgb = TEAL
+    return btn
+
+
+def build_record_appendix(prs, slide_one_ref):
+    """Supporting slides for the two AI Priors screen recordings.
+
+    The recording is embedded as a movie (it plays in PowerPoint); the static
+    cover is the generated poster from prepare_record_posters.py, so no frame
+    of the capture is reproduced in the PDF or the PNG previews. If the video
+    file is missing, the poster is still shown as a labelled card.
+    """
+    slides = [blank(prs) for _ in RECORDS]
+    for i, (s, (name, poster, title, caption, duration)) in enumerate(
+            zip(slides, RECORDS)):
+        marker = s.shapes.add_shape(MSO_SHAPE.RECTANGLE, 0, 0, Inches(0.16), SH)
+        marker.name = RECORD_SLIDE_MARKER
+        marker.fill.solid()
+        marker.fill.fore_color.rgb = NAVY
+        marker.line.fill.background()
+        marker.shadow.inherit = False
+
+        _, tf = textbox(s, MARGIN, Inches(0.34), CONTENT_W, Inches(0.26))
+        write(tf, "SUPPORTING RECORDS \u2014 OPTIONAL DEEP DIVE", size=11,
+              color=TEAL, bold=True, first=True, space_after=0)
+
+        _, tf = textbox(s, MARGIN, Inches(0.60), Inches(8.2), Inches(0.44))
+        write(tf, "AI Priors \u2014 Demo Recordings", size=24, color=NAVY,
+              bold=True, first=True, space_after=0, line=1.0)
+
+        _, tf = textbox(s, MARGIN, Inches(1.06), Inches(11.0), Inches(0.34))
+        write(tf, [(f"{i + 1} of {len(RECORDS)}  \u00b7  ",
+                    {"color": GREY, "bold": True}),
+                   (title, {"color": NAVY_SOFT, "bold": True}),
+                   (f"  \u2014 {caption}", {"color": GREY})],
+              size=13, first=True, space_after=0, line=1.05)
+
+        poster_path = POSTERS_DIR / poster
+        video_path = RECORDS_DIR / name
+        box_y, box_h = Inches(1.52), Inches(4.96)
+        w = int(box_h * 16 / 9)
+        h = int(box_h)
+        if w > CONTENT_W:
+            w = int(CONTENT_W)
+            h = int(w * 9 / 16)
+        x = MARGIN + int((CONTENT_W - w) / 2)
+        if video_path.exists() and poster_path.exists():
+            s.shapes.add_movie(str(video_path), x, box_y, Emu(w), Emu(h),
+                               poster_frame_image=str(poster_path),
+                               mime_type="video/mp4")
+        elif poster_path.exists():
+            s.shapes.add_picture(str(poster_path), x, box_y, width=Emu(w),
+                                 height=Emu(h))
+        frame = rect(s, Emu(x - 9525), box_y - Emu(9525), Emu(w + 19050),
+                     Emu(h + 19050), fill=None, line_color=LINE,
+                     shape=MSO_SHAPE.RECTANGLE)
+        frame.line.width = Pt(1.0)
+
+        _, tf = textbox(s, MARGIN, Inches(6.60), Inches(6.4), Inches(0.44))
+        write(tf, f"Screen recording \u00b7 {duration} \u00b7 embedded \u2014 plays in "
+              f"PowerPoint.  Source: MS-AI/AI Priors/Records/{name}",
+              size=10, color=GREY, first=True, space_after=0, line=1.15)
+
+        # Navigation: Back to slide 1 (always) + Previous / Next
+        bw, bh = Inches(1.72), Inches(0.34)
+        gap = Inches(0.12)
+        y = Inches(6.98)
+        right = SW - MARGIN
+        nav_button(s, right - bw, y, bw, bh, "Back to Slide 1", slide_one_ref,
+                   primary=True)
+        if i + 1 < len(slides):
+            nav_button(s, right - 2 * bw - gap, y, bw, bh,
+                       "Next Record \u203a", slides[i + 1])
+        if i > 0:
+            offset = 3 if i + 1 < len(slides) else 2
+            nav_button(s, right - offset * bw - (offset - 1) * gap, y, bw, bh,
+                       "\u2039 Previous Record", slides[i - 1])
+
+        notes(s, f"""
+Supporting recording {i + 1} of {len(RECORDS)} for AI Patient History Summarization
+(slide 1): {title} \u2014 {caption}. Optional deep dive only; it is not part of the
+three-slide executive story. Use "Back to Slide 1" to return to the main flow.
+
+The video is embedded in the deck and plays in PowerPoint; the static cover is a
+generated title card, so the PDF and PNG exports do not reproduce any frame of the
+capture. Source file: MS-AI/AI Priors/Records/{name} (screen recording of the demo
+environment) \u2014 play it only with an audience that may see demo clinical content.
+""")
+    return slides
+
+
 def main():
     prs = Presentation()
     prs.slide_width, prs.slide_height = SW, SH
@@ -672,6 +825,10 @@ def main():
     slide_three(prs)
     appendix = build_screenshot_appendix(prs, prs.slides[1])
     add_screenshot_link(prs.slides[1], appendix[0])
+    records = build_record_appendix(prs, prs.slides[0])
+    add_record_link(prs.slides[0], records[0])
+    add_tool_agent_badge(prs.slides[0], "Claude Sonnet")
+    add_tool_agent_badge(prs.slides[1], "Gemini Flash Lite 3.1")
     prs.save(OUT)
     print(f"Wrote {OUT} ({len(prs.slides.__iter__.__self__._sldIdLst)} slides)")
 
