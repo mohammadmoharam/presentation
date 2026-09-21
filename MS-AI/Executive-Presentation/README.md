@@ -8,14 +8,19 @@ modified.
 
 | File | Description |
 | --- | --- |
-| `AI-Executive-Overview.pptx` | Exactly 3 editable slides (shapes, text and cards are native PowerPoint objects) with embedded speaker notes |
+| `AI-Executive-Overview.pptx` | 3 editable executive slides (shapes, text and cards are native PowerPoint objects) with embedded speaker notes, plus 4 supporting screenshot slides appended after slide 3 |
 | `AI-Executive-Overview.pdf` | PDF export (LibreOffice) |
-| `previews/slide-1.png` … `slide-3.png` | Rendered previews used for visual QA |
+| `previews/slide-1.png` … `slide-7.png` | Rendered previews used for visual QA (4–7 are the screenshot appendix) |
 | `slide-2-preview.png` | Standalone preview of the redesigned slide 2 |
 | `slide-3-preview.png` | Standalone preview of the redesigned slide 3 |
+| `slide-2-with-screenshot-link.png` | Preview of slide 2 showing the **View Dashboard Screenshots** button |
+| `screenshot-appendix-1.png` … `-4.png` | Previews of the four supporting screenshot slides |
 | `generate_presentation.py` | Reproducible generation script |
 | `update_slide_2.py` | Rebuilds **only** slide 2 in the existing PPTX (slides 1 and 3 untouched) |
 | `update_slide_3.py` | Rebuilds **only** slide 3 in the existing PPTX (slides 1 and 2 untouched) |
+| `add_screenshot_appendix.py` | Rebuilds the 4 screenshot appendix slides and the slide-2 link (idempotent; slides 1–3 otherwise untouched) |
+| `prepare_screenshots.py` | Builds the redacted copies of the four AI Dashboard screenshots used by the appendix |
+| `assets/dashboard-screenshots/Screenshot_1.png` … `_4.png` | Redacted copies of `MS-AI/AI Dashboard/Screenshots/*` (signed-in user chip and one requester email pixelated; no crop, aspect ratio unchanged) |
 | `assets/ai-history-summary-crop.png` | Tightly cropped product screenshot (demo data, identifiers removed) |
 
 ## The story
@@ -37,6 +42,35 @@ modified.
    intelligence and engineering productivity, presented as focus areas and business
    value. No effort sizing, proposed next steps or roadmap commitments appear on the
    visible slide; the wider initiative list and open questions stay in the notes.
+
+## Screenshot appendix (supporting deep dive)
+
+The core narrative is still slides 1–3. Four **supporting** slides are appended after
+slide 3, one AI Dashboard screenshot per slide, because the dashboard screenshots are
+~2:1 and unreadable in a 2×2 grid. They are labelled
+`SUPPORTING SCREENSHOTS — OPTIONAL DEEP DIVE` so it is clear they are not part of the
+three-slide story, and they are reachable only by hyperlink:
+
+| Slide | Content | Navigation |
+| --- | --- | --- |
+| 2 | Executive summary (unchanged) | Small outlined **View Dashboard Screenshots ›** button, bottom-right corner |
+| 4 | `Screenshot_1.png` — Storage Monitoring | Next Screenshot · Back to Slide 2 |
+| 5 | `Screenshot_2.png` — CPU & Memory Process Insights | Previous · Next Screenshot · Back to Slide 2 |
+| 6 | `Screenshot_3.png` — Alert Management & Failures Control Center | Previous · Next Screenshot · Back to Slide 2 |
+| 7 | `Screenshot_4.png` — Automation Rules & Actions Engine | Previous · Back to Slide 2 |
+
+All navigation uses internal PowerPoint slide hyperlinks (no external file links). The
+appendix slides are left **visible** rather than hidden so that the PDF export and the
+PNG previews contain them; the eyebrow label carries the “optional deep dive” framing.
+Images are placed with their native aspect ratio (scaled to fit a 12.09 × 5.24 in box).
+The screenshots come from the non-production `MS-TEST` environment and are embedded
+uncropped, but `prepare_screenshots.py` pixelates the personally identifiable regions
+first: the signed-in user chip in every header and the `REQUESTED BY` email address in
+`Screenshot_4.png`. What remains visible is host/volume names, alert counts and rule
+definitions — no credentials, API keys, patient data or configuration secrets. Run
+`prepare_screenshots.py` before `add_screenshot_appendix.py` if the sources change. Re-run
+`add_screenshot_appendix.py` after `update_slide_2.py`, which rebuilds slide 2 from
+scratch and therefore removes the link button.
 
 ## Source mapping
 
@@ -122,6 +156,11 @@ python3 MS-AI/Executive-Presentation/generate_presentation.py
 # slide 2 or slide 3 only, edited in place in the existing deck
 cd MS-AI/Executive-Presentation && python3 update_slide_2.py
 cd MS-AI/Executive-Presentation && python3 update_slide_3.py
+
+# redacted screenshot assets, then the appendix slides + slide-2 link
+# (idempotent; slides 1-3 and their speaker notes are kept as they are)
+cd MS-AI/Executive-Presentation && python3 prepare_screenshots.py
+cd MS-AI/Executive-Presentation && python3 add_screenshot_appendix.py
 
 # optional: PDF export and PNG previews (LibreOffice + PyMuPDF)
 sudo apt-get install -y libreoffice-impress
